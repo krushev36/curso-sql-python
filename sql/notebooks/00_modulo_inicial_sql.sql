@@ -85,12 +85,71 @@
 
 -- COMMAND ----------
 -- MAGIC %md
--- MAGIC ## 6. Cierre del módulo
+-- MAGIC ## 6. Infraestructura básica de un servidor SQL
+-- MAGIC 
+-- MAGIC Un servidor SQL en entorno empresarial suele incluir:
+-- MAGIC 
+-- MAGIC 1. **Capa de cómputo**: CPU y memoria para ejecutar consultas.
+-- MAGIC 2. **Capa de almacenamiento**: discos/volúmenes donde viven datafiles, logs y backups.
+-- MAGIC 3. **Motor de base de datos**: servicio SQL que procesa conexiones, transacciones y consultas.
+-- MAGIC 4. **Red y seguridad**: puertos, firewalls, autenticación y cifrado.
+-- MAGIC 5. **Monitoreo y respaldo**: métricas de rendimiento, alertas, snapshots y planes de recuperación.
+-- MAGIC 
+-- MAGIC En arquitecturas modernas, esta infraestructura puede estar:
+-- MAGIC - **On-premise** (servidores propios),
+-- MAGIC - **En nube IaaS/PaaS**,
+-- MAGIC - **O en servicios administrados** (menos carga operativa para el equipo).
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 7. Diferencias entre Windows y Linux para servidores SQL
+-- MAGIC 
+-- MAGIC El motor SQL puede funcionar en ambos sistemas, pero cambia la operación:
+-- MAGIC 
+-- MAGIC | Aspecto | Windows | Linux |
+-- MAGIC |---|---|---|
+-- MAGIC | Administración | GUI y herramientas integradas (ej. ecosistema Microsoft) | Predominio de terminal, scripts y automatización |
+-- MAGIC | Servicios | Gestión con `services.msc`/PowerShell | Gestión con `systemd` (`systemctl`) |
+-- MAGIC | Rutas y archivos | Convención de rutas tipo `C:\\` | Convención de rutas tipo `/var/opt/...` |
+-- MAGIC | Permisos | Modelo ACL de Windows | Modelo Unix (owner/group/permissions) |
+-- MAGIC | Ecosistema típico | Integración fuerte con Active Directory y herramientas Microsoft | Integración fuerte con DevOps, contenedores y automatización |
+-- MAGIC 
+-- MAGIC **Idea clave:** no cambia el lenguaje SQL, pero sí el enfoque de administración, despliegue y operación del servidor.
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 8. ¿Cómo se accede a un servidor SQL?
+-- MAGIC 
+-- MAGIC Formas comunes de acceso:
+-- MAGIC 
+-- MAGIC 1. **Cliente gráfico** (DBeaver, Azure Data Studio, pgAdmin, SSMS).
+-- MAGIC 2. **Cliente por línea de comandos** (`psql`, `sqlcmd`, `mysql`).
+-- MAGIC 3. **Aplicaciones** que se conectan por driver (ODBC/JDBC).
+-- MAGIC 4. **Servicios cloud** con autenticación administrada.
+-- MAGIC 
+-- MAGIC Datos de conexión que normalmente se requieren:
+-- MAGIC - **Host/IP** del servidor
+-- MAGIC - **Puerto** (ej: 5432, 1433, 3306, según motor)
+-- MAGIC - **Base de datos** o esquema de destino
+-- MAGIC - **Usuario y credenciales** o método SSO
+-- MAGIC - **Parámetros de seguridad** (SSL/TLS, certificados)
+-- MAGIC 
+-- MAGIC Buenas prácticas de acceso:
+-- MAGIC - Usar cuentas con privilegios mínimos.
+-- MAGIC - Evitar credenciales en texto plano.
+-- MAGIC - Restringir acceso por red y aplicar cifrado en tránsito.
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 9. Cierre del módulo
 -- MAGIC 
 -- MAGIC En este módulo conociste:
 -- MAGIC - El origen histórico de SQL.
 -- MAGIC - Su forma de trabajo declarativa.
 -- MAGIC - Las diferencias entre motores populares (PostgreSQL, SQL Server, Spark SQL y otros).
 -- MAGIC - Su papel estratégico en la industria.
+-- MAGIC - La infraestructura esencial de un servidor SQL.
+-- MAGIC - Diferencias operativas entre Windows y Linux.
+-- MAGIC - Formas comunes de acceso a un servidor SQL.
 -- MAGIC 
 -- MAGIC En el siguiente notebook iniciarás la práctica aplicada con consultas sobre datasets de ejemplo en Databricks.
