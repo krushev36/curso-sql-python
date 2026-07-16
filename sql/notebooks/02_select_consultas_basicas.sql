@@ -2,7 +2,7 @@
 -- MAGIC %md
 -- MAGIC # Notebook 02: SELECT y Consultas Básicas
 -- MAGIC ## Fundamentos de Programación
--- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
+-- MAGIC ### Maestría en Ciencia de Datos e Inteligencia de Negocios · Universidad de Antioquia
 -- MAGIC
 -- MAGIC **Semana 2**  
 -- MAGIC **Rol del estudiante:** Data Analyst en **DataCorp Analytics**  

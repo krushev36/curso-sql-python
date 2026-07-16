@@ -2,10 +2,10 @@
 -- MAGIC %md
 -- MAGIC # Notebook 04: Agregaciones
 -- MAGIC ## Fundamentos de Programación
--- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
+-- MAGIC ### Maestría en Ciencia de Datos e Inteligencia de Negocios · Universidad de Antioquia
 -- MAGIC ## 1. Bienvenida
 -- MAGIC
--- MAGIC Bienvenidos al cuarto notebook del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
+-- MAGIC Bienvenidos al cuarto notebook del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos e Inteligencia de Negocios** de la **Universidad de Antioquia**.
 -- MAGIC
 -- MAGIC En esta sesión aprenderás a **resumir datos** para responder preguntas de negocio reales: cuántos pedidos hubo, cuánto se vendió, qué regiones generan más ingresos y qué productos concentran el mayor volumen.
 -- MAGIC

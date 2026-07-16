@@ -2,10 +2,10 @@
 -- MAGIC %md
 -- MAGIC # Notebook 08: Proyecto Integrador
 -- MAGIC ## Fundamentos de Programación
--- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
+-- MAGIC ### Maestría en Ciencia de Datos e Inteligencia de Negocios · Universidad de Antioquia
 -- MAGIC ## 1. Bienvenida al Proyecto Final
 -- MAGIC 
--- MAGIC Bienvenida y bienvenido al **capstone** del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
+-- MAGIC Bienvenida y bienvenido al **capstone** del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos e Inteligencia de Negocios** de la **Universidad de Antioquia**.
 -- MAGIC 
 -- MAGIC En este notebook asumirás el rol de **Data Analyst Senior en DataCorp Analytics** y entregarás un reporte integral para el comité ejecutivo (**CEO, CFO, CMO, COO y Chief Data Officer**). El objetivo es transformar datos transaccionales en decisiones de negocio accionables usando **consultas básicas, funciones SQL, agregaciones, JOINs, subconsultas, CTEs y funciones de ventana**.
 -- MAGIC 
@@ -1626,9 +1626,9 @@ LIMIT 30;
 -- MAGIC %md
 -- MAGIC ## ¡Felicitaciones!
 -- MAGIC 
--- MAGIC Has completado el **Proyecto Integrador** del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
+-- MAGIC Has completado el **Proyecto Integrador** del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos e Inteligencia de Negocios** de la **Universidad de Antioquia**.
 -- MAGIC 
--- MAGIC Cerraste el ciclo completo: desde consultas básicas hasta un reporte de inteligencia de negocio listo para una **C-suite**. Este es exactamente el tipo de trabajo que convierte a SQL en una competencia estratégica dentro de un programa de **Maestría en Ciencia de Datos**.
+-- MAGIC Cerraste el ciclo completo: desde consultas básicas hasta un reporte de inteligencia de negocio listo para una **C-suite**. Este es exactamente el tipo de trabajo que convierte a SQL en una competencia estratégica dentro de un programa de **Maestría en Ciencia de Datos e Inteligencia de Negocios**.
 -- MAGIC 
 -- MAGIC **Siguiente meta:** llevar estos resultados a notebooks híbridos con **SQL + Python + PySpark**, construir features en producción y conectar análisis descriptivo con modelos predictivos.
 -- MAGIC 
