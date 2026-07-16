@@ -1,0 +1,96 @@
+-- Databricks notebook source
+-- MAGIC %md
+-- MAGIC # 🎓 Módulo 00: Introducción general a SQL
+-- MAGIC ## Historia, funcionamiento y principales versiones
+-- MAGIC 
+-- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo funciona a nivel práctico y por qué sigue siendo una habilidad crítica en la industria de datos.
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 1. Breve historia de SQL
+-- MAGIC 
+-- MAGIC SQL (Structured Query Language) nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
+-- MAGIC 
+-- MAGIC Hitos clave:
+-- MAGIC - **1970:** publicación del modelo relacional.
+-- MAGIC - **1974–1979:** desarrollo de SEQUEL/SQL en IBM.
+-- MAGIC - **1986:** SQL se convierte en estándar ANSI.
+-- MAGIC - **1987 en adelante:** adopción ISO y evolución continua con nuevas versiones.
+-- MAGIC 
+-- MAGIC Desde entonces, SQL se convirtió en el lenguaje universal para consultar y transformar datos estructurados.
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 2. ¿Cómo funciona SQL?
+-- MAGIC 
+-- MAGIC SQL es un lenguaje **declarativo**: el analista dice **qué resultado necesita**, y el motor de base de datos decide **cómo ejecutarlo** de forma eficiente.
+-- MAGIC 
+-- MAGIC Flujo general:
+-- MAGIC 1. Escribes una consulta (`SELECT`, `WHERE`, `GROUP BY`, etc.).
+-- MAGIC 2. El optimizador genera un plan de ejecución.
+-- MAGIC 3. El motor lee datos, aplica filtros y cálculos.
+-- MAGIC 4. Devuelve un resultado tabular.
+-- MAGIC 
+-- MAGIC Tipos de operaciones más comunes:
+-- MAGIC - **Consulta:** `SELECT`
+-- MAGIC - **Transformación/limpieza:** funciones, `CASE`, `CAST`
+-- MAGIC - **Agregación:** `GROUP BY`, `HAVING`
+-- MAGIC - **Integración de datos:** `JOIN`
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 3. Principales versiones y motores SQL
+-- MAGIC 
+-- MAGIC Aunque SQL es estándar, cada motor agrega extensiones propias.
+-- MAGIC 
+-- MAGIC | Motor | Enfoque principal | Uso frecuente |
+-- MAGIC |---|---|---|
+-- MAGIC | **PostgreSQL** | Open source, robusto y extensible | Aplicaciones transaccionales, analítica, geodatos |
+-- MAGIC | **SQL Server** | Ecosistema Microsoft empresarial | BI corporativo, sistemas de negocio, data warehouse |
+-- MAGIC | **Spark SQL** | SQL distribuido sobre Apache Spark | Big Data, ETL masivo, Lakehouse |
+-- MAGIC | **MySQL** | Popular y sencillo de operar | Aplicaciones web, backend de productos |
+-- MAGIC | **Oracle Database** | Alto rendimiento y capacidades enterprise | Finanzas, telecom, sistemas críticos |
+-- MAGIC | **SQLite** | Ligero y embebido | Apps móviles, prototipos, software local |
+-- MAGIC | **BigQuery / Snowflake** | SQL en la nube y analítica escalable | Analítica moderna, ciencia de datos, BI cloud |
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 4. SQL en este curso (Databricks SQL / Spark SQL)
+-- MAGIC 
+-- MAGIC En este curso trabajaremos en Databricks, donde SQL se ejecuta sobre el motor de Spark SQL.
+-- MAGIC 
+-- MAGIC Beneficios para analítica:
+-- MAGIC - Procesamiento distribuido para grandes volúmenes.
+-- MAGIC - Integración con notebooks y flujos de ciencia de datos.
+-- MAGIC - Compatibilidad con patrones SQL ampliamente conocidos.
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 5. Importancia de SQL en la industria
+-- MAGIC 
+-- MAGIC SQL es una competencia transversal en áreas como:
+-- MAGIC - **Business Intelligence**
+-- MAGIC - **Análisis de datos**
+-- MAGIC - **Ingeniería de datos**
+-- MAGIC - **Ciencia de datos**
+-- MAGIC - **Producto y operaciones**
+-- MAGIC 
+-- MAGIC Razones de su relevancia:
+-- MAGIC 1. Es el lenguaje más adoptado para consultar datos estructurados.
+-- MAGIC 2. Permite responder preguntas de negocio con rapidez y trazabilidad.
+-- MAGIC 3. Es base para dashboards, reportes y modelos analíticos.
+-- MAGIC 4. Facilita colaboración entre perfiles técnicos y de negocio.
+-- MAGIC 
+-- MAGIC > En la práctica profesional, dominar SQL acelera la toma de decisiones y mejora la calidad del análisis.
+
+-- COMMAND ----------
+-- MAGIC %md
+-- MAGIC ## 6. Cierre del módulo
+-- MAGIC 
+-- MAGIC En este módulo conociste:
+-- MAGIC - El origen histórico de SQL.
+-- MAGIC - Su forma de trabajo declarativa.
+-- MAGIC - Las diferencias entre motores populares (PostgreSQL, SQL Server, Spark SQL y otros).
+-- MAGIC - Su papel estratégico en la industria.
+-- MAGIC 
+-- MAGIC En el siguiente notebook iniciarás la práctica aplicada con consultas sobre datasets de ejemplo en Databricks.

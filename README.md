@@ -61,6 +61,7 @@ curso-sql-python/
 │
 ├── sql/
 │   ├── notebooks/                     # Notebooks principales (SQL)
+│   │   ├── 00_modulo_inicial_sql.sql
 │   │   ├── 01_introduccion_databricks_sql.sql
 │   │   ├── 02_select_consultas_basicas.sql
 │   │   ├── 03_funciones_sql.sql
@@ -86,6 +87,7 @@ curso-sql-python/
 
 | # | Notebook | Tema | Duración |
 |---|----------|------|----------|
+| 00 | `00_modulo_inicial_sql.sql` | Historia y fundamentos de SQL | ~1 hr |
 | 01 | `01_introduccion_databricks_sql.sql` | Introducción a Databricks SQL | ~1.5 hrs |
 | 02 | `02_select_consultas_basicas.sql` | SELECT y Consultas Básicas | ~2 hrs |
 | 03 | `03_funciones_sql.sql` | Funciones SQL | ~2 hrs |
@@ -95,7 +97,7 @@ curso-sql-python/
 | 07 | `07_window_functions.sql` | Window Functions | ~2 hrs |
 | 08 | `08_proyecto_integrador.sql` | Proyecto Integrador | ~2 hrs |
 
-**Total: 15.5 horas**
+**Total: 16.5 horas**
 
 ---
 
@@ -214,4 +216,3 @@ Las contribuciones son bienvenidas. Por favor, abrir un Issue o Pull Request con
 ---
 
 *Material diseñado para uso académico universitario. Todos los datos son públicos y de ejemplo proporcionados por Databricks.*
-
