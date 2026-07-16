@@ -1,7 +1,8 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # Notebook 02: SELECT y Consultas Básicas
--- MAGIC ## Maestría en Data Science — SQL para Ciencia de Datos usando Databricks
+-- MAGIC ## Fundamentos de Programación
+-- MAGIC ### Maestría en Ciencia de Datos e Inteligencia de Negocios · Universidad de Antioquia
 -- MAGIC
 -- MAGIC **Semana 2**  
 -- MAGIC **Rol del estudiante:** Data Analyst en **DataCorp Analytics**  
