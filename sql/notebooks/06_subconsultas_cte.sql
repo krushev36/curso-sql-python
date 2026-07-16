@@ -1,9 +1,11 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # Notebook 06: Subconsultas y CTE
+-- MAGIC ## Fundamentos de Programación
+-- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
 -- MAGIC ## 1. Bienvenida
 -- MAGIC 
--- MAGIC Bienvenidas y bienvenidos al sexto notebook del curso **SQL para Ciencia de Datos usando Databricks**.
+-- MAGIC Bienvenidas y bienvenidos al sexto notebook del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
 -- MAGIC 
 -- MAGIC En esta sesión asumirás el rol de **Data Analyst en DataCorp Analytics**. El equipo de analítica necesita responder preguntas de negocio que no se resuelven con una sola agregación: hace falta **descomponer el problema en pasos intermedios**, comparar contra promedios, validar existencia de registros relacionados y construir bloques reutilizables.
 -- MAGIC 

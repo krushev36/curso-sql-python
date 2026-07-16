@@ -2,9 +2,11 @@
 -- COMMAND ----------
 -- MAGIC %md
 -- MAGIC # Notebook 03: Funciones SQL
+-- MAGIC ## Fundamentos de Programación
+-- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
 -- MAGIC ## 1. Bienvenida
 -- MAGIC
--- MAGIC Bienvenidos al tercer notebook del curso **SQL para Ciencia de Datos usando Databricks**.
+-- MAGIC Bienvenidos al tercer notebook del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
 -- MAGIC
 -- MAGIC En esta sesión trabajarás como **Data Analyst en DataCorp Analytics**. Tu gerente necesita un **reporte de calidad de datos** con texto limpio, fechas interpretables, métricas numéricas normalizadas y reglas condicionales claras para priorizar clientes, órdenes y proveedores.
 -- MAGIC

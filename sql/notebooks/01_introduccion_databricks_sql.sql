@@ -2,8 +2,8 @@
 
 -- MAGIC %md
 -- MAGIC # 🎓 Notebook 01: Introducción a Databricks SQL
--- MAGIC ## SQL para Ciencia de Datos usando Databricks
--- MAGIC ### Maestría en Ciencia de Datos
+-- MAGIC ## Fundamentos de Programación
+-- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
 -- MAGIC 
 -- MAGIC **Rol narrativo del curso:** eres Analista de Datos en **DataCorp Analytics**, una empresa latinoamericana que ayuda a clientes de retail, logística y movilidad a tomar decisiones con datos.
 -- MAGIC 

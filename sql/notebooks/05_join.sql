@@ -1,10 +1,12 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # Notebook 05: JOIN
+-- MAGIC ## Fundamentos de Programación
+-- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
 -- MAGIC 
 -- MAGIC ## 1. Bienvenida
 -- MAGIC 
--- MAGIC Bienvenido al Notebook 05 del curso **SQL para Ciencia de Datos usando Databricks**.
+-- MAGIC Bienvenido al Notebook 05 del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
 -- MAGIC 
 -- MAGIC En esta sesión aprenderás a **combinar información distribuida en varias tablas** para responder preguntas reales del negocio. En el contexto de **DataCorp Analytics**, la dirección comercial necesita un reporte consolidado que conecte clientes, pedidos, productos, proveedores y geografía.
 -- MAGIC 

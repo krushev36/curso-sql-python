@@ -1,9 +1,11 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # Notebook 07: Window Functions
+-- MAGIC ## Fundamentos de Programación
+-- MAGIC ### Maestría en Ciencia de Datos · Universidad de Antioquia
 -- MAGIC ## 1. Bienvenida
 -- MAGIC
--- MAGIC Bienvenidos al séptimo notebook del curso **SQL para Ciencia de Datos usando Databricks**.
+-- MAGIC Bienvenidos al séptimo notebook del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos** de la **Universidad de Antioquia**.
 -- MAGIC
 -- MAGIC En esta sesión asumirás el rol de **Data Analyst en DataCorp Analytics**. El CFO necesita análisis avanzados que no destruyan el detalle original: acumulados, rankings, comparaciones mes contra mes, percentiles y señales tempranas de tendencia.
 -- MAGIC
