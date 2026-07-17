@@ -1,15 +1,15 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # 🎓 Módulo 00: Introducción general a SQL
--- MAGIC ## Historia, funcionamiento, modelado de datos y estructura relacional
+-- MAGIC ## Historia, funcionamiento y modelado relacional
 -- MAGIC 
--- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos estructurales que permiten organizar la información de forma confiable.
+-- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos de modelado y estructura relacional que permiten organizar la información de forma confiable.
 
 -- COMMAND ----------
 -- MAGIC %md
 -- MAGIC ## 1. Breve historia de SQL
 -- MAGIC 
--- MAGIC SQL (*Structured Query Language*) nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
+-- MAGIC SQL (Structured Query Language) nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
 -- MAGIC 
 -- MAGIC Hitos clave:
 -- MAGIC - **1970:** publicación del modelo relacional.
@@ -44,7 +44,9 @@
 -- MAGIC %md
 -- MAGIC ## 3. Comunicación entre usuario y base de datos
 -- MAGIC 
--- MAGIC La interacción con una base de datos rara vez ocurre de forma aislada. Normalmente participan un usuario, una herramienta cliente, una red, el motor SQL y el almacenamiento físico.
+-- MAGIC La interacción con una base de datos casi nunca ocurre de forma aislada. Normalmente participan un usuario, una herramienta cliente, una red, el motor SQL y el almacenamiento físico.
+-- MAGIC 
+-- MAGIC > **Nota:** los diagramas de este notebook están construidos en texto plano y se entienden mejor usando una fuente monoespaciada.
 -- MAGIC 
 -- MAGIC ### Diagrama general de comunicación
 -- MAGIC 
@@ -55,7 +57,7 @@
 -- MAGIC        │ escribe consultas / solicita reportes
 -- MAGIC        ▼
 -- MAGIC ┌──────────────┐
--- MAGIC │ Cliente SQL  │  DBeaver, Databricks, pgAdmin, aplicación web
+-- MAGIC │ Cliente SQL  │ DBeaver, Databricks, pgAdmin, aplicación web
 -- MAGIC └──────┬───────┘
 -- MAGIC        │ envía conexión y consulta
 -- MAGIC        ▼
@@ -132,14 +134,15 @@
 -- MAGIC ```text
 -- MAGIC CLIENTES
 -- MAGIC ┌───────────────┐
--- MAGIC │ id_cliente PK │◄──────────────┐
--- MAGIC │ nombre        │               │
--- MAGIC └───────────────┘               │
--- MAGIC                                 │
--- MAGIC PEDIDOS                         │
--- MAGIC ┌────────────────────┐          │
--- MAGIC │ id_pedido PK       │          │
--- MAGIC │ id_cliente FK      │──────────┘
+-- MAGIC │ id_cliente PK │
+-- MAGIC │ nombre        │
+-- MAGIC └───────────────┘
+-- MAGIC          ▲
+-- MAGIC          │
+-- MAGIC PEDIDOS  │
+-- MAGIC ┌────────────────────┐
+-- MAGIC │ id_pedido PK       │
+-- MAGIC │ id_cliente FK ─────┘
 -- MAGIC │ fecha_pedido       │
 -- MAGIC │ total              │
 -- MAGIC └────────────────────┘
@@ -168,15 +171,15 @@
 -- MAGIC - No debe ser nula.
 -- MAGIC - Debe identificar exactamente un registro.
 -- MAGIC 
--- MAGIC ### 7.2 Llave secundaria
--- MAGIC En formación introductoria suele usarse este término para referirse a un campo importante de búsqueda o a una **llave candidata/alternativa**, aunque no sea la llave primaria.
+-- MAGIC ### 7.2 Llave candidata o alternativa
+-- MAGIC El nombre técnico más usado en bases de datos es **llave candidata** o **llave alternativa**. En algunos materiales introductorios también se menciona como **llave secundaria**, pero en este notebook priorizaremos la terminología estándar.
 -- MAGIC 
 -- MAGIC Ejemplos:
 -- MAGIC - `numero_documento`
 -- MAGIC - `correo_electronico`
 -- MAGIC - `codigo_producto`
 -- MAGIC 
--- MAGIC Estas llaves ayudan a localizar registros, pero no siempre son la llave principal elegida en el diseño final.
+-- MAGIC Estas llaves ayudan a localizar registros y a imponer unicidad sobre atributos relevantes del negocio, pero no siempre son la llave principal elegida en el diseño final. Una tabla puede conservar su llave primaria técnica y, al mismo tiempo, exigir que campos como el correo o el número de documento también sean únicos.
 -- MAGIC 
 -- MAGIC ### 7.3 Llave foránea (*Foreign Key*)
 -- MAGIC Es una columna que guarda el identificador de otra tabla para crear la relación entre ambas.
@@ -194,7 +197,7 @@
 -- MAGIC - Filtros frecuentes por fecha o categoría
 -- MAGIC - Uniones recurrentes entre tablas
 -- MAGIC 
--- MAGIC **Importante:** un índice mejora lecturas, pero también puede aumentar el costo de inserciones y actualizaciones.
+-- MAGIC **Importante:** un índice mejora lecturas, pero también puede aumentar el costo de inserciones y actualizaciones porque el motor debe mantener la estructura del índice cada vez que cambian los datos. Por eso conviene crear índices en columnas muy consultadas o usadas en uniones, y evitar indexar en exceso columnas con poco uso analítico.
 
 -- COMMAND ----------
 -- MAGIC %md
@@ -203,10 +206,20 @@
 -- MAGIC La conexión entre tablas ocurre cuando una **llave foránea** de una tabla apunta a la **llave primaria** de otra.
 -- MAGIC 
 -- MAGIC ```text
--- MAGIC CLIENTES                         PEDIDOS
--- MAGIC id_cliente (PK)   ◄──────────    id_cliente (FK)
--- MAGIC nombre                          id_pedido (PK)
--- MAGIC ciudad                          fecha_pedido
+-- MAGIC CLIENTES
+-- MAGIC ┌───────────────┐
+-- MAGIC │ id_cliente PK │
+-- MAGIC │ nombre        │
+-- MAGIC │ ciudad        │
+-- MAGIC └───────────────┘
+-- MAGIC          ▲
+-- MAGIC          │
+-- MAGIC PEDIDOS  │
+-- MAGIC ┌────────────────────┐
+-- MAGIC │ id_pedido PK       │
+-- MAGIC │ id_cliente FK ─────┘
+-- MAGIC │ fecha_pedido       │
+-- MAGIC └────────────────────┘
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC Gracias a esta relación es posible:
@@ -251,16 +264,14 @@
 -- MAGIC Es una variación del modelo estrella donde algunas dimensiones se descomponen en subdimensiones más normalizadas.
 -- MAGIC 
 -- MAGIC ```text
--- MAGIC                          DIM_CATEGORIA
--- MAGIC                                │
--- MAGIC                                │
--- MAGIC DIM_CLIENTE ─── HECHO_VENTAS ─── DIM_PRODUCTO
--- MAGIC      │                         │
--- MAGIC      │                         │
--- MAGIC DIM_CIUDAD                DIM_MARCA
--- MAGIC      │
--- MAGIC      │
 -- MAGIC DIM_PAIS
+-- MAGIC    │
+-- MAGIC DIM_CIUDAD
+-- MAGIC    │
+-- MAGIC DIM_CLIENTE ─── HECHO_VENTAS ─── DIM_PRODUCTO ─── DIM_MARCA
+-- MAGIC                                   │
+-- MAGIC                                   │
+-- MAGIC                              DIM_CATEGORIA
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del copo de nieve:**
@@ -307,7 +318,7 @@
 -- MAGIC - Cómo se comunica un usuario con una base de datos.
 -- MAGIC - Qué es un modelo de datos y cómo se diseña.
 -- MAGIC - Relaciones uno a muchos y muchos a uno.
--- MAGIC - Llaves primarias, secundarias y foráneas.
+-- MAGIC - Llaves primarias, candidatas/alternativas y foráneas.
 -- MAGIC - El papel de los índices.
 -- MAGIC - Las diferencias entre modelos estrella y copo de nieve.
 -- MAGIC 
