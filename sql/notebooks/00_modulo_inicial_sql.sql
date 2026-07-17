@@ -1,9 +1,9 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # 🎓 Módulo 00: Introducción general a SQL
--- MAGIC ## Historia, funcionamiento y modelado relacional
+-- MAGIC ## Historia, fundamentos y modelado de datos
 -- MAGIC 
--- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos de modelado y estructura relacional que permiten organizar la información de forma confiable.
+-- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos de modelado, estructura de datos y tipos de datos que permiten organizar la información de forma confiable.
 
 -- COMMAND ----------
 -- MAGIC %md
@@ -16,6 +16,8 @@
 -- MAGIC - **1974–1979:** desarrollo de SEQUEL/SQL en IBM.
 -- MAGIC - **1986:** SQL se convierte en estándar ANSI.
 -- MAGIC - **1987 en adelante:** adopción ISO y evolución continua con nuevas versiones.
+-- MAGIC 
+-- MAGIC **SQL significa *Structured Query Language***, o en español, **Lenguaje de Consulta Estructurada**. Se usa para definir, consultar, transformar y administrar datos almacenados en sistemas de bases de datos.
 -- MAGIC 
 -- MAGIC Desde entonces, SQL se consolidó como el lenguaje estándar para consultar, organizar y transformar datos estructurados.
 
@@ -84,11 +86,65 @@
 
 -- COMMAND ----------
 -- MAGIC %md
--- MAGIC ## 4. Esquemas y modelos de datos
+-- MAGIC ## 4. Esquemas, modelos y tipos de datos
 -- MAGIC 
 -- MAGIC Un **modelo de datos** es la representación lógica de cómo se organizan las entidades del negocio, sus atributos y sus relaciones.
 -- MAGIC 
 -- MAGIC Un **esquema** es la estructura concreta donde quedan definidas tablas, columnas, tipos de dato, llaves y relaciones.
+-- MAGIC 
+-- MAGIC ### 4.1 Modelo relacional
+-- MAGIC En el **modelo relacional** la información se organiza en **tablas** compuestas por filas y columnas.
+-- MAGIC 
+-- MAGIC Sus características principales son:
+-- MAGIC - cada tabla representa una entidad o un tema del negocio,
+-- MAGIC - cada fila representa un registro,
+-- MAGIC - cada columna representa un atributo,
+-- MAGIC - las tablas se conectan mediante llaves primarias y foráneas.
+-- MAGIC 
+-- MAGIC Este modelo favorece la **consistencia**, la **integridad** y el uso de SQL para consultar la información.
+-- MAGIC 
+-- MAGIC ### 4.2 Modelo no relacional
+-- MAGIC El **modelo no relacional** agrupa varias familias de bases de datos conocidas como **NoSQL**.
+-- MAGIC 
+-- MAGIC En lugar de depender siempre de tablas relacionadas, puede almacenar la información como:
+-- MAGIC - **documentos** (por ejemplo JSON),
+-- MAGIC - **pares clave-valor**,
+-- MAGIC - **grafos**,
+-- MAGIC - **columnas anchas**.
+-- MAGIC 
+-- MAGIC Suele usarse cuando se necesita alta escalabilidad, esquemas más flexibles o manejo de datos muy variados y cambiantes. A cambio, puede sacrificar parte de la rigidez estructural típica de los sistemas relacionales.
+-- MAGIC 
+-- MAGIC ### 4.3 Datos estructurados y no estructurados
+-- MAGIC Los **datos estructurados** siguen un formato definido y consistente, por lo que encajan con facilidad en tablas.
+-- MAGIC 
+-- MAGIC Ejemplos de datos estructurados:
+-- MAGIC - número de cliente,
+-- MAGIC - fecha de compra,
+-- MAGIC - valor de una factura,
+-- MAGIC - ciudad de residencia.
+-- MAGIC 
+-- MAGIC Los **datos no estructurados** no siguen una estructura tabular fija y suelen presentarse como contenido libre o multimedia.
+-- MAGIC 
+-- MAGIC Ejemplos de datos no estructurados:
+-- MAGIC - correos electrónicos,
+-- MAGIC - documentos PDF,
+-- MAGIC - imágenes,
+-- MAGIC - audio,
+-- MAGIC - publicaciones en redes sociales.
+-- MAGIC 
+-- MAGIC Entre ambos extremos también existen datos **semiestructurados**, como XML o JSON, que conservan cierto orden pero no necesariamente el de una tabla relacional clásica.
+-- MAGIC 
+-- MAGIC ### 4.4 Tipos de datos en SQL
+-- MAGIC Los **tipos de datos** indican qué clase de valor puede almacenar una columna y qué operaciones son válidas sobre ella.
+-- MAGIC 
+-- MAGIC Tipos comunes en SQL:
+-- MAGIC - **Numéricos:** `INT`, `BIGINT`, `DECIMAL`, `DOUBLE`
+-- MAGIC - **Texto:** `CHAR`, `VARCHAR`, `STRING`
+-- MAGIC - **Fecha y hora:** `DATE`, `TIMESTAMP`
+-- MAGIC - **Booleanos:** `BOOLEAN`
+-- MAGIC - **Binarios o especiales:** `BINARY`, y en algunos motores también `JSON`, `ARRAY`, `MAP`
+-- MAGIC 
+-- MAGIC Elegir bien el tipo de dato ayuda a mejorar la calidad de la información, ahorrar almacenamiento y evitar errores en cálculos, filtros y comparaciones.
 -- MAGIC 
 -- MAGIC ### ¿Qué responde un buen modelo de datos?
 -- MAGIC - ¿Qué entidades existen? (clientes, pedidos, productos, pagos)
@@ -315,8 +371,12 @@
 -- MAGIC 
 -- MAGIC En este módulo conociste:
 -- MAGIC - El origen histórico de SQL.
+-- MAGIC - El significado de SQL como lenguaje de consulta estructurada.
 -- MAGIC - Cómo se comunica un usuario con una base de datos.
+-- MAGIC - La diferencia entre modelos relacionales y no relacionales.
+-- MAGIC - La diferencia entre datos estructurados y no estructurados.
 -- MAGIC - Qué es un modelo de datos y cómo se diseña.
+-- MAGIC - Los tipos de datos más comunes en SQL.
 -- MAGIC - Relaciones uno a muchos y muchos a uno.
 -- MAGIC - Llaves primarias, candidatas/alternativas y foráneas.
 -- MAGIC - El papel de los índices.
