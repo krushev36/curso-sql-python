@@ -9,15 +9,15 @@
 -- MAGIC %md
 -- MAGIC ## 1. Breve historia de SQL
 -- MAGIC 
--- MAGIC SQL (Structured Query Language) nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
+-- MAGIC **SQL significa *Structured Query Language***, o en español, **Lenguaje de Consulta Estructurada**. Se usa para definir, consultar, transformar y administrar datos almacenados en sistemas de bases de datos.
+-- MAGIC 
+-- MAGIC SQL nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
 -- MAGIC 
 -- MAGIC Hitos clave:
 -- MAGIC - **1970:** publicación del modelo relacional.
 -- MAGIC - **1974–1979:** desarrollo de SEQUEL/SQL en IBM.
 -- MAGIC - **1986:** SQL se convierte en estándar ANSI.
 -- MAGIC - **1987 en adelante:** adopción ISO y evolución continua con nuevas versiones.
--- MAGIC 
--- MAGIC **SQL significa *Structured Query Language***, o en español, **Lenguaje de Consulta Estructurada**. Se usa para definir, consultar, transformar y administrar datos almacenados en sistemas de bases de datos.
 -- MAGIC 
 -- MAGIC Desde entonces, SQL se consolidó como el lenguaje estándar para consultar, organizar y transformar datos estructurados.
 
