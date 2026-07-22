@@ -50,28 +50,35 @@
 -- MAGIC 
 -- MAGIC ### Diagrama general de comunicación
 -- MAGIC 
--- MAGIC ```mermaid
--- MAGIC flowchart TD
--- MAGIC     A["👤 **Usuario**\nAnalista · Desarrollador · Científico de datos"]
--- MAGIC     B["💻 **Cliente SQL**\nDBeaver · Databricks · pgAdmin · Aplicación web"]
--- MAGIC     C["🌐 **Red / Driver**\nJDBC · ODBC · API REST"]
--- MAGIC     D["⚙️ **Motor de Base de Datos**\nValidación · Optimizador · Plan de ejecución"]
--- MAGIC     E["🗄️ **Almacenamiento**\nTablas · Índices · Archivos · Memoria caché"]
--- MAGIC 
--- MAGIC     A -- "① Escribe consulta SQL" --> B
--- MAGIC     B -- "② Envía conexión y consulta" --> C
--- MAGIC     C -- "③ Transmite la solicitud" --> D
--- MAGIC     D -- "④ Lee y procesa datos" --> E
--- MAGIC     E -- "⑤ Devuelve datos crudos" --> D
--- MAGIC     D -- "⑥ Resultado procesado" --> C
--- MAGIC     C -- "⑦ Transmite la respuesta" --> B
--- MAGIC     B -- "⑧ Muestra resultado tabular" --> A
--- MAGIC 
--- MAGIC     style A fill:#4A90D9,color:#fff,stroke:#2C6FAC
--- MAGIC     style B fill:#5BA85A,color:#fff,stroke:#3D7A3C
--- MAGIC     style C fill:#E8A838,color:#fff,stroke:#B07820
--- MAGIC     style D fill:#9B59B6,color:#fff,stroke:#7D3F96
--- MAGIC     style E fill:#E74C3C,color:#fff,stroke:#C0392B
+-- MAGIC ```text
+-- MAGIC ┌───────────────────────────────────────────────────────┐
+-- MAGIC │  👤  USUARIO                                          │
+-- MAGIC │      Analista · Desarrollador · Científico de datos   │
+-- MAGIC └───────────────────────────────────────────────────────┘
+-- MAGIC            ↓  ① Escribe consulta SQL
+-- MAGIC            ↑  ⑧ Muestra resultado tabular
+-- MAGIC ┌───────────────────────────────────────────────────────┐
+-- MAGIC │  💻  CLIENTE SQL                                       │
+-- MAGIC │      DBeaver · Databricks · pgAdmin · Aplicación web  │
+-- MAGIC └───────────────────────────────────────────────────────┘
+-- MAGIC            ↓  ② Envía conexión y consulta
+-- MAGIC            ↑  ⑦ Transmite la respuesta
+-- MAGIC ┌───────────────────────────────────────────────────────┐
+-- MAGIC │  🌐  RED / DRIVER                                      │
+-- MAGIC │      JDBC · ODBC · API REST                           │
+-- MAGIC └───────────────────────────────────────────────────────┘
+-- MAGIC            ↓  ③ Transmite la solicitud
+-- MAGIC            ↑  ⑥ Resultado procesado
+-- MAGIC ┌───────────────────────────────────────────────────────┐
+-- MAGIC │  ⚙️   MOTOR DE BASE DE DATOS                          │
+-- MAGIC │      Validación · Optimizador · Plan de ejecución     │
+-- MAGIC └───────────────────────────────────────────────────────┘
+-- MAGIC            ↓  ④ Lee y procesa datos
+-- MAGIC            ↑  ⑤ Devuelve datos crudos
+-- MAGIC ┌───────────────────────────────────────────────────────┐
+-- MAGIC │  🗄️   ALMACENAMIENTO                                   │
+-- MAGIC │      Tablas · Índices · Archivos · Memoria caché      │
+-- MAGIC └───────────────────────────────────────────────────────┘
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Idea clave:** el usuario no interactúa directamente con los archivos de datos; se comunica con el motor SQL, que protege, organiza y optimiza el acceso a la información.
@@ -293,24 +300,30 @@
 -- MAGIC - **Tabla de hechos:** almacena eventos medibles (ventas, viajes, órdenes).
 -- MAGIC - **Dimensiones:** almacenan contexto descriptivo (cliente, producto, tiempo, región).
 -- MAGIC 
--- MAGIC ```mermaid
--- MAGIC flowchart LR
--- MAGIC     TIEMPO["🕐 **DIM_TIEMPO**\nAño · Mes · Día"]
--- MAGIC     CLIENTE["👤 **DIM_CLIENTE**\nNombre · Ciudad · Segmento"]
--- MAGIC     HECHOS["⭐ **HECHO_VENTAS**\nmonto · cantidad\nid_cliente · id_producto\nid_tiempo · id_region"]
--- MAGIC     PRODUCTO["📦 **DIM_PRODUCTO**\nNombre · Categoría · Marca"]
--- MAGIC     REGION["🌎 **DIM_REGIÓN**\nPaís · Ciudad · Zona"]
--- MAGIC 
--- MAGIC     TIEMPO --- HECHOS
--- MAGIC     CLIENTE --- HECHOS
--- MAGIC     HECHOS --- PRODUCTO
--- MAGIC     HECHOS --- REGION
--- MAGIC 
--- MAGIC     style HECHOS fill:#E74C3C,color:#fff,stroke:#C0392B
--- MAGIC     style TIEMPO fill:#4A90D9,color:#fff,stroke:#2C6FAC
--- MAGIC     style CLIENTE fill:#5BA85A,color:#fff,stroke:#3D7A3C
--- MAGIC     style PRODUCTO fill:#9B59B6,color:#fff,stroke:#7D3F96
--- MAGIC     style REGION fill:#E8A838,color:#fff,stroke:#B07820
+-- MAGIC ```text
+-- MAGIC                    ┌──────────────────────────────┐
+-- MAGIC                    │  🕐  DIM_TIEMPO               │
+-- MAGIC                    │      Año · Mes · Día          │
+-- MAGIC                    └──────────────┬───────────────┘
+-- MAGIC                                   │
+-- MAGIC ┌───────────────────┐             │             ┌──────────────────────────┐
+-- MAGIC │  👤  DIM_CLIENTE  │             │             │  📦  DIM_PRODUCTO        │
+-- MAGIC │  Nombre · Ciudad  ├─────────────┤─────────────┤  Nombre · Categoría      │
+-- MAGIC │  Segmento         │      ┌──────┴──────┐      │  Marca                   │
+-- MAGIC └───────────────────┘      │ ⭐ HECHO    │      └──────────────────────────┘
+-- MAGIC                            │   VENTAS    │
+-- MAGIC                            │ monto       │
+-- MAGIC                            │ cantidad    │
+-- MAGIC                            │ id_cliente  │
+-- MAGIC                            │ id_producto │
+-- MAGIC                            │ id_tiempo   │
+-- MAGIC                            │ id_region   │
+-- MAGIC                            └──────┬──────┘
+-- MAGIC                                   │
+-- MAGIC                    ┌──────────────┴───────────────┐
+-- MAGIC                    │  🌎  DIM_REGIÓN               │
+-- MAGIC                    │      País · Ciudad · Zona     │
+-- MAGIC                    └──────────────────────────────┘
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del modelo estrella:**
@@ -321,30 +334,32 @@
 -- MAGIC ### 9.2 Modelo copo de nieve
 -- MAGIC Es una variación del modelo estrella donde algunas dimensiones se descomponen en subdimensiones más normalizadas.
 -- MAGIC 
--- MAGIC ```mermaid
--- MAGIC flowchart LR
--- MAGIC     PAIS["🌍 **DIM_PAÍS**\nCódigo · Nombre"]
--- MAGIC     CIUDAD["🏙️ **DIM_CIUDAD**\nNombre · id_pais"]
--- MAGIC     CLIENTE["👤 **DIM_CLIENTE**\nNombre · id_ciudad"]
--- MAGIC     HECHOS["⭐ **HECHO_VENTAS**\nmonto · cantidad\nid_cliente · id_producto\nid_tiempo · id_region"]
--- MAGIC     PRODUCTO["📦 **DIM_PRODUCTO**\nNombre · id_categoria · id_marca"]
--- MAGIC     MARCA["🏷️ **DIM_MARCA**\nNombre · País"]
--- MAGIC     CATEGORIA["📂 **DIM_CATEGORÍA**\nNombre · Descripción"]
--- MAGIC 
--- MAGIC     PAIS --- CIUDAD
--- MAGIC     CIUDAD --- CLIENTE
--- MAGIC     CLIENTE --- HECHOS
--- MAGIC     HECHOS --- PRODUCTO
--- MAGIC     PRODUCTO --- MARCA
--- MAGIC     PRODUCTO --- CATEGORIA
--- MAGIC 
--- MAGIC     style HECHOS fill:#E74C3C,color:#fff,stroke:#C0392B
--- MAGIC     style PAIS fill:#4A90D9,color:#fff,stroke:#2C6FAC
--- MAGIC     style CIUDAD fill:#5BA85A,color:#fff,stroke:#3D7A3C
--- MAGIC     style CLIENTE fill:#5BA85A,color:#fff,stroke:#3D7A3C
--- MAGIC     style PRODUCTO fill:#9B59B6,color:#fff,stroke:#7D3F96
--- MAGIC     style MARCA fill:#E8A838,color:#fff,stroke:#B07820
--- MAGIC     style CATEGORIA fill:#E8A838,color:#fff,stroke:#B07820
+-- MAGIC ```text
+-- MAGIC ┌───────────────────┐     ┌─────────────────────┐     ┌──────────────────────┐
+-- MAGIC │  🌍  DIM_PAÍS     │────►│  🏙️  DIM_CIUDAD      │────►│  👤  DIM_CLIENTE     │
+-- MAGIC │  Código · Nombre  │     │  Nombre · id_pais    │     │  Nombre · id_ciudad  │
+-- MAGIC └───────────────────┘     └─────────────────────┘     └──────────┬───────────┘
+-- MAGIC                                                                    │
+-- MAGIC                                                                    ▼
+-- MAGIC                                                  ┌────────────────────────────────┐
+-- MAGIC                                                  │  ⭐  HECHO_VENTAS               │
+-- MAGIC                                                  │  monto · cantidad               │
+-- MAGIC                                                  │  id_cliente · id_producto       │
+-- MAGIC                                                  │  id_tiempo  · id_region         │
+-- MAGIC                                                  └───────────────┬────────────────┘
+-- MAGIC                                                                   │
+-- MAGIC                                                                   ▼
+-- MAGIC                                                  ┌────────────────────────────────┐
+-- MAGIC                                                  │  📦  DIM_PRODUCTO               │
+-- MAGIC                                                  │  Nombre · id_categoria          │
+-- MAGIC                                                  │  id_marca                       │
+-- MAGIC                                                  └──────────┬────────────┬─────────┘
+-- MAGIC                                                             │            │
+-- MAGIC                                                             ▼            ▼
+-- MAGIC                                              ┌──────────────────┐  ┌────────────────────┐
+-- MAGIC                                              │  🏷️  DIM_MARCA    │  │  📂  DIM_CATEGORÍA │
+-- MAGIC                                              │  Nombre · País   │  │  Nombre · Descrip. │
+-- MAGIC                                              └──────────────────┘  └────────────────────┘
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del copo de nieve:**
