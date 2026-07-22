@@ -11,6 +11,9 @@ Esta carpeta contiene los diagramas, capturas de pantalla y recursos visuales ut
 | `join_types.png` | Diagrama visual de tipos de JOIN |
 | `window_frame.png` | Diagrama de window frames |
 | `course_roadmap.png` | Mapa visual del curso completo |
+| `comunicacion_usuario_bd.png` | Comunicación entre usuario y base de datos |
+| `modelo_estrella.png` | Modelo de datos estrella |
+| `modelo_copo_nieve.png` | Modelo de datos copo de nieve |
 
 > Los diagramas ASCII están integrados directamente en los notebooks.  
 > Esta carpeta es para imágenes de alta resolución de uso en presentaciones.
