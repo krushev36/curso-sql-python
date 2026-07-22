@@ -293,14 +293,24 @@
 -- MAGIC - **Tabla de hechos:** almacena eventos medibles (ventas, viajes, órdenes).
 -- MAGIC - **Dimensiones:** almacenan contexto descriptivo (cliente, producto, tiempo, región).
 -- MAGIC 
--- MAGIC ```text
--- MAGIC                  DIM_TIEMPO
--- MAGIC                      │
--- MAGIC                      │
--- MAGIC DIM_CLIENTE ─── HECHO_VENTAS ─── DIM_PRODUCTO
--- MAGIC                      │
--- MAGIC                      │
--- MAGIC                  DIM_REGION
+-- MAGIC ```mermaid
+-- MAGIC flowchart LR
+-- MAGIC     TIEMPO["🕐 **DIM_TIEMPO**\nAño · Mes · Día"]
+-- MAGIC     CLIENTE["👤 **DIM_CLIENTE**\nNombre · Ciudad · Segmento"]
+-- MAGIC     HECHOS["⭐ **HECHO_VENTAS**\nmonto · cantidad\nid_cliente · id_producto\nid_tiempo · id_region"]
+-- MAGIC     PRODUCTO["📦 **DIM_PRODUCTO**\nNombre · Categoría · Marca"]
+-- MAGIC     REGION["🌎 **DIM_REGIÓN**\nPaís · Ciudad · Zona"]
+-- MAGIC 
+-- MAGIC     TIEMPO --- HECHOS
+-- MAGIC     CLIENTE --- HECHOS
+-- MAGIC     HECHOS --- PRODUCTO
+-- MAGIC     HECHOS --- REGION
+-- MAGIC 
+-- MAGIC     style HECHOS fill:#E74C3C,color:#fff,stroke:#C0392B
+-- MAGIC     style TIEMPO fill:#4A90D9,color:#fff,stroke:#2C6FAC
+-- MAGIC     style CLIENTE fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style PRODUCTO fill:#9B59B6,color:#fff,stroke:#7D3F96
+-- MAGIC     style REGION fill:#E8A838,color:#fff,stroke:#B07820
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del modelo estrella:**
@@ -311,15 +321,30 @@
 -- MAGIC ### 9.2 Modelo copo de nieve
 -- MAGIC Es una variación del modelo estrella donde algunas dimensiones se descomponen en subdimensiones más normalizadas.
 -- MAGIC 
--- MAGIC ```text
--- MAGIC DIM_PAIS
--- MAGIC    │
--- MAGIC DIM_CIUDAD
--- MAGIC    │
--- MAGIC DIM_CLIENTE ─── HECHO_VENTAS ─── DIM_PRODUCTO ─── DIM_MARCA
--- MAGIC                                   │
--- MAGIC                                   │
--- MAGIC                              DIM_CATEGORIA
+-- MAGIC ```mermaid
+-- MAGIC flowchart LR
+-- MAGIC     PAIS["🌍 **DIM_PAÍS**\nCódigo · Nombre"]
+-- MAGIC     CIUDAD["🏙️ **DIM_CIUDAD**\nNombre · id_pais"]
+-- MAGIC     CLIENTE["👤 **DIM_CLIENTE**\nNombre · id_ciudad"]
+-- MAGIC     HECHOS["⭐ **HECHO_VENTAS**\nmonto · cantidad\nid_cliente · id_producto\nid_tiempo · id_region"]
+-- MAGIC     PRODUCTO["📦 **DIM_PRODUCTO**\nNombre · id_categoria · id_marca"]
+-- MAGIC     MARCA["🏷️ **DIM_MARCA**\nNombre · País"]
+-- MAGIC     CATEGORIA["📂 **DIM_CATEGORÍA**\nNombre · Descripción"]
+-- MAGIC 
+-- MAGIC     PAIS --- CIUDAD
+-- MAGIC     CIUDAD --- CLIENTE
+-- MAGIC     CLIENTE --- HECHOS
+-- MAGIC     HECHOS --- PRODUCTO
+-- MAGIC     PRODUCTO --- MARCA
+-- MAGIC     PRODUCTO --- CATEGORIA
+-- MAGIC 
+-- MAGIC     style HECHOS fill:#E74C3C,color:#fff,stroke:#C0392B
+-- MAGIC     style PAIS fill:#4A90D9,color:#fff,stroke:#2C6FAC
+-- MAGIC     style CIUDAD fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style CLIENTE fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style PRODUCTO fill:#9B59B6,color:#fff,stroke:#7D3F96
+-- MAGIC     style MARCA fill:#E8A838,color:#fff,stroke:#B07820
+-- MAGIC     style CATEGORIA fill:#E8A838,color:#fff,stroke:#B07820
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del copo de nieve:**
