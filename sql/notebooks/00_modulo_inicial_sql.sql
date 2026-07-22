@@ -48,38 +48,30 @@
 -- MAGIC 
 -- MAGIC La interacción con una base de datos casi nunca ocurre de forma aislada. Normalmente participan un usuario, una herramienta cliente, una red, el motor SQL y el almacenamiento físico.
 -- MAGIC 
--- MAGIC > **Nota:** los diagramas de este notebook están construidos en texto plano y se entienden mejor usando una fuente monoespaciada.
--- MAGIC 
 -- MAGIC ### Diagrama general de comunicación
 -- MAGIC 
--- MAGIC ```text
--- MAGIC ┌──────────────┐
--- MAGIC │   Usuario    │
--- MAGIC └──────┬───────┘
--- MAGIC        │ escribe consultas / solicita reportes
--- MAGIC        ▼
--- MAGIC ┌──────────────┐
--- MAGIC │ Cliente SQL  │ DBeaver, Databricks, pgAdmin, aplicación web
--- MAGIC └──────┬───────┘
--- MAGIC        │ envía conexión y consulta
--- MAGIC        ▼
--- MAGIC ┌──────────────┐
--- MAGIC │ Red / Driver │  JDBC, ODBC, API
--- MAGIC └──────┬───────┘
--- MAGIC        │
--- MAGIC        ▼
--- MAGIC ┌──────────────────────┐
--- MAGIC │ Motor de Base de     │
--- MAGIC │ Datos / Optimizador  │
--- MAGIC └──────┬───────────────┘
--- MAGIC        │ lee y procesa datos
--- MAGIC        ▼
--- MAGIC ┌──────────────────────┐
--- MAGIC │ Tablas / Índices /   │
--- MAGIC │ Archivos / Memoria   │
--- MAGIC └──────────────────────┘
+-- MAGIC ```mermaid
+-- MAGIC flowchart TD
+-- MAGIC     A["👤 **Usuario**\nAnalista · Desarrollador · Científico de datos"]
+-- MAGIC     B["💻 **Cliente SQL**\nDBeaver · Databricks · pgAdmin · Aplicación web"]
+-- MAGIC     C["🌐 **Red / Driver**\nJDBC · ODBC · API REST"]
+-- MAGIC     D["⚙️ **Motor de Base de Datos**\nValidación · Optimizador · Plan de ejecución"]
+-- MAGIC     E["🗄️ **Almacenamiento**\nTablas · Índices · Archivos · Memoria caché"]
 -- MAGIC 
--- MAGIC El resultado viaja de regreso al cliente y luego al usuario.
+-- MAGIC     A -- "① Escribe consulta SQL" --> B
+-- MAGIC     B -- "② Envía conexión y consulta" --> C
+-- MAGIC     C -- "③ Transmite la solicitud" --> D
+-- MAGIC     D -- "④ Lee y procesa datos" --> E
+-- MAGIC     E -- "⑤ Devuelve datos crudos" --> D
+-- MAGIC     D -- "⑥ Resultado procesado" --> C
+-- MAGIC     C -- "⑦ Transmite la respuesta" --> B
+-- MAGIC     B -- "⑧ Muestra resultado tabular" --> A
+-- MAGIC 
+-- MAGIC     style A fill:#4A90D9,color:#fff,stroke:#2C6FAC
+-- MAGIC     style B fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style C fill:#E8A838,color:#fff,stroke:#B07820
+-- MAGIC     style D fill:#9B59B6,color:#fff,stroke:#7D3F96
+-- MAGIC     style E fill:#E74C3C,color:#fff,stroke:#C0392B
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Idea clave:** el usuario no interactúa directamente con los archivos de datos; se comunica con el motor SQL, que protege, organiza y optimiza el acceso a la información.
