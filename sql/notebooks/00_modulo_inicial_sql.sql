@@ -1,15 +1,17 @@
 -- Databricks notebook source
 -- MAGIC %md
 -- MAGIC # 🎓 Módulo 00: Introducción general a SQL
--- MAGIC ## Historia, funcionamiento y modelado relacional
+-- MAGIC ## Historia, fundamentos y modelado de datos
 -- MAGIC 
--- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos de modelado y estructura relacional que permiten organizar la información de forma confiable.
+-- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos de modelado, estructura de datos y tipos de datos que permiten organizar la información de forma confiable.
 
 -- COMMAND ----------
 -- MAGIC %md
 -- MAGIC ## 1. Breve historia de SQL
 -- MAGIC 
--- MAGIC SQL (Structured Query Language) nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
+-- MAGIC **SQL significa *Structured Query Language***, o en español, **Lenguaje de Consulta Estructurada**. Se usa para definir, consultar, transformar y administrar datos almacenados en sistemas de bases de datos.
+-- MAGIC 
+-- MAGIC SQL nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
 -- MAGIC 
 -- MAGIC Hitos clave:
 -- MAGIC - **1970:** publicación del modelo relacional.
@@ -46,49 +48,95 @@
 -- MAGIC 
 -- MAGIC La interacción con una base de datos casi nunca ocurre de forma aislada. Normalmente participan un usuario, una herramienta cliente, una red, el motor SQL y el almacenamiento físico.
 -- MAGIC 
--- MAGIC > **Nota:** los diagramas de este notebook están construidos en texto plano y se entienden mejor usando una fuente monoespaciada.
--- MAGIC 
 -- MAGIC ### Diagrama general de comunicación
 -- MAGIC 
--- MAGIC ```text
--- MAGIC ┌──────────────┐
--- MAGIC │   Usuario    │
--- MAGIC └──────┬───────┘
--- MAGIC        │ escribe consultas / solicita reportes
--- MAGIC        ▼
--- MAGIC ┌──────────────┐
--- MAGIC │ Cliente SQL  │ DBeaver, Databricks, pgAdmin, aplicación web
--- MAGIC └──────┬───────┘
--- MAGIC        │ envía conexión y consulta
--- MAGIC        ▼
--- MAGIC ┌──────────────┐
--- MAGIC │ Red / Driver │  JDBC, ODBC, API
--- MAGIC └──────┬───────┘
--- MAGIC        │
--- MAGIC        ▼
--- MAGIC ┌──────────────────────┐
--- MAGIC │ Motor de Base de     │
--- MAGIC │ Datos / Optimizador  │
--- MAGIC └──────┬───────────────┘
--- MAGIC        │ lee y procesa datos
--- MAGIC        ▼
--- MAGIC ┌──────────────────────┐
--- MAGIC │ Tablas / Índices /   │
--- MAGIC │ Archivos / Memoria   │
--- MAGIC └──────────────────────┘
+-- MAGIC ```mermaid
+-- MAGIC flowchart TD
+-- MAGIC     A["👤 **Usuario**\nAnalista · Desarrollador · Científico de datos"]
+-- MAGIC     B["💻 **Cliente SQL**\nDBeaver · Databricks · pgAdmin · Aplicación web"]
+-- MAGIC     C["🌐 **Red / Driver**\nJDBC · ODBC · API REST"]
+-- MAGIC     D["⚙️ **Motor de Base de Datos**\nValidación · Optimizador · Plan de ejecución"]
+-- MAGIC     E["🗄️ **Almacenamiento**\nTablas · Índices · Archivos · Memoria caché"]
 -- MAGIC 
--- MAGIC El resultado viaja de regreso al cliente y luego al usuario.
+-- MAGIC     A -- "① Escribe consulta SQL" --> B
+-- MAGIC     B -- "② Envía conexión y consulta" --> C
+-- MAGIC     C -- "③ Transmite la solicitud" --> D
+-- MAGIC     D -- "④ Lee y procesa datos" --> E
+-- MAGIC     E -- "⑤ Devuelve datos crudos" --> D
+-- MAGIC     D -- "⑥ Resultado procesado" --> C
+-- MAGIC     C -- "⑦ Transmite la respuesta" --> B
+-- MAGIC     B -- "⑧ Muestra resultado tabular" --> A
+-- MAGIC 
+-- MAGIC     style A fill:#4A90D9,color:#fff,stroke:#2C6FAC
+-- MAGIC     style B fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style C fill:#E8A838,color:#fff,stroke:#B07820
+-- MAGIC     style D fill:#9B59B6,color:#fff,stroke:#7D3F96
+-- MAGIC     style E fill:#E74C3C,color:#fff,stroke:#C0392B
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Idea clave:** el usuario no interactúa directamente con los archivos de datos; se comunica con el motor SQL, que protege, organiza y optimiza el acceso a la información.
 
 -- COMMAND ----------
 -- MAGIC %md
--- MAGIC ## 4. Esquemas y modelos de datos
+-- MAGIC ## 4. Esquemas, modelos y tipos de datos
 -- MAGIC 
 -- MAGIC Un **modelo de datos** es la representación lógica de cómo se organizan las entidades del negocio, sus atributos y sus relaciones.
 -- MAGIC 
 -- MAGIC Un **esquema** es la estructura concreta donde quedan definidas tablas, columnas, tipos de dato, llaves y relaciones.
+-- MAGIC 
+-- MAGIC ### 4.1 Modelo relacional
+-- MAGIC En el **modelo relacional** la información se organiza en **tablas** compuestas por filas y columnas.
+-- MAGIC 
+-- MAGIC Sus características principales son:
+-- MAGIC - cada tabla representa una entidad o un tema del negocio,
+-- MAGIC - cada fila representa un registro,
+-- MAGIC - cada columna representa un atributo,
+-- MAGIC - las tablas se conectan mediante llaves primarias y foráneas.
+-- MAGIC 
+-- MAGIC Este modelo favorece la **consistencia**, la **integridad** y el uso de SQL para consultar la información.
+-- MAGIC 
+-- MAGIC ### 4.2 Modelo no relacional
+-- MAGIC El **modelo no relacional** agrupa varias familias de bases de datos conocidas como **NoSQL**.
+-- MAGIC 
+-- MAGIC En lugar de depender siempre de tablas relacionadas, puede almacenar la información como:
+-- MAGIC - **documentos** (por ejemplo JSON),
+-- MAGIC - **pares clave-valor**,
+-- MAGIC - **grafos**,
+-- MAGIC - **columnas anchas**.
+-- MAGIC 
+-- MAGIC Suele usarse cuando se necesita alta escalabilidad, esquemas más flexibles o manejo de datos muy variados y cambiantes. A cambio, puede sacrificar parte de la rigidez estructural típica de los sistemas relacionales.
+-- MAGIC 
+-- MAGIC ### 4.3 Datos estructurados y no estructurados
+-- MAGIC Los **datos estructurados** siguen un formato definido y consistente, por lo que encajan con facilidad en tablas.
+-- MAGIC 
+-- MAGIC Ejemplos de datos estructurados:
+-- MAGIC - número de cliente,
+-- MAGIC - fecha de compra,
+-- MAGIC - valor de una factura,
+-- MAGIC - ciudad de residencia.
+-- MAGIC 
+-- MAGIC Los **datos no estructurados** no siguen una estructura tabular fija y suelen presentarse como contenido libre o multimedia.
+-- MAGIC 
+-- MAGIC Ejemplos de datos no estructurados:
+-- MAGIC - correos electrónicos,
+-- MAGIC - documentos PDF,
+-- MAGIC - imágenes,
+-- MAGIC - audio,
+-- MAGIC - publicaciones en redes sociales.
+-- MAGIC 
+-- MAGIC Entre ambos extremos también existen datos **semiestructurados**, como XML o JSON, que conservan cierto orden pero no necesariamente el de una tabla relacional clásica.
+-- MAGIC 
+-- MAGIC ### 4.4 Tipos de datos en SQL
+-- MAGIC Los **tipos de datos** indican qué clase de valor puede almacenar una columna y qué operaciones son válidas sobre ella.
+-- MAGIC 
+-- MAGIC Tipos comunes en SQL:
+-- MAGIC - **Numéricos:** `INT`, `BIGINT`, `DECIMAL`, `DOUBLE`
+-- MAGIC - **Texto:** `CHAR`, `VARCHAR`, `STRING`
+-- MAGIC - **Fecha y hora:** `DATE`, `TIMESTAMP`
+-- MAGIC - **Booleanos:** `BOOLEAN`
+-- MAGIC - **Binarios o especiales:** `BINARY`, y en algunos motores también `JSON`, `ARRAY`, `MAP`
+-- MAGIC 
+-- MAGIC Elegir bien el tipo de dato ayuda a mejorar la calidad de la información, ahorrar almacenamiento y evitar errores en cálculos, filtros y comparaciones.
 -- MAGIC 
 -- MAGIC ### ¿Qué responde un buen modelo de datos?
 -- MAGIC - ¿Qué entidades existen? (clientes, pedidos, productos, pagos)
@@ -245,14 +293,24 @@
 -- MAGIC - **Tabla de hechos:** almacena eventos medibles (ventas, viajes, órdenes).
 -- MAGIC - **Dimensiones:** almacenan contexto descriptivo (cliente, producto, tiempo, región).
 -- MAGIC 
--- MAGIC ```text
--- MAGIC                  DIM_TIEMPO
--- MAGIC                      │
--- MAGIC                      │
--- MAGIC DIM_CLIENTE ─── HECHO_VENTAS ─── DIM_PRODUCTO
--- MAGIC                      │
--- MAGIC                      │
--- MAGIC                  DIM_REGION
+-- MAGIC ```mermaid
+-- MAGIC flowchart LR
+-- MAGIC     TIEMPO["🕐 **DIM_TIEMPO**\nAño · Mes · Día"]
+-- MAGIC     CLIENTE["👤 **DIM_CLIENTE**\nNombre · Ciudad · Segmento"]
+-- MAGIC     HECHOS["⭐ **HECHO_VENTAS**\nmonto · cantidad\nid_cliente · id_producto\nid_tiempo · id_region"]
+-- MAGIC     PRODUCTO["📦 **DIM_PRODUCTO**\nNombre · Categoría · Marca"]
+-- MAGIC     REGION["🌎 **DIM_REGIÓN**\nPaís · Ciudad · Zona"]
+-- MAGIC 
+-- MAGIC     TIEMPO --- HECHOS
+-- MAGIC     CLIENTE --- HECHOS
+-- MAGIC     HECHOS --- PRODUCTO
+-- MAGIC     HECHOS --- REGION
+-- MAGIC 
+-- MAGIC     style HECHOS fill:#E74C3C,color:#fff,stroke:#C0392B
+-- MAGIC     style TIEMPO fill:#4A90D9,color:#fff,stroke:#2C6FAC
+-- MAGIC     style CLIENTE fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style PRODUCTO fill:#9B59B6,color:#fff,stroke:#7D3F96
+-- MAGIC     style REGION fill:#E8A838,color:#fff,stroke:#B07820
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del modelo estrella:**
@@ -263,15 +321,30 @@
 -- MAGIC ### 9.2 Modelo copo de nieve
 -- MAGIC Es una variación del modelo estrella donde algunas dimensiones se descomponen en subdimensiones más normalizadas.
 -- MAGIC 
--- MAGIC ```text
--- MAGIC DIM_PAIS
--- MAGIC    │
--- MAGIC DIM_CIUDAD
--- MAGIC    │
--- MAGIC DIM_CLIENTE ─── HECHO_VENTAS ─── DIM_PRODUCTO ─── DIM_MARCA
--- MAGIC                                   │
--- MAGIC                                   │
--- MAGIC                              DIM_CATEGORIA
+-- MAGIC ```mermaid
+-- MAGIC flowchart LR
+-- MAGIC     PAIS["🌍 **DIM_PAÍS**\nCódigo · Nombre"]
+-- MAGIC     CIUDAD["🏙️ **DIM_CIUDAD**\nNombre · id_pais"]
+-- MAGIC     CLIENTE["👤 **DIM_CLIENTE**\nNombre · id_ciudad"]
+-- MAGIC     HECHOS["⭐ **HECHO_VENTAS**\nmonto · cantidad\nid_cliente · id_producto\nid_tiempo · id_region"]
+-- MAGIC     PRODUCTO["📦 **DIM_PRODUCTO**\nNombre · id_categoria · id_marca"]
+-- MAGIC     MARCA["🏷️ **DIM_MARCA**\nNombre · País"]
+-- MAGIC     CATEGORIA["📂 **DIM_CATEGORÍA**\nNombre · Descripción"]
+-- MAGIC 
+-- MAGIC     PAIS --- CIUDAD
+-- MAGIC     CIUDAD --- CLIENTE
+-- MAGIC     CLIENTE --- HECHOS
+-- MAGIC     HECHOS --- PRODUCTO
+-- MAGIC     PRODUCTO --- MARCA
+-- MAGIC     PRODUCTO --- CATEGORIA
+-- MAGIC 
+-- MAGIC     style HECHOS fill:#E74C3C,color:#fff,stroke:#C0392B
+-- MAGIC     style PAIS fill:#4A90D9,color:#fff,stroke:#2C6FAC
+-- MAGIC     style CIUDAD fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style CLIENTE fill:#5BA85A,color:#fff,stroke:#3D7A3C
+-- MAGIC     style PRODUCTO fill:#9B59B6,color:#fff,stroke:#7D3F96
+-- MAGIC     style MARCA fill:#E8A838,color:#fff,stroke:#B07820
+-- MAGIC     style CATEGORIA fill:#E8A838,color:#fff,stroke:#B07820
 -- MAGIC ```
 -- MAGIC 
 -- MAGIC **Ventajas del copo de nieve:**
@@ -315,8 +388,12 @@
 -- MAGIC 
 -- MAGIC En este módulo conociste:
 -- MAGIC - El origen histórico de SQL.
+-- MAGIC - El significado de SQL como lenguaje de consulta estructurada.
 -- MAGIC - Cómo se comunica un usuario con una base de datos.
+-- MAGIC - La diferencia entre modelos relacionales y no relacionales.
+-- MAGIC - La diferencia entre datos estructurados y no estructurados.
 -- MAGIC - Qué es un modelo de datos y cómo se diseña.
+-- MAGIC - Los tipos de datos más comunes en SQL.
 -- MAGIC - Relaciones uno a muchos y muchos a uno.
 -- MAGIC - Llaves primarias, candidatas/alternativas y foráneas.
 -- MAGIC - El papel de los índices.

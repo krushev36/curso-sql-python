@@ -99,17 +99,56 @@
 -- MAGIC - cada tabla representa una entidad diferente,
 -- MAGIC - y el análisis real exige verlas en conjunto.
 -- MAGIC 
--- MAGIC ### Relación TPCH del notebook
+-- MAGIC ### Diagrama de relaciones – esquema `samples.tpch`
+-- MAGIC 
+-- MAGIC El siguiente diagrama muestra las siete tablas del esquema y cómo se conectan mediante llaves primarias (PK) y llaves foráneas (FK).
 -- MAGIC 
 -- MAGIC ```text
--- MAGIC customer.c_custkey  -> orders.o_custkey
--- MAGIC orders.o_orderkey   -> lineitem.l_orderkey
--- MAGIC lineitem.l_partkey  -> part.p_partkey
--- MAGIC lineitem.l_suppkey  -> supplier.s_suppkey
--- MAGIC supplier.s_nationkey -> nation.n_nationkey
--- MAGIC nation.n_regionkey  -> region.r_regionkey
--- MAGIC customer.c_nationkey -> nation.n_nationkey
+-- MAGIC           ┌────────────────────────────┐
+-- MAGIC           │           region           │
+-- MAGIC           │────────────────────────────│
+-- MAGIC           │ r_regionkey          (PK)  │
+-- MAGIC           └──────────────┬─────────────┘
+-- MAGIC                          │ 1:N
+-- MAGIC           ┌──────────────▼─────────────┐
+-- MAGIC           │           nation           │
+-- MAGIC           │────────────────────────────│
+-- MAGIC           │ n_nationkey          (PK)  │
+-- MAGIC           │ n_regionkey          (FK)  │
+-- MAGIC           └───────┬────────────┬───────┘
+-- MAGIC                   │ 1:N        │ 1:N
+-- MAGIC      ┌────────────▼──────┐  ┌──▼────────────────────┐
+-- MAGIC      │      customer     │  │       supplier        │
+-- MAGIC      │───────────────────│  │───────────────────────│
+-- MAGIC      │ c_custkey   (PK)  │  │ s_suppkey      (PK)   │
+-- MAGIC      │ c_nationkey (FK)  │  │ s_nationkey    (FK)   │
+-- MAGIC      └──────────┬────────┘  └────────────┬──────────┘
+-- MAGIC                 │ 1:N                     │ 1:N
+-- MAGIC      ┌──────────▼────────┐                │
+-- MAGIC      │       orders      │                │
+-- MAGIC      │───────────────────│                │
+-- MAGIC      │ o_orderkey  (PK)  │                │
+-- MAGIC      │ o_custkey   (FK)  │                │
+-- MAGIC      └──────────┬────────┘                │
+-- MAGIC                 │ 1:N                     │
+-- MAGIC      ┌──────────▼────────────────────────▼─────┐
+-- MAGIC      │                 lineitem                │
+-- MAGIC      │─────────────────────────────────────────│
+-- MAGIC      │ l_orderkey   (FK → orders)              │
+-- MAGIC      │ l_suppkey    (FK → supplier)            │
+-- MAGIC      │ l_partkey    (FK → part)                │
+-- MAGIC      └──────────────────┬──────────────────────┘
+-- MAGIC                         │ N:1
+-- MAGIC              ┌──────────▼──────────┐
+-- MAGIC              │         part        │
+-- MAGIC              │─────────────────────│
+-- MAGIC              │ p_partkey     (PK)  │
+-- MAGIC              └─────────────────────┘
 -- MAGIC ```
+-- MAGIC 
+-- MAGIC **Lectura del diagrama:**
+-- MAGIC - Una línea `1:N` indica que una fila de la tabla superior puede relacionarse con muchas filas de la tabla inferior.
+-- MAGIC - `lineitem` es la tabla de mayor granularidad: conecta pedidos, proveedores y productos en una sola fila de detalle.
 -- MAGIC 
 -- MAGIC ### Regla práctica
 -- MAGIC 
