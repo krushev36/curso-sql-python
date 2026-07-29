@@ -11,6 +11,7 @@
 -- MAGIC > **📝 Nota:** Este notebook está diseñado para ejecutarse en Databricks SQL. Todas las consultas usan únicamente tablas públicas del catálogo `samples`.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 1. Bienvenida
 -- MAGIC
@@ -30,6 +31,7 @@
 -- MAGIC ```
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 2. Objetivos de aprendizaje
 -- MAGIC
@@ -45,6 +47,7 @@
 -- MAGIC 8. Interpretar tipos de datos básicos en tablas analíticas.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 3. Competencias
 -- MAGIC
@@ -57,6 +60,7 @@
 -- MAGIC | Validación | Detecta errores de sintaxis y de lógica | Explica por qué una consulta funciona |
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 4. Contexto empresarial
 -- MAGIC
@@ -73,6 +77,7 @@
 -- MAGIC > **📝 Nota:** En ciencia de datos, muchas fallas del análisis comienzan por una mala consulta base: columnas innecesarias, filtros ambiguos o resultados sin ordenar.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 5. Conceptos
 -- MAGIC
@@ -108,6 +113,7 @@
 -- MAGIC > **📝 Nota:** El tipo de dato define qué operaciones tienen sentido. Comparar fechas como texto o sumar columnas de texto suele producir errores o resultados engañosos.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 5. Conceptos (continuación)
 -- MAGIC
@@ -133,6 +139,7 @@
 -- MAGIC > **📝 Nota:** Un error muy común es escribir `WHERE columna = NULL`. En SQL, la comparación correcta es `WHERE columna IS NULL`.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 6. Explicación paso a paso
 -- MAGIC
@@ -153,6 +160,7 @@
 -- MAGIC - **qué error común** evitar.
 
 -- COMMAND ----------
+
 -- Resultado esperado: una muestra de clientes con cuatro columnas relevantes para inspección inicial.
 -- ¿Por qué esta consulta está escrita así? Porque primero conviene observar pocas columnas clave en lugar de traer toda la tabla.
 -- Error común: usar SELECT * cuando todavía no sabes qué columnas necesitas para el reporte.
@@ -165,6 +173,7 @@ FROM samples.tpch.customer                  -- Indicamos la tabla de origen dent
 LIMIT 10;                                   -- Limitamos a 10 filas para explorar rápido sin saturar la salida.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Paso 1: `SELECT` específico vs `SELECT *`
 -- MAGIC
@@ -177,6 +186,7 @@ LIMIT 10;                                   -- Limitamos a 10 filas para explora
 -- MAGIC **Resultado esperado:** una vista pequeña, clara y útil para validar la tabla `customer`.
 
 -- COMMAND ----------
+
 -- Resultado esperado: una muestra de órdenes con nombres de columna más legibles para negocio.
 -- ¿Por qué esta consulta está escrita así? Porque los alias permiten transformar nombres técnicos en nombres amigables para reportes.
 -- Error común: olvidar el alias en columnas calculadas o usar alias con nombres ambiguos.
@@ -190,6 +200,7 @@ FROM samples.tpch.orders                            -- Consultamos la tabla de �
 LIMIT 10;                                           -- Mostramos solo 10 filas para validar estructura y formato.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Paso 2: Alias con `AS`
 -- MAGIC
@@ -202,6 +213,7 @@ LIMIT 10;                                           -- Mostramos solo 10 filas p
 -- MAGIC > **📝 Nota:** Aunque `AS` es opcional en muchos motores, usarlo mejora legibilidad y reduce confusiones.
 
 -- COMMAND ----------
+
 -- Resultado esperado: una lista ordenada de estados de orden sin repetidos.
 -- ¿Por qué esta consulta está escrita así? Porque DISTINCT elimina duplicados cuando solo importa el conjunto de valores posibles.
 -- Error común: creer que DISTINCT elimina duplicados solo en una columna cuando en realidad evalúa la combinación completa seleccionada.
@@ -211,6 +223,7 @@ FROM samples.tpch.orders                  -- Leemos la información desde la tab
 ORDER BY o_orderstatus ASC;               -- Ordenamos alfabéticamente para facilitar la lectura del catálogo de estados.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Paso 3: `DISTINCT`
 -- MAGIC
@@ -223,6 +236,7 @@ ORDER BY o_orderstatus ASC;               -- Ordenamos alfabéticamente para fac
 -- MAGIC **Resultado esperado:** un pequeño catálogo de estados, normalmente con muy pocas filas.
 
 -- COMMAND ----------
+
 -- Resultado esperado: clientes del segmento AUTOMOBILE con saldo mayor a 5000.
 -- ¿Por qué esta consulta está escrita así? Porque WHERE filtra filas antes de mostrar el resultado y concentra el análisis en casos relevantes.
 -- Error común: escribir condiciones de texto sin comillas simples o usar operadores incompatibles con el tipo de dato.
@@ -238,6 +252,7 @@ ORDER BY c_acctbal DESC                           -- Ordenamos del mayor saldo a
 LIMIT 10;                                         -- Limitamos la salida para revisión rápida.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Paso 4: `WHERE` y operadores de comparación
 -- MAGIC
@@ -253,6 +268,7 @@ LIMIT 10;                                         -- Limitamos la salida para re
 -- MAGIC **Resultado esperado:** pocas filas, enfocadas en un criterio de negocio concreto.
 
 -- COMMAND ----------
+
 -- Resultado esperado: órdenes abiertas o pendientes de cartera en un rango de fechas y montos controlado.
 -- ¿Por qué esta consulta está escrita así? Porque combina filtros de estado, fecha y monto usando AND, OR, NOT, BETWEEN e IN.
 -- Error común: olvidar paréntesis cuando se mezclan AND y OR, cambiando la lógica del filtro.
@@ -271,6 +287,7 @@ ORDER BY o_totalprice DESC                                  -- Ordenamos por val
 LIMIT 15;                                                   -- Dejamos una muestra manejable para inspección.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Paso 5: `AND`, `OR`, `NOT`, `BETWEEN` e `IN`
 -- MAGIC
@@ -286,6 +303,7 @@ LIMIT 15;                                                   -- Dejamos una muest
 -- MAGIC > **📝 Nota:** Siempre que mezcles `AND` y `OR`, usa paréntesis para dejar explícita la intención lógica.
 
 -- COMMAND ----------
+
 -- Resultado esperado: una lista ordenada de proveedores cuyo nombre sigue un patrón y que tienen comentario registrado.
 -- ¿Por qué esta consulta está escrita así? Porque LIKE ayuda a detectar patrones de texto y IS NOT NULL verifica presencia de dato.
 -- Error común: confundir % con _; % representa muchos caracteres y _ exactamente uno.
@@ -295,12 +313,13 @@ SELECT                                            -- Definimos las columnas que 
   s_phone AS telefono,                            -- Incluimos el teléfono como dato de contacto del catálogo.
   s_acctbal AS saldo_proveedor                    -- Incluimos el saldo para ordenar por relevancia financiera.
 FROM samples.tpch.supplier                        -- Consultamos la tabla supplier del esquema TPCH.
-WHERE s_name LIKE 'Supplier#00000_'               -- Filtramos nombres que comienzan igual y terminan con exactamente un carácter variable.
-  AND s_comment IS NOT NULL                       -- Conservamos filas donde el comentario existe y no es nulo.
+WHERE s_name LIKE 'Supplier#00000%'               -- Filtramos nombres que comienzan igual y terminan con exactamente un carácter variable
+AND  s_comment IS NOT NULL                       -- Conservamos filas donde el comentario existe y no es nulo.
 ORDER BY s_acctbal DESC                           -- Ordenamos de mayor a menor saldo para priorizar revisión.
 LIMIT 10;                                         -- Mostramos diez filas para exploración controlada.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Paso 6: `LIKE`, `IS NULL`, `IS NOT NULL`, `ORDER BY` y `LIMIT`
 -- MAGIC
@@ -317,12 +336,14 @@ LIMIT 10;                                         -- Mostramos diez filas para e
 -- MAGIC **Error frecuente:** ordenar una columna distinta de la que el negocio quiere priorizar.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado
 -- MAGIC
 -- MAGIC A continuación verás **cinco ejemplos completos**. Cada uno incluye el motivo de negocio, la consulta comentada y la interpretación esperada.
 
 -- COMMAND ----------
+
 -- Ejemplo 1.
 -- Pregunta de negocio: ¿qué campos básicos del cliente sirven para un primer directorio comercial?
 -- Resultado esperado: una muestra corta de clientes con identificación, nombre, segmento y saldo.
@@ -337,6 +358,7 @@ ORDER BY c_custkey ASC                      -- Ordenamos por identificador para 
 LIMIT 12;                                   -- Mostramos solo doce filas para mantener el ejemplo simple.
 
 -- COMMAND ----------
+
 -- Ejemplo 2.
 -- Pregunta de negocio: ¿cómo hacer que una consulta de órdenes sea legible para un gerente no técnico?
 -- Resultado esperado: columnas con alias claros y un conjunto de órdenes recientes en el orden cronológico de la tabla.
@@ -352,6 +374,7 @@ ORDER BY o_orderdate DESC                            -- Ordenamos de la fecha m�
 LIMIT 10;                                            -- Dejamos un conjunto pequeño para validación manual.
 
 -- COMMAND ----------
+
 -- Ejemplo 3.
 -- Pregunta de negocio: ¿qué segmentos de mercado existen sin repetir valores?
 -- Resultado esperado: un listado pequeño de segmentos únicos.
@@ -362,6 +385,7 @@ FROM samples.tpch.customer                -- Leemos la tabla de clientes.
 ORDER BY segmento_mercado ASC;            -- Ordenamos alfabéticamente los segmentos para visualizarlos mejor.
 
 -- COMMAND ----------
+
 -- Ejemplo 4.
 -- Pregunta de negocio: ¿qué órdenes cerradas superan un valor importante para el reporte comercial?
 -- Resultado esperado: órdenes con estado F y monto mayor a 200000.
@@ -378,6 +402,7 @@ ORDER BY o_totalprice DESC                          -- Ordenamos para ver primer
 LIMIT 15;                                           -- Recortamos la salida para revisión rápida.
 
 -- COMMAND ----------
+
 -- Ejemplo 5.
 -- Pregunta de negocio: ¿qué proveedores muestran un patrón de código y tienen saldo alto?
 -- Resultado esperado: proveedores cuyo nombre sigue el patrón indicado y ordenados por saldo descendente.
@@ -388,18 +413,20 @@ SELECT                                            -- Seleccionamos datos necesar
   s_nationkey AS id_nacion,                       -- Incluimos la nación del proveedor para contexto posterior.
   s_acctbal AS saldo_proveedor                    -- Incluimos el saldo para priorizar la lista.
 FROM samples.tpch.supplier                        -- Consultamos la tabla supplier.
-WHERE s_name LIKE 'Supplier#00000_'               -- Exigimos el prefijo fijo y un solo carácter final variable.
+WHERE s_name LIKE 'Supplier#00000%'               -- Exigimos el prefijo fijo y un solo carácter final variable.
   AND s_acctbal >= 9000                           -- Restringimos a proveedores con saldo alto.
 ORDER BY s_acctbal DESC                           -- Ordenamos del saldo mayor al menor.
 LIMIT 10;                                         -- Mostramos diez filas para una inspección ejecutiva.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado
 -- MAGIC
 -- MAGIC En los siguientes cinco casos ya conoces la intención de negocio y la estructura general. La idea es que leas la explicación, ejecutes la consulta y luego modifiques el filtro por tu cuenta.
 
 -- COMMAND ----------
+
 -- Ejemplo guiado 1.
 -- Meta de negocio: identificar clientes del segmento BUILDING con saldo positivo para una campaña enfocada.
 -- Resultado esperado: clientes BUILDING ordenados por saldo descendente.
@@ -416,6 +443,7 @@ ORDER BY c_acctbal DESC                           -- Ordenamos del saldo más al
 LIMIT 15;                                         -- Dejamos quince filas para revisión inicial.
 
 -- COMMAND ----------
+
 -- Ejemplo guiado 2.
 -- Meta de negocio: revisar órdenes emitidas en 1994 para una auditoría histórica sencilla.
 -- Resultado esperado: órdenes de 1994 con columnas clave y orden cronológico descendente.
@@ -431,6 +459,7 @@ ORDER BY o_orderdate DESC                                   -- Vemos primero las
 LIMIT 15;                                                   -- Mostramos una muestra pequeña y controlada.
 
 -- COMMAND ----------
+
 -- Ejemplo guiado 3.
 -- Meta de negocio: inspeccionar órdenes con estados específicos y valores medios-altos.
 -- Resultado esperado: órdenes con estado O o P y total entre 100000 y 250000.
@@ -447,6 +476,7 @@ ORDER BY o_totalprice DESC                         -- Ordenamos por monto descen
 LIMIT 15;                                          -- Limitamos para inspección rápida.
 
 -- COMMAND ----------
+
 -- Ejemplo guiado 4.
 -- Meta de negocio: encontrar clientes cuyo nombre siga un patrón conocido por el gerente.
 -- Resultado esperado: clientes cuyo nombre comience con Customer#0001.
@@ -461,6 +491,7 @@ ORDER BY c_name ASC                              -- Ordenamos alfabéticamente p
 LIMIT 20;                                        -- Mostramos veinte coincidencias como máximo.
 
 -- COMMAND ----------
+
 -- Ejemplo guiado 5.
 -- Meta de negocio: revisar piezas de bajo precio y contenedores específicos para compras rápidas.
 -- Resultado esperado: piezas de cierto conjunto de contenedores con precio pequeño.
@@ -478,6 +509,7 @@ ORDER BY p_retailprice ASC                  -- Ordenamos del precio menor al may
 LIMIT 15;                                   -- Mostramos una muestra compacta.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado
 -- MAGIC
@@ -492,6 +524,7 @@ LIMIT 15;                                   -- Mostramos una muestra compacta.
 -- MAGIC | Desafío | Detectar filas con valor nulo en una columna derivada |
 
 -- COMMAND ----------
+
 -- Solución guiada 1.
 -- Resultado esperado: diez naciones con clave, nombre y región.
 -- Error común: olvidar el FROM o escribir mal el nombre completo de la tabla.
@@ -504,6 +537,7 @@ ORDER BY n_name ASC                    -- Ordenamos alfabéticamente por nombre.
 LIMIT 10;                              -- Dejamos solo diez filas para revisión.
 
 -- COMMAND ----------
+
 -- Solución guiada 2.
 -- Resultado esperado: listado único de nombres de región.
 -- Error común: usar DISTINCT en varias columnas cuando solo quieres un catálogo simple.
@@ -513,6 +547,7 @@ FROM samples.tpch.region               -- Fuente: tabla region.
 ORDER BY nombre_region ASC;            -- Ordenamos alfabéticamente el catálogo resultante.
 
 -- COMMAND ----------
+
 -- Solución guiada 3.
 -- Resultado esperado: clientes de los segmentos AUTOMOBILE y HOUSEHOLD.
 -- Error común: mezclar AND y OR sin pensar en la lógica del filtro.
@@ -527,6 +562,7 @@ ORDER BY c_mktsegment ASC, c_acctbal DESC             -- Ordenamos primero por s
 LIMIT 20;                                             -- Recortamos la salida para lectura cómoda.
 
 -- COMMAND ----------
+
 -- Solución guiada 4.
 -- Resultado esperado: órdenes que no estén cerradas y cuyo valor sea alto.
 -- Error común: usar != sin considerar el resto de filtros necesarios para aislar los casos de interés.
@@ -542,6 +578,7 @@ ORDER BY o_totalprice DESC                      -- Ordenamos por valor descenden
 LIMIT 20;                                       -- Mostramos una cantidad controlada de filas.
 
 -- COMMAND ----------
+
 -- Solución guiada 5.
 -- Resultado esperado: filas donde el teléfono derivado queda nulo porque el saldo es negativo.
 -- ¿Por qué sirve? Porque permite practicar IS NULL aunque la tabla original tenga pocos nulos en columnas visibles.
@@ -562,6 +599,7 @@ WHERE CASE                                                    -- Repetimos la l�
 LIMIT 15;                                                     -- Mostramos quince casos para validación.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 10. Ejercicio individual
 -- MAGIC
@@ -578,6 +616,7 @@ LIMIT 15;                                                     -- Mostramos quinc
 -- MAGIC > **📝 Nota:** Antes de ejecutar, intenta escribir la consulta en papel identificando `SELECT`, `FROM`, `WHERE`, `ORDER BY` y `LIMIT`.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 11. Desafío
 -- MAGIC
@@ -600,6 +639,7 @@ LIMIT 15;                                                     -- Mostramos quinc
 -- MAGIC 5. salida legible.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 12. Resumen
 -- MAGIC
@@ -624,6 +664,7 @@ LIMIT 15;                                                     -- Mostramos quinc
 -- MAGIC Si una consulta no es clara, será difícil confiar en el análisis posterior.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 13. Laboratorio
 -- MAGIC
@@ -638,6 +679,7 @@ LIMIT 15;                                                     -- Mostramos quinc
 -- MAGIC 5. ¿Qué proveedores tienen saldo alto y teléfono registrado?
 
 -- COMMAND ----------
+
 -- Laboratorio 1.
 -- Respuesta esperada: clientes MACHINERY ordenados por saldo descendente.
 -- Error común: no incluir ORDER BY y perder la priorización que necesita el gerente.
@@ -652,6 +694,7 @@ ORDER BY c_acctbal DESC                          -- Ordenamos por saldo de mayor
 LIMIT 20;                                        -- Entregamos veinte filas para el reporte ejecutivo.
 
 -- COMMAND ----------
+
 -- Laboratorio 2.
 -- Respuesta esperada: órdenes de gran valor cuyo estado esté abierto o pendiente.
 -- Error común: confundir el operador IN con múltiples condiciones mal parentizadas.
@@ -667,6 +710,7 @@ ORDER BY o_totalprice DESC                          -- Ordenamos por valor desce
 LIMIT 20;                                           -- Devolvemos veinte filas como máximo.
 
 -- COMMAND ----------
+
 -- Laboratorio 3.
 -- Respuesta esperada: líneas de pedido con descuento dentro del rango solicitado.
 -- Error común: olvidar que BETWEEN incluye ambos extremos del rango.
@@ -682,6 +726,7 @@ ORDER BY l_discount DESC, l_quantity DESC        -- Ordenamos primero por descue
 LIMIT 20;                                        -- Mostramos veinte casos para revisión.
 
 -- COMMAND ----------
+
 -- Laboratorio 4.
 -- Respuesta esperada: partes del fabricante 1 con precio de lista relativamente bajo.
 -- Error común: no usar alias y dificultar la lectura del catálogo exportado.
@@ -698,6 +743,7 @@ ORDER BY p_retailprice ASC                            -- Ordenamos del precio me
 LIMIT 20;                                             -- Entregamos una muestra corta al gerente.
 
 -- COMMAND ----------
+
 -- Laboratorio 5.
 -- Respuesta esperada: proveedores con saldo alto, teléfono disponible y comentario no nulo.
 -- Error común: filtrar nulos con = NULL en lugar de IS NOT NULL.
@@ -714,6 +760,7 @@ ORDER BY s_acctbal DESC                           -- Ordenamos del mayor saldo a
 LIMIT 20;                                         -- Mostramos veinte filas como máximo.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 14. Autoevaluación
 -- MAGIC

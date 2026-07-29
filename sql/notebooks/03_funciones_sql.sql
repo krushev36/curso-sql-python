@@ -1,5 +1,4 @@
 -- Databricks notebook source
--- COMMAND ----------
 -- MAGIC %md
 -- MAGIC # Notebook 03: Funciones SQL
 -- MAGIC ## Fundamentos de Programación
@@ -13,7 +12,9 @@
 -- MAGIC A lo largo del notebook usarás funciones SQL para transformar datos reales de tablas de ejemplo de Databricks. El objetivo no es solo “hacer que la consulta funcione”, sino entender **por qué** cada función resuelve un problema analítico concreto.
 -- MAGIC
 -- MAGIC > **📝 Nota:** Este notebook está diseñado para ejecutarse directamente en Databricks SQL o en un notebook con celdas SQL.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 2. Objetivos de aprendizaje
 -- MAGIC
@@ -25,7 +26,9 @@
 -- MAGIC 4. Construir reglas de negocio con funciones condicionales como `CASE`, `IF`, `IIF`, `COALESCE` y `NULLIF`.
 -- MAGIC 5. Convertir tipos de datos de forma segura con `CAST` y `TRY_CAST`.
 -- MAGIC 6. Integrar múltiples funciones en consultas orientadas a calidad de datos y reporting ejecutivo.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 3. Competencias
 -- MAGIC
@@ -43,7 +46,9 @@
 -- MAGIC - Documentar consultas de manera clara.
 -- MAGIC - Comunicar supuestos y resultados esperados.
 -- MAGIC - Construir soluciones mantenibles para equipos de datos.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 4. Contexto empresarial
 -- MAGIC
@@ -57,7 +62,9 @@
 -- MAGIC 4. El equipo necesita clasificaciones automáticas para priorizar cuentas, productos y pedidos.
 -- MAGIC
 -- MAGIC En este notebook desarrollarás el tipo de transformaciones que normalmente anteceden a un dashboard o a una tabla analítica curada.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 5. Conceptos
 -- MAGIC
@@ -108,7 +115,9 @@
 -- MAGIC | `CAST`, `TRY_CAST` | convertir tipos | errores por tipos incompatibles |
 -- MAGIC
 -- MAGIC > **📝 Nota:** `TRY_CAST` es preferible cuando una cadena podría tener valores inválidos. En vez de fallar, devuelve `NULL` y permite seguir analizando.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 6. Explicación paso a paso
 -- MAGIC
@@ -129,7 +138,9 @@
 -- MAGIC - Trabajar con muestras pequeñas (`LIMIT`) mientras aprendes.
 -- MAGIC
 -- MAGIC > **📝 Nota:** En producción normalmente complementarías estas consultas con `WHERE`, validaciones de calidad y persistencia en tablas curadas.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado 1 de 5
 -- MAGIC ### Limpieza y estandarización básica de texto
@@ -144,7 +155,9 @@
 -- MAGIC **Resultado esperado:** nombres normalizados en mayúsculas, minúsculas, formato título y sin espacios accidentales.
 -- MAGIC
 -- MAGIC **Errores comunes:** olvidar alias, aplicar `TRIM` a columnas nulas sin considerar el contexto del negocio, o perder la columna original para comparar.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave del cliente para rastrear el registro original.
@@ -169,7 +182,9 @@ SELECT
 FROM samples.tpch.customer
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado 2 de 5
 -- MAGIC ### Extracción y composición de texto
@@ -184,7 +199,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** prefijos extraídos, teléfono sin guiones y una ficha resumida por cliente.
 -- MAGIC
 -- MAGIC **Errores comunes:** asumir mal la posición del texto en `SUBSTRING`, olvidar que `SPLIT` devuelve un arreglo o usar separadores inconsistentes.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos el identificador para unir esta salida con otras tablas si fuera necesario.
@@ -209,7 +226,9 @@ SELECT
 FROM samples.tpch.customer
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado 3 de 5
 -- MAGIC ### Relleno visual y estandarización de identificadores
@@ -224,7 +243,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** códigos rellenados con ceros, marcas extendidas a ancho fijo y nombres listos para presentación.
 -- MAGIC
 -- MAGIC **Errores comunes:** olvidar convertir un número a texto antes de usar `LPAD` o `RPAD`, o usar anchos demasiado pequeños que truncan el contexto esperado.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave de la parte para seguir el producto original.
@@ -245,7 +266,9 @@ SELECT
 FROM samples.tpch.part
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado 4 de 5
 -- MAGIC ### Transformaciones numéricas para métricas operativas
@@ -260,7 +283,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** precios redondeados, diferencias absolutas y valores máximo/mínimo entre tasas.
 -- MAGIC
 -- MAGIC **Errores comunes:** no redondear antes de reportar, aplicar `SQRT` a valores negativos o usar `MOD` sobre tipos no compatibles sin convertirlos.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la orden para contextualizar el ítem dentro de la venta.
@@ -293,7 +318,9 @@ SELECT
 FROM samples.tpch.lineitem
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado 5 de 5
 -- MAGIC ### Fechas, condicionales y conversión segura de tipos
@@ -308,7 +335,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** fechas enriquecidas, categorías por valor y ejemplos claros de `CAST` frente a `TRY_CAST`.
 -- MAGIC
 -- MAGIC **Errores comunes:** convertir texto inválido con `CAST`, olvidar el `ELSE` en `CASE` o interpretar mal la diferencia entre fecha y timestamp.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la orden para referencia del negocio.
@@ -352,7 +381,7 @@ SELECT
   -- Aplicamos una lógica binaria corta para resaltar si el monto supera un umbral.
   IF(o_totalprice > 200000, 'Revisar con gerencia', 'Seguimiento normal') AS accion_sugerida,
   -- Aplicamos una segunda variante binaria con IIF para mostrar sintaxis equivalente.
-  IIF(o_orderstatus = 'F', 'Orden finalizada', 'Orden no finalizada') AS estado_interpretado,
+  IF(o_orderstatus = 'F', 'Orden finalizada', 'Orden no finalizada') AS estado_interpretado,
   -- Convertimos la llave a texto para mostrar un caso simple de CAST a STRING.
   CAST(o_orderkey AS STRING) AS orden_como_texto,
   -- Convertimos un literal válido a entero para demostrar CAST a INT.
@@ -373,7 +402,9 @@ SELECT
 FROM samples.tpch.orders
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado 1 de 5
 -- MAGIC ### Crear una etiqueta limpia de proveedor
@@ -385,7 +416,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** una etiqueta tipo `000123 - Supplier#000123 - 4567`.
 -- MAGIC
 -- MAGIC **Error común:** olvidar convertir `s_suppkey` a texto antes de usar `LPAD`.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave del proveedor para trazabilidad.
@@ -404,7 +437,9 @@ SELECT
 FROM samples.tpch.supplier
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado 2 de 5
 -- MAGIC ### Medir antigüedad de órdenes por cliente
@@ -416,7 +451,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** cada orden aparece con nombre del cliente, días de antigüedad y una categoría temporal.
 -- MAGIC
 -- MAGIC **Error común:** usar el alias incorrecto en el `JOIN` o invertir el orden de los argumentos de `DATEDIFF`.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave de la orden como identificador principal del evento.
@@ -443,7 +480,9 @@ INNER JOIN samples.tpch.customer AS c
   ON o.o_custkey = c.c_custkey
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado 3 de 5
 -- MAGIC ### Calcular importes finales y topes de referencia
@@ -455,7 +494,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** monto final estimado, descuento monetario y límites de referencia por fila.
 -- MAGIC
 -- MAGIC **Error común:** olvidar el orden de operaciones matemáticas y obtener montos incorrectos.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos orden y línea para ubicar el registro dentro del detalle de venta.
@@ -476,7 +517,9 @@ SELECT
 FROM samples.tpch.lineitem
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado 4 de 5
 -- MAGIC ### Construir un descriptor analítico de producto
@@ -488,7 +531,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** un descriptor compacto, categoría de tamaño y una conversión segura del tamaño.
 -- MAGIC
 -- MAGIC **Error común:** mezclar texto y números sin `CAST`, lo que puede romper la concatenación.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave de la parte para trazabilidad del producto original.
@@ -511,7 +556,9 @@ SELECT
 FROM samples.tpch.part
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado 5 de 5
 -- MAGIC ### Generar una clave operativa de periodo y prioridad
@@ -523,7 +570,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** claves como `1996-01-1-URG` junto con una alerta de valor.
 -- MAGIC
 -- MAGIC **Error común:** olvidar rellenar el mes con `LPAD` y producir claves inconsistentes como `1996-1` y `1996-10`.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave de orden como identificador primario de la transacción.
@@ -549,7 +598,9 @@ SELECT
 FROM samples.tpch.orders
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado 1 de 5 · Muy Fácil
 -- MAGIC ### Crear una etiqueta de cliente para revisión manual
@@ -559,7 +610,9 @@ LIMIT 10;
 -- MAGIC **Por qué esta solución es adecuada:** permite revisar calidad de forma compacta y deja visibles los atributos clave.
 -- MAGIC
 -- MAGIC **Resultado esperado:** una etiqueta homogénea con longitud del nombre como indicador adicional.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave del cliente como referencia principal.
@@ -576,7 +629,9 @@ SELECT
 FROM samples.tpch.customer
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado 2 de 5 · Fácil
 -- MAGIC ### Preparar una vista de calendario para órdenes
@@ -586,7 +641,9 @@ LIMIT 10;
 -- MAGIC **Por qué esta solución es adecuada:** transforma una sola fecha en varios atributos listos para planificación.
 -- MAGIC
 -- MAGIC **Resultado esperado:** una tabla pequeña de órdenes con enriquecimiento temporal.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave de la orden para referencia.
@@ -605,7 +662,9 @@ SELECT
 FROM samples.tpch.orders
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado 3 de 5 · Intermedio
 -- MAGIC ### Comparar descuento e impuesto en detalle de venta
@@ -615,7 +674,9 @@ LIMIT 10;
 -- MAGIC **Por qué esta solución es adecuada:** resume una comparación de negocio en una etiqueta simple y una métrica interpretable.
 -- MAGIC
 -- MAGIC **Resultado esperado:** cada línea indica la relación entre tasas y su distancia.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la orden para contextualizar el ítem dentro del proceso comercial.
@@ -641,7 +702,9 @@ SELECT
 FROM samples.tpch.lineitem
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado 4 de 5 · Intermedio Alto
 -- MAGIC ### Descomponer y validar teléfonos de proveedores
@@ -653,7 +716,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** bloques del teléfono, extensión visual y un estado financiero rápido.
 -- MAGIC
 -- MAGIC **Error común:** usar índices equivocados en `ELEMENT_AT` después de `SPLIT`.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave del proveedor para seguimiento.
@@ -681,7 +746,9 @@ SELECT
 FROM samples.tpch.supplier
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 10;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado 5 de 5 · Desafío guiado
 -- MAGIC ### Resumen mensual de órdenes y clientes con riesgo financiero
@@ -693,7 +760,9 @@ LIMIT 10;
 -- MAGIC **Resultado esperado:** total de órdenes, ticket promedio, clientes con saldo negativo y máxima antigüedad por mes.
 -- MAGIC
 -- MAGIC **Error común:** olvidar repetir en `GROUP BY` la misma expresión usada para construir el periodo.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Formateamos la fecha de la orden como año-mes para construir el periodo analítico.
@@ -718,7 +787,9 @@ GROUP BY DATE_FORMAT(o.o_orderdate, 'yyyy-MM')
 ORDER BY periodo
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 12;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 10. Ejercicio individual
 -- MAGIC
@@ -740,7 +811,9 @@ LIMIT 12;
 -- MAGIC Une `customer` y `orders` para construir un reporte por cliente con nombre normalizado, periodo de orden y una alerta cuando `o_totalprice` supere un umbral definido por ti.
 -- MAGIC
 -- MAGIC > **📝 Nota:** intenta dejar visibles tanto el campo original como el transformado. Esa práctica acelera la validación.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 11. Desafío
 -- MAGIC
@@ -762,7 +835,9 @@ LIMIT 12;
 -- MAGIC Construye un resumen mensual por `o_orderdate` con total de órdenes, promedio de `o_totalprice`, categoría de volumen y etiqueta de periodo con `CONCAT_WS`.
 -- MAGIC
 -- MAGIC > **📝 Nota:** en una revisión académica se valorará que justifiques por qué elegiste cada función y cómo validarías posibles errores.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 12. Resumen
 -- MAGIC
@@ -776,7 +851,9 @@ LIMIT 12;
 -- MAGIC - `CAST` y `TRY_CAST` son esenciales para **gobernar conversiones de tipo con seguridad**.
 -- MAGIC
 -- MAGIC > **📝 Nota:** una consulta analítica sólida no solo calcula; también facilita validación, trazabilidad y comunicación.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 13. Laboratorio
 -- MAGIC ### Caso aplicado: reporte de calidad de datos para DataCorp Analytics
@@ -787,7 +864,9 @@ LIMIT 12;
 -- MAGIC 1. ¿Qué clientes necesitan estandarización inmediata de nombre, segmento y teléfono para un maestro comercial?
 -- MAGIC 2. ¿Cómo se comporta el volumen y el valor promedio de órdenes por periodo mensual?
 -- MAGIC 3. ¿Qué líneas de orden muestran mayor riesgo operativo por antigüedad de envío y combinación de descuento/impuesto?
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Laboratorio 1 de 3
 -- MAGIC **Pregunta de negocio:** ¿Qué clientes deben pasar primero por una rutina de limpieza y estandarización?
@@ -795,7 +874,9 @@ LIMIT 12;
 -- MAGIC **Por qué esta consulta está escrita así:** se crea una vista tipo “antes y después” para que el gerente vea el beneficio inmediato de estandarizar atributos.
 -- MAGIC
 -- MAGIC **Qué esperar:** etiquetas limpias, teléfonos normalizados y prioridad de limpieza basada en longitud del nombre.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la llave del cliente para identificar el registro en el maestro.
@@ -822,7 +903,9 @@ FROM samples.tpch.customer
 ORDER BY prioridad_revision, c_custkey
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 20;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Laboratorio 2 de 3
 -- MAGIC **Pregunta de negocio:** ¿Cómo resumir el comportamiento mensual de órdenes para el tablero gerencial?
@@ -832,7 +915,9 @@ LIMIT 20;
 -- MAGIC **Qué esperar:** periodos mensuales, volumen de órdenes, ticket promedio y categoría de demanda.
 -- MAGIC
 -- MAGIC **Error común:** construir el periodo en `SELECT` y luego agrupar por la fecha original en vez de por la misma expresión.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Construimos el periodo mensual que será la unidad principal del reporte.
@@ -857,7 +942,9 @@ FROM samples.tpch.orders
 GROUP BY DATE_FORMAT(o_orderdate, 'yyyy-MM')
 -- Ordenamos la salida para que la revisión manual sea más clara y consistente.
 ORDER BY periodo;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ### Laboratorio 3 de 3
 -- MAGIC **Pregunta de negocio:** ¿Qué líneas de orden merecen revisión por tiempos amplios entre compromiso y recepción o por combinaciones sensibles de tasas?
@@ -867,7 +954,9 @@ ORDER BY periodo;
 -- MAGIC **Qué esperar:** una muestra priorizada con días entre hitos logísticos, monto neto y alerta operativa.
 -- MAGIC
 -- MAGIC **Error común:** confundir `l_commitdate` con `l_receiptdate` al calcular la brecha logística.
+
 -- COMMAND ----------
+
 -- Iniciamos la consulta seleccionando columnas originales y columnas transformadas.
 SELECT
   -- Conservamos la orden para poder escalar la revisión al nivel transaccional.
@@ -896,7 +985,9 @@ FROM samples.tpch.lineitem
 ORDER BY dias_brecha_logistica DESC, tasa_mas_sensible DESC
 -- Limitamos el número de filas para facilitar aprendizaje, validación y lectura.
 LIMIT 20;
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 14. Autoevaluación
 -- MAGIC
