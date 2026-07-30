@@ -18,7 +18,9 @@
 -- MAGIC | Preguntas clave | Ingresos por región, ticket promedio por segmento, pedidos por mes, productos top |
 -- MAGIC
 -- MAGIC > **📝 Nota:** En analítica, muchas decisiones no parten de filas individuales, sino de **agregaciones** que convierten millones de registros en indicadores comprensibles.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 2. Objetivos de aprendizaje
 -- MAGIC
@@ -37,7 +39,9 @@
 -- MAGIC | Resumir datos | consultas con métricas claras |
 -- MAGIC | Analizar negocio | indicadores útiles para BI |
 -- MAGIC | Evitar errores | uso correcto de columnas agregadas y agrupadas |
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 3. Competencias
 -- MAGIC
@@ -59,7 +63,9 @@
 -- MAGIC | Filtrar temprano con `WHERE` | mejora rendimiento y claridad |
 -- MAGIC | Filtrar grupos con `HAVING` | mantiene consistencia semántica |
 -- MAGIC | Etiquetar subtotales | hace más interpretable el resultado |
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 4. Contexto empresarial
 -- MAGIC
@@ -89,7 +95,9 @@
 -- MAGIC | `samples.nyctaxi.trips` | ejemplo adicional de agregación temporal si se desea extender |
 -- MAGIC
 -- MAGIC > **📝 Nota:** Aunque el negocio es ficticio, las preguntas son idénticas a las que un analista resuelve en producción.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 5. Conceptos
 -- MAGIC
@@ -127,7 +135,9 @@
 -- MAGIC | Dobles conteos por joins | una fila se replica al unir tablas detalle | revisar el grano antes de agregar |
 -- MAGIC
 -- MAGIC > **📝 Nota:** La regla mental es: **toda columna en `SELECT` debe estar agregada o incluida en `GROUP BY`**.
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 6. Explicación paso a paso
 -- MAGIC
@@ -154,6 +164,7 @@
 -- MAGIC ```
 -- MAGIC
 -- MAGIC > **📝 Nota:** Si tu condición usa `SUM`, `COUNT` o `AVG`, probablemente pertenece a `HAVING`.
+
 -- COMMAND ----------
 
 -- Introducción práctica: funciones de agregación básicas sobre pedidos.
@@ -439,6 +450,7 @@ GROUP BY GROUPING SETS ((r.r_name, c.c_mktsegment), (r.r_name), (c.c_mktsegment)
 ORDER BY region, segmento;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado
 -- MAGIC
@@ -453,6 +465,7 @@ ORDER BY region, segmento;
 -- MAGIC | 5 | ¿Qué países tienen suficientes proveedores para analizar? | `HAVING` |
 -- MAGIC
 -- MAGIC > **📝 Nota:** Lee la explicación antes de ejecutar cada consulta y compara el resultado con la expectativa indicada.
+
 -- COMMAND ----------
 
 -- Ejemplo 1: ingreso total por región con una definición de ingreso más cercana a ventas netas.
@@ -580,6 +593,7 @@ HAVING COUNT(*) >= 4
 ORDER BY total_proveedores DESC, saldo_promedio DESC;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado
 -- MAGIC
@@ -599,6 +613,7 @@ ORDER BY total_proveedores DESC, saldo_promedio DESC;
 -- MAGIC | 3 | Fácil | `HAVING` por producto |
 -- MAGIC | 4 | Intermedio | `CASE WHEN` + porcentajes |
 -- MAGIC | 5 | Intermedio | `ROLLUP` temporal |
+
 -- COMMAND ----------
 
 -- Guiado 1: contar clientes por región.
@@ -668,7 +683,7 @@ INNER JOIN samples.tpch.part AS p
 -- GROUP BY genera una fila por producto.
 GROUP BY p.p_partkey, p.p_name
 -- HAVING retiene solo grupos con volumen y cantidad promedio relevantes.
-HAVING COUNT(*) > 100
+HAVING COUNT(*) > 10
   -- Esta segunda condición obliga a que la cantidad promedio también sea alta.
   AND AVG(l.l_quantity) > 25
 -- ORDER BY ayuda a priorizar productos más frecuentes.
@@ -740,6 +755,7 @@ GROUP BY ROLLUP (anio_num, mes_num)
 ORDER BY anio, mes;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado
 -- MAGIC
@@ -755,6 +771,7 @@ ORDER BY anio, mes;
 -- MAGIC | Desafío | calcular participaciones porcentuales mensuales |
 -- MAGIC
 -- MAGIC > **📝 Nota:** Si recibes el error *"expression is neither present in the group by, nor is it an aggregate function"*, revisa inmediatamente las columnas del `SELECT`.
+
 -- COMMAND ----------
 
 -- Solución guiada 1 (Muy fácil): contar pedidos y clientes distintos.
@@ -873,6 +890,7 @@ FROM ingresos_mensuales
 ORDER BY mes;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 10. Ejercicio individual
 -- MAGIC
@@ -891,6 +909,7 @@ ORDER BY mes;
 -- MAGIC | 3 | Intermedio | productos distintos por país proveedor |
 -- MAGIC | 4 | Intermedio alto | años con ticket promedio alto |
 -- MAGIC | 5 | Desafío | resumen con `GROUPING SETS` |
+
 -- COMMAND ----------
 
 -- Solución individual 1: ingreso por región y año.
@@ -999,7 +1018,7 @@ WHERE o_orderdate >= DATE('1993-01-01')
 -- GROUP BY resume por año.
 GROUP BY YEAR(o_orderdate)
 -- HAVING retiene solo los años con ticket promedio alto.
-HAVING AVG(o_totalprice) > 200000
+HAVING AVG(o_totalprice) > 2000
 -- ORDER BY presenta los años en secuencia temporal.
 ORDER BY anio;
 
@@ -1034,6 +1053,7 @@ GROUP BY GROUPING SETS ((r.r_name, YEAR(o.o_orderdate)), (c.c_mktsegment, YEAR(o
 ORDER BY anio, region, segmento;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 11. Desafío
 -- MAGIC
@@ -1049,6 +1069,7 @@ ORDER BY anio, region, segmento;
 -- MAGIC | 5 | comparación contra promedio global |
 -- MAGIC
 -- MAGIC > **📝 Nota:** Un buen desafío no es solo escribir SQL que corra; es escribir SQL que entregue una historia clara para la toma de decisiones.
+
 -- COMMAND ----------
 
 -- Desafío 1: participación del ingreso por región y segmento.
@@ -1243,6 +1264,7 @@ WHERE i.ingreso_mensual > p.promedio_mensual_global
 ORDER BY ingreso_mensual DESC;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 12. Resumen
 -- MAGIC
@@ -1265,7 +1287,9 @@ ORDER BY ingreso_mensual DESC;
 -- MAGIC | ¿Los filtros de detalle van en `WHERE`? |  |
 -- MAGIC | ¿Los filtros de grupo van en `HAVING`? |  |
 -- MAGIC | ¿Validé el impacto de `NULL` y de los joins? |  |
+
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 13. Laboratorio
 -- MAGIC
