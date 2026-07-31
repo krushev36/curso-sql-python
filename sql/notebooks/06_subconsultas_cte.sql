@@ -4,32 +4,33 @@
 -- MAGIC ## Fundamentos de Programación
 -- MAGIC ### Maestría en Ciencia de Datos e Inteligencia de Negocios · Universidad de Antioquia
 -- MAGIC ## 1. Bienvenida
--- MAGIC 
+-- MAGIC
 -- MAGIC Bienvenidas y bienvenidos al sexto notebook del curso **Fundamentos de Programación** de la **Maestría en Ciencia de Datos e Inteligencia de Negocios** de la **Universidad de Antioquia**.
--- MAGIC 
+-- MAGIC
 -- MAGIC En esta sesión asumirás el rol de **Data Analyst en DataCorp Analytics**. El equipo de analítica necesita responder preguntas de negocio que no se resuelven con una sola agregación: hace falta **descomponer el problema en pasos intermedios**, comparar contra promedios, validar existencia de registros relacionados y construir bloques reutilizables.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Rol profesional del caso
 -- MAGIC | Elemento | Descripción |
 -- MAGIC |---|---|
 -- MAGIC | Empresa | DataCorp Analytics |
 -- MAGIC | Rol del estudiante | Data Analyst |
 -- MAGIC | Necesidad del negocio | Resolver preguntas analíticas multi-etapa |
--- MAGIC | Herramientas centrales | Subconsultas, `EXISTS`, `IN`, `ANY`, `ALL`, `WITH` |
+-- MAGIC | Herramientas centrales | Subconsultas, `EXISTS`, `IN`, `WITH` |
 -- MAGIC | Resultado esperado | Consultas legibles, correctas y reutilizables |
--- MAGIC 
+-- MAGIC
 -- MAGIC ```text
 -- MAGIC Pregunta compleja -> Subpasos analíticos -> Validación lógica -> Resultado accionable
 -- MAGIC ```
--- MAGIC 
+-- MAGIC
 -- MAGIC > **📝 Nota:** Una subconsulta no es “SQL avanzado por complejidad”, sino una forma ordenada de pensar: primero calculo algo intermedio, luego lo uso para decidir.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 2. Objetivos de aprendizaje
--- MAGIC 
+-- MAGIC
 -- MAGIC Al finalizar este notebook podrás:
--- MAGIC 
+-- MAGIC
 -- MAGIC 1. Explicar qué es una **subconsulta** y cuándo conviene usarla.
 -- MAGIC 2. Aplicar subconsultas en `WHERE`, `FROM` y `SELECT`.
 -- MAGIC 3. Distinguir correctamente entre subconsultas **correlacionadas** y **no correlacionadas**.
@@ -40,7 +41,7 @@
 -- MAGIC 8. Reconocer cuándo una CTE mejora la **legibilidad**, la **modularidad** y la **mantenibilidad**.
 -- MAGIC 9. Identificar escenarios donde conviene materializar resultados intermedios.
 -- MAGIC 10. Interpretar casos de uso reales en negocio con subconsultas y CTE.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Evidencias esperadas
 -- MAGIC | Habilidad | Evidencia |
 -- MAGIC |---|---|
@@ -50,20 +51,21 @@
 -- MAGIC | Comunicar resultados | aliases y comentarios claros |
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 3. Competencias
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Competencias técnicas
 -- MAGIC - Diseñar subconsultas escalares, de tabla y de existencia.
 -- MAGIC - Construir CTE nombradas para separar lógica analítica en módulos.
 -- MAGIC - Encadenar varias CTE sin perder el grano del análisis.
--- MAGIC - Comparar conjuntos con `IN`, `ANY` y `ALL`.
--- MAGIC 
+-- MAGIC - Comparar conjuntos con `IN`.
+-- MAGIC
 -- MAGIC ### Competencias analíticas
 -- MAGIC - Traducir preguntas multi-etapa a una secuencia reproducible de pasos SQL.
 -- MAGIC - Justificar por qué una comparación debe hacerse contra un promedio global, local o por segmento.
 -- MAGIC - Detectar cuándo un `JOIN` puede duplicar filas y alterar la interpretación.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Competencias profesionales
 -- MAGIC | Competencia | Aplicación en el trabajo |
 -- MAGIC |---|---|
@@ -71,22 +73,23 @@
 -- MAGIC | Reusabilidad | bloques SQL fáciles de extender |
 -- MAGIC | Trazabilidad | resultados intermedios bien nombrados |
 -- MAGIC | Comunicación | explicación de supuestos y riesgos |
--- MAGIC 
+-- MAGIC
 -- MAGIC > **📝 Nota:** En equipos de datos maduros, escribir SQL legible es tan importante como escribir SQL correcto.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 4. Contexto empresarial
--- MAGIC 
+-- MAGIC
 -- MAGIC El director de analítica de **DataCorp Analytics** ha pedido un notebook base para responder preguntas como:
--- MAGIC 
+-- MAGIC
 -- MAGIC 1. ¿Qué clientes están **por encima del comportamiento promedio**?
 -- MAGIC 2. ¿Qué proveedores participan en productos de **demanda superior a su categoría**?
 -- MAGIC 3. ¿Qué regiones combinan **alto volumen**, **alto ticket** y **concentración de clientes estratégicos**?
 -- MAGIC 4. ¿Cómo estructurar consultas largas sin convertirlas en un bloque difícil de mantener?
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Flujo de trabajo del analista
--- MAGIC 
+-- MAGIC
 -- MAGIC ```text
 -- MAGIC Tablas base
 -- MAGIC     |
@@ -99,7 +102,7 @@
 -- MAGIC     v
 -- MAGIC Resultado final para decisión
 -- MAGIC ```
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Tablas de trabajo de este notebook
 -- MAGIC | Dataset | Uso principal |
 -- MAGIC |---|---|
@@ -111,75 +114,59 @@
 -- MAGIC | `samples.tpch.nation` | país |
 -- MAGIC | `samples.tpch.region` | región |
 -- MAGIC | `samples.nyctaxi.trips` | referencia opcional para extender ejercicios temporales |
--- MAGIC 
+-- MAGIC
 -- MAGIC > **📝 Nota:** Aunque el caso es ficticio, el patrón de trabajo es real: casi toda pregunta compleja en analítica requiere uno o varios pasos intermedios.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 5. Conceptos
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 5.1 ¿Qué es una subconsulta?
 -- MAGIC Una **subconsulta** es una consulta dentro de otra consulta. Sirve para producir un valor, una lista o una tabla intermedia que luego usa la consulta principal.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 5.2 Tipos principales
 -- MAGIC | Tipo | Devuelve | Lugar típico | Uso frecuente |
 -- MAGIC |---|---|---|---|
 -- MAGIC | Escalar | un solo valor | `SELECT`, `WHERE` | comparar contra promedio o total global |
--- MAGIC | De lista | una columna con varios valores | `IN`, `ANY`, `ALL` | filtrar por pertenencia o comparación |
+-- MAGIC | De lista | una columna con varios valores | `IN` | filtrar por pertenencia o comparación |
 -- MAGIC | De tabla | varias columnas y filas | `FROM` | crear una tabla derivada o vista inline |
 -- MAGIC | Correlacionada | depende de la fila externa | `WHERE`, `SELECT` | comparar cada fila con su propio grupo |
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 5.3 `EXISTS` y `NOT EXISTS`
 -- MAGIC - `EXISTS` devuelve verdadero si la subconsulta encuentra al menos una fila.
 -- MAGIC - `NOT EXISTS` devuelve verdadero si la subconsulta no encuentra filas.
 -- MAGIC - Suele ser ideal cuando la pregunta es: **“¿existe relación?”**
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 5.4 `IN` con subconsulta vs `JOIN`
 -- MAGIC | Técnica | Ventaja | Riesgo | Cuándo usar |
 -- MAGIC |---|---|---|---|
 -- MAGIC | `IN (subconsulta)` | semántica clara de pertenencia | puede requerir cuidado con `NULL` | cuando filtras por membresía |
 -- MAGIC | `JOIN` | permite traer columnas adicionales | puede duplicar filas | cuando además necesitas enriquecer el resultado |
--- MAGIC 
--- MAGIC ### 5.5 `ANY` y `ALL`
--- MAGIC - `> ANY (...)` significa “mayor que **al menos uno** de los valores del conjunto”.
--- MAGIC - `> ALL (...)` significa “mayor que **todos** los valores del conjunto”.
--- MAGIC - Una forma intuitiva de recordarlo es:
--- MAGIC 
--- MAGIC ```text
--- MAGIC > ANY  ~ mayor que el mínimo de algún grupo
--- MAGIC > ALL  ~ mayor que el máximo de todo un grupo
--- MAGIC ```
--- MAGIC 
--- MAGIC ### 5.6 CTE (`WITH`)
--- MAGIC Una **Common Table Expression** es un bloque con nombre definido al inicio de la consulta mediante `WITH`.
--- MAGIC 
--- MAGIC ```text
--- MAGIC WITH bloque_1 AS (...),
--- MAGIC      bloque_2 AS (...)
--- MAGIC SELECT ...
--- MAGIC ```
--- MAGIC 
--- MAGIC ### 5.7 Cuándo preferir CTE o subconsulta
+-- MAGIC
+-- MAGIC
+-- MAGIC ### 5.5 Cuándo preferir CTE o subconsulta
 -- MAGIC | Si necesitas... | Conviene más |
 -- MAGIC |---|---|
 -- MAGIC | usar el resultado una sola vez y muy cerca del filtro | subconsulta |
 -- MAGIC | dividir la lógica en etapas legibles | CTE |
 -- MAGIC | reutilizar un bloque en varias partes de la misma consulta | CTE |
 -- MAGIC | expresar existencia puntual | `EXISTS` |
--- MAGIC 
--- MAGIC ### 5.8 CTE recursivas y materialización
+-- MAGIC
+-- MAGIC ### 5.7 CTE recursivas y materialización
 -- MAGIC - **CTE recursiva:** se referencia a sí misma para recorrer jerarquías, secuencias o grafos simples.
 -- MAGIC - **Materializar una CTE:** cuando el resultado intermedio es costoso y se reutiliza muchas veces, puede convenir persistirlo como `TEMP VIEW` o tabla intermedia.
 -- MAGIC - En Databricks, una CTE suele ser una construcción lógica; el optimizador decide cómo ejecutarla.
--- MAGIC 
+-- MAGIC
 -- MAGIC > **📝 Nota:** La mejor pregunta no es “¿qué sintaxis me sé?”, sino “¿qué estructura hace más comprensible esta lógica dentro de mi equipo?”.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 6. Explicación paso a paso
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Método recomendado para resolver preguntas multi-etapa
--- MAGIC 
+-- MAGIC
 -- MAGIC 1. **Define la pregunta exacta.** ¿Buscas comparar, filtrar, detectar existencia o construir una tabla intermedia?
 -- MAGIC 2. **Fija el grano.** ¿Una fila por cliente, pedido, región o producto?
 -- MAGIC 3. **Decide el tipo de resultado intermedio.** Valor único, lista de llaves o tabla resumida.
@@ -187,9 +174,9 @@
 -- MAGIC 5. **Valida duplicados.** Si un `JOIN` cambia el número de filas, quizás necesitabas `EXISTS`, `IN` o una agregación previa.
 -- MAGIC 6. **Nombra bien los bloques.** Una CTE llamada `ingresos_cliente` comunica mejor que una subconsulta anónima larga.
 -- MAGIC 7. **Comprueba el resultado esperado.** Antes de optimizar, verifica la lógica.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Flujo lógico típico
--- MAGIC 
+-- MAGIC
 -- MAGIC ```text
 -- MAGIC FROM/JOIN
 -- MAGIC    -> WHERE
@@ -197,7 +184,7 @@
 -- MAGIC    -> SELECT final
 -- MAGIC    -> ORDER BY / LIMIT
 -- MAGIC ```
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Errores comunes
 -- MAGIC | Error | Por qué ocurre | Cómo evitarlo |
 -- MAGIC |---|---|---|
@@ -205,15 +192,16 @@
 -- MAGIC | Un `JOIN` duplica clientes o pedidos | se unió contra detalle sin resumir antes | agregar `GROUP BY`, `DISTINCT` o usar `EXISTS` |
 -- MAGIC | La consulta es correcta pero ilegible | demasiada lógica anidada sin nombres | mover bloques a CTE |
 -- MAGIC | `NOT IN` falla con `NULL` | semántica de `NULL` en listas | preferir `NOT EXISTS` cuando hay duda |
--- MAGIC 
+-- MAGIC
 -- MAGIC > **📝 Nota:** En términos pedagógicos, una CTE es una forma de “poner nombre a un pensamiento intermedio”.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Ejemplo completamente explicado
--- MAGIC 
+-- MAGIC
 -- MAGIC En esta sección verás **5 ejemplos completos**. Cada consulta incluye el motivo de diseño, el papel de cada cláusula, el resultado esperado y errores comunes.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Ejemplo | Dificultad | Idea central |
 -- MAGIC |---|---|---|
 -- MAGIC | 1 de 5 | Muy Fácil | subconsulta no correlacionada en `WHERE` |
@@ -223,6 +211,7 @@
 -- MAGIC | 5 de 5 | Intermedio Alto | `EXISTS` y `NOT EXISTS` |
 
 -- COMMAND ----------
+
 -- Ejemplo 1 de 5.
 -- ¿Por qué esta consulta está escrita así?: porque primero calculamos un promedio global y luego filtramos clientes por encima de ese valor de referencia.
 -- Qué hace cada cláusula:
@@ -434,11 +423,12 @@ ORDER BY c.c_custkey
 LIMIT 20;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. Ejemplo guiado
--- MAGIC 
+-- MAGIC
 -- MAGIC En esta sección ya no explicamos cada línea en un texto aparte, pero las consultas siguen comentadas y orientadas a la toma de decisiones.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Ejemplo guiado | Enfoque | Nivel |
 -- MAGIC |---|---|---|
 -- MAGIC | 1 de 5 | `IN` con subconsulta | Muy Fácil |
@@ -496,9 +486,10 @@ SELECT
 -- Tomamos part como tabla fuente de los productos a evaluar.
 FROM samples.tpch.part AS p
 -- Filtramos las partes cuyo precio supera al menos uno de los precios del conjunto interno.
-WHERE p.p_retailprice > ANY (
-  -- La subconsulta devuelve el conjunto de precios de partes con tamaño 5.
-  SELECT p2.p_retailprice
+WHERE p.p_retailprice > (
+  -- La subconsulta devuelve el precio mínimo de partes con tamaño 5.
+  -- Usamos MIN porque > ANY significa "mayor que al menos uno" = mayor que el mínimo.
+  SELECT MIN(p2.p_retailprice)
   -- Leemos la misma tabla part como grupo de referencia.
   FROM samples.tpch.part AS p2
   -- Definimos el subconjunto contra el cual se hará la comparación.
@@ -507,38 +498,6 @@ WHERE p.p_retailprice > ANY (
 -- Ordenamos de mayor a menor para inspeccionar primero los precios más altos.
 ORDER BY p.p_retailprice DESC
 -- Limitamos el resultado por motivos pedagógicos.
-LIMIT 15;
-
--- COMMAND ----------
-
--- Ejemplo guiado 3 de 5.
--- Objetivo: usar `> ALL` para identificar partes que superan por precio a todas las partes de un grupo de referencia.
--- Por qué esta consulta es útil: `ALL` equivale a una condición fuerte sobre un conjunto completo.
--- Resultado esperado: partes más caras que cualquier parte de tamaño 49.
--- Error común: usar `> ALL` cuando el subconjunto puede ser vacío sin pensar en la semántica del resultado.
-SELECT
-  -- Seleccionamos la llave de la parte para rastrear el producto.
-  p.p_partkey AS parte_id,
-  -- Seleccionamos el nombre del producto para hacer legible la salida.
-  p.p_name AS nombre_parte,
-  -- Conservamos el tamaño de la parte como contexto descriptivo.
-  p.p_size AS tamano,
-  -- Mostramos el precio que debe superar a todos los valores del conjunto interno.
-  p.p_retailprice AS precio_retail
--- Leemos la dimensión de partes.
-FROM samples.tpch.part AS p
--- Filtramos solo productos cuyo precio es mayor que todos los precios del grupo de referencia.
-WHERE p.p_retailprice > ALL (
-  -- La subconsulta devuelve los precios de las partes de tamaño 49.
-  SELECT p2.p_retailprice
-  -- Leemos nuevamente part como conjunto de comparación.
-  FROM samples.tpch.part AS p2
-  -- Definimos el subconjunto de referencia por tamaño.
-  WHERE p2.p_size = 49
-)
--- Ordenamos por precio descendente para priorizar los valores más altos.
-ORDER BY p.p_retailprice DESC
--- Acotamos la salida del ejemplo.
 LIMIT 15;
 
 -- COMMAND ----------
@@ -668,11 +627,12 @@ WHERE rc.ranking_en_grupo <= 3
 ORDER BY rc.region, rc.segmento, rc.ranking_en_grupo, rc.ingreso_cliente DESC;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Ejercicio guiado
--- MAGIC 
+-- MAGIC
 -- MAGIC Ahora pasamos a ejercicios con solución de referencia. La progresión sigue la escala **Muy Fácil → Fácil → Intermedio → Intermedio Alto → Desafío**.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Ejercicio guiado | Nivel | Habilidad principal |
 -- MAGIC |---|---|---|
 -- MAGIC | 1 de 5 | Muy Fácil | tabla derivada en `FROM` |
@@ -795,41 +755,6 @@ LIMIT 20;
 
 -- COMMAND ----------
 
--- Ejercicio guiado 4 de 5 - Intermedio Alto.
--- Enunciado: listar proveedores que no participaron en líneas con descuento alto, definido aquí como descuento mayor o igual a 0.09.
--- Por qué la solución está escrita así: `NOT EXISTS` evita duplicados y expresa de forma directa la ausencia de relación bajo una condición específica.
--- Resultado esperado: proveedores sin evidencia de participación en líneas de descuento alto.
--- Error común: usar `NOT IN` sobre una subconsulta con posibles nulos y obtener resultados inesperados.
-SELECT
-  -- Mostramos la llave del proveedor como identificador principal.
-  s.s_suppkey AS proveedor_id,
-  -- Mostramos el nombre del proveedor para interpretación funcional.
-  s.s_name AS nombre_proveedor,
-  -- Mostramos la nación del proveedor para enriquecer la lectura geográfica.
-  n.n_name AS pais_proveedor
--- Leemos la dimensión de proveedores.
-FROM samples.tpch.supplier AS s
--- Unimos nation para agregar la geografía del proveedor.
-INNER JOIN samples.tpch.nation AS n
-  ON s.s_nationkey = n.n_nationkey
--- Filtramos solo proveedores para los cuales no existe ninguna línea con descuento alto.
-WHERE NOT EXISTS (
-  -- La subconsulta busca líneas asociadas al proveedor actual que cumplan la condición de descuento.
-  SELECT 1
-  -- Leemos el detalle lineitem porque allí vive el descuento aplicado.
-  FROM samples.tpch.lineitem AS l
-  -- Correlacionamos por proveedor para evaluar la condición sobre cada supplier.
-  WHERE l.l_suppkey = s.s_suppkey
-    -- Definimos explícitamente qué entendemos por descuento alto en este ejercicio.
-    AND l.l_discount >= 0.09
-)
--- Ordenamos para obtener una salida estable y fácil de auditar.
-ORDER BY s.s_suppkey
--- Limitamos a veinte filas para revisión pedagógica.
-LIMIT 20;
-
--- COMMAND ----------
-
 -- Ejercicio guiado 5 de 5 - Desafío.
 -- Enunciado: calcular, por región, cuántos clientes están por encima del ingreso promedio por cliente y qué porcentaje representan dentro de la región.
 -- Por qué la solución está escrita así: la lógica necesita varios pasos legibles y por eso se encadena en CTE.
@@ -910,18 +835,18 @@ GROUP BY cr.region
 ORDER BY porcentaje_clientes_alto_ingreso DESC;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 10. Ejercicio individual
--- MAGIC 
+-- MAGIC
 -- MAGIC Recomendación didáctica: intenta resolver cada problema antes de ejecutar la solución de referencia. Aquí la solución está incluida para que puedas comparar tu razonamiento.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Ejercicio individual | Nivel | Tema dominante |
 -- MAGIC |---|---|---|
 -- MAGIC | 1 de 5 | Muy Fácil | `IN` y pertenencia |
 -- MAGIC | 2 de 5 | Fácil | CTE temporal por mes |
 -- MAGIC | 3 de 5 | Intermedio | `EXISTS` vs duplicados |
--- MAGIC | 4 de 5 | Intermedio Alto | `ANY` y `ALL` |
--- MAGIC | 5 de 5 | Desafío | top 3 países por ingreso y participación |
+-- MAGIC | 4 de 5 | Desafío | top 3 países por ingreso y participación |
 
 -- COMMAND ----------
 
@@ -1019,47 +944,6 @@ WHERE EXISTS (
 
 -- COMMAND ----------
 
--- Ejercicio individual 4 de 5 - Intermedio Alto.
--- Enunciado: listar partes cuyo precio es mayor que cualquier precio de las partes tamaño 10 y, a la vez, menor que todos los precios de las partes tamaño 40.
--- Por qué la solución está escrita así: permite practicar `ANY` y `ALL` en una misma consulta para acotar un rango lógico por conjuntos.
--- Resultado esperado: partes ubicadas entre ambos conjuntos de referencia según precio.
--- Error común: confundir el sentido lógico de ANY y ALL y terminar creando un filtro imposible o demasiado amplio.
-SELECT
-  -- Mostramos la llave de la parte para identificación.
-  p.p_partkey AS parte_id,
-  -- Mostramos el nombre para interpretación funcional.
-  p.p_name AS nombre_parte,
-  -- Mostramos el tamaño para contexto descriptivo.
-  p.p_size AS tamano,
-  -- Mostramos el precio que será comparado con ambos conjuntos.
-  p.p_retailprice AS precio_retail
--- Leemos la dimensión part como universo a filtrar.
-FROM samples.tpch.part AS p
--- Exigimos que el precio sea mayor que al menos un elemento del conjunto tamaño 10.
-WHERE p.p_retailprice > ANY (
-  -- La subconsulta devuelve los precios del grupo de tamaño 10.
-  SELECT p10.p_retailprice
-  -- Leemos part como primer conjunto de referencia.
-  FROM samples.tpch.part AS p10
-  -- Definimos el conjunto de referencia por tamaño.
-  WHERE p10.p_size = 10
-)
-  -- Exigimos además que el precio sea menor que todos los elementos del conjunto tamaño 40.
-  AND p.p_retailprice < ALL (
-    -- La subconsulta devuelve los precios del grupo de tamaño 40.
-    SELECT p40.p_retailprice
-    -- Leemos part como segundo conjunto de referencia.
-    FROM samples.tpch.part AS p40
-    -- Definimos el segundo conjunto por tamaño.
-    WHERE p40.p_size = 40
-  )
--- Ordenamos por precio para inspeccionar el rango obtenido.
-ORDER BY p.p_retailprice DESC
--- Limitamos el conjunto visible del ejercicio.
-LIMIT 20;
-
--- COMMAND ----------
-
 -- Ejercicio individual 5 de 5 - Desafío.
 -- Enunciado: obtener el top 3 de países por ingreso total y su participación porcentual sobre el ingreso global.
 -- Por qué la solución está escrita así: usamos CTE encadenadas para separar base, agregación y ranking, manteniendo clara la lógica del negocio.
@@ -1130,11 +1014,12 @@ WHERE rp.ranking_ingreso <= 3
 ORDER BY rp.ranking_ingreso, rp.ingreso_total DESC;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 11. Desafío
--- MAGIC 
+-- MAGIC
 -- MAGIC Esta sección eleva el nivel de complejidad. Las soluciones siguen comentadas, pero el objetivo es que puedas leerlas como diseños analíticos completos.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Desafío | Nivel | Tema dominante |
 -- MAGIC |---|---|---|
 -- MAGIC | 1 de 5 | Muy Fácil | clasificación con `EXISTS` |
@@ -1430,9 +1315,10 @@ FROM recorrido_regiones AS rr
 ORDER BY rr.nivel;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 12. Resumen
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Ideas clave del notebook
 -- MAGIC - Una **subconsulta** sirve para producir un valor, una lista o una tabla intermedia.
 -- MAGIC - Las subconsultas en `WHERE` son ideales para comparar o filtrar.
@@ -1440,28 +1326,28 @@ ORDER BY rr.nivel;
 -- MAGIC - Las subconsultas escalares en `SELECT` agregan referencias globales o locales al resultado final.
 -- MAGIC - `EXISTS` y `NOT EXISTS` expresan mejor la lógica de existencia que muchos `JOIN`.
 -- MAGIC - `IN` es excelente para pertenencia; `JOIN` es mejor cuando además necesitas columnas adicionales.
--- MAGIC - `ANY` y `ALL` permiten pensar en conjuntos, no solo en valores individuales.
 -- MAGIC - Las **CTE** mejoran legibilidad, modularidad y mantenibilidad.
 -- MAGIC - Si un bloque intermedio se reutiliza muchas veces o es costoso, evalúa **materializarlo**.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Regla de decisión rápida
--- MAGIC 
+-- MAGIC
 -- MAGIC ```text
 -- MAGIC ¿Necesito un valor único?      -> subconsulta escalar
--- MAGIC ¿Necesito una lista?           -> IN / ANY / ALL
+-- MAGIC ¿Necesito una lista?           -> IN 
 -- MAGIC ¿Necesito saber si existe?     -> EXISTS / NOT EXISTS
 -- MAGIC ¿Necesito una tabla intermedia -> subconsulta en FROM o CTE
 -- MAGIC ¿Necesito varias etapas claras -> CTE encadenadas
 -- MAGIC ```
--- MAGIC 
+-- MAGIC
 -- MAGIC > **📝 Nota:** La técnica correcta es la que hace que el resultado sea correcto y el razonamiento sea visible para otra persona.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 13. Laboratorio
--- MAGIC 
+-- MAGIC
 -- MAGIC A continuación desarrollarás consultas de estilo más profesional, pensadas como preguntas reales para el equipo de DataCorp Analytics.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Caso | Pregunta de negocio |
 -- MAGIC |---|---|
 -- MAGIC | Laboratorio 1 | ¿Qué regiones concentran clientes de alto valor? |
@@ -1746,18 +1632,18 @@ WHERE pp.ticket_promedio_pais > pr.ticket_promedio_region
 ORDER BY pp.ticket_promedio_pais DESC;
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 14. Autoevaluación
--- MAGIC 
+-- MAGIC
 -- MAGIC Usa esta sección para verificar si dominas la lógica del notebook.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Preguntas de reflexión
 -- MAGIC 1. ¿Cuándo una subconsulta debe ser correlacionada y cuándo no?
 -- MAGIC 2. ¿Qué ventaja lógica ofrece `EXISTS` frente a un `JOIN` cuando solo te interesa saber si hay relación?
 -- MAGIC 3. ¿Qué hace más legible a una CTE que a una subconsulta inline?
--- MAGIC 4. ¿Qué diferencia conceptual existe entre `> ANY` y `> ALL`?
--- MAGIC 5. ¿Cuándo considerarías materializar una CTE en Databricks?
--- MAGIC 
+-- MAGIC 4. ¿Cuándo considerarías materializar una CTE en Databricks?
+-- MAGIC
 -- MAGIC ### Minicheck técnico
 -- MAGIC Ejecuta las siguientes consultas y explica con tus propias palabras por qué el resultado demuestra el concepto señalado.
 
@@ -1789,34 +1675,6 @@ SELECT
         AND o.o_totalprice > 300000
     )
   ) AS clientes_via_exists;
-
--- COMMAND ----------
-
--- Autoevaluación 2.
--- Concepto a verificar: `> ALL` se comporta de forma equivalente a comparar contra el máximo del conjunto cuando el subconjunto no es vacío.
--- Resultado esperado: las dos métricas deberían coincidir o ser muy cercanas en interpretación, mostrando la intuición de ALL.
--- Error común: creer que ALL compara contra el promedio del conjunto; en realidad exige superar todos los valores.
-SELECT
-  -- Contamos partes cuyo precio supera a todas las partes de tamaño 49 usando ALL.
-  (
-    SELECT COUNT(*)
-    FROM samples.tpch.part AS p
-    WHERE p.p_retailprice > ALL (
-      SELECT p2.p_retailprice
-      FROM samples.tpch.part AS p2
-      WHERE p2.p_size = 49
-    )
-  ) AS conteo_via_all,
-  -- Contamos partes equivalentes comparando contra el máximo del mismo conjunto de referencia.
-  (
-    SELECT COUNT(*)
-    FROM samples.tpch.part AS p
-    WHERE p.p_retailprice > (
-      SELECT MAX(p2.p_retailprice)
-      FROM samples.tpch.part AS p2
-      WHERE p2.p_size = 49
-    )
-  ) AS conteo_via_maximo;
 
 -- COMMAND ----------
 
