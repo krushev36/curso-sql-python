@@ -1,7 +1,7 @@
 # 📋 Programa del Curso: SQL para Ciencia de Datos usando Databricks
 
 **Institución:** Maestría en Ciencia de Datos e Inteligencia de Negocios  
-**Duración:** 14–16 horas (8 sesiones de ~2 horas)  
+**Duración:** 22–24 horas (12 sesiones de ~2 horas)  
 **Modalidad:** Práctica — 100% en Databricks Free Edition  
 **Prerrequisitos:** Conocimientos básicos de programación; NO se requiere experiencia en SQL ni bases de datos
 
@@ -39,21 +39,69 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 
 ## 📚 Contenido por Sesión
 
-### Sesión 01 — Introducción a Databricks SQL (1.5 hrs)
-**Objetivo:** Familiarizarse con Databricks y los datos disponibles
+### Sesión 01 — Python en Databricks: fundamentos (2 hrs)
+**Objetivo:** Iniciar el curso con Python y entorno Databricks para análisis
 
 | Tema | Tiempo |
 |------|--------|
-| ¿Qué es Databricks? ¿Por qué para Ciencia de Datos? | 15 min |
+| Introducción a Python en Databricks | 35 min |
+| Variables, tipos y estructuras de control | 35 min |
+| Funciones y manejo básico de errores | 25 min |
+| Laboratorio guiado de fundamentos | 25 min |
+
+---
+
+### Sesión 02 — PySpark DataFrames (2 hrs)
+**Objetivo:** Trabajar datos tabulares con API de DataFrames
+
+| Tema | Tiempo |
+|------|--------|
+| Crear y cargar DataFrames | 25 min |
+| Selección, filtros y transformaciones | 35 min |
+| Agregaciones y operaciones con columnas | 30 min |
+| Laboratorio DataFrames | 30 min |
+
+---
+
+### Sesión 03 — Integración SQL ↔ Python y Spark SQL (2 hrs)
+**Objetivo:** Integrar consultas SQL con flujos de trabajo en Python
+
+| Tema | Tiempo |
+|------|--------|
+| Ejecutar SQL desde notebooks Python | 25 min |
+| Intercambio entre DataFrames y tablas temporales | 30 min |
+| Spark SQL desde Python | 35 min |
+| Laboratorio de integración | 30 min |
+
+---
+
+### Sesión 04 — Feature Engineering, pipeline y visualización (2 hrs)
+**Objetivo:** Preparar datasets de ML y cerrar la fase Python con proyecto corto
+
+| Tema | Tiempo |
+|------|--------|
+| Feature Engineering con PySpark | 30 min |
+| Construcción de pipeline básico | 30 min |
+| Visualización en Databricks | 25 min |
+| Mini proyecto integrador de Python | 35 min |
+
+---
+
+### Sesión 05 — Introducción a Databricks SQL (1.5 hrs)
+**Objetivo:** Familiarizarse con Databricks SQL y los datos disponibles
+
+| Tema | Tiempo |
+|------|--------|
+| ¿Qué es Databricks SQL? ¿Por qué para Ciencia de Datos? | 15 min |
 | Navegación en Databricks Free Edition | 15 min |
 | Editor SQL y notebooks | 15 min |
 | Datasets disponibles: samples.tpch y samples.nyctaxi | 15 min |
 | Exploración de esquemas: SHOW, DESCRIBE | 15 min |
-| Laboratorio 01 | 15 min |
+| Laboratorio SQL 01 | 15 min |
 
 ---
 
-### Sesión 02 — SELECT y Consultas Básicas (2 hrs)
+### Sesión 06 — SELECT y Consultas Básicas (2 hrs)
 **Objetivo:** Dominar la anatomía completa de la sentencia SELECT
 
 | Tema | Tiempo |
@@ -65,11 +113,11 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 | ORDER BY y LIMIT | 15 min |
 | Alias con AS | 10 min |
 | DISTINCT | 10 min |
-| Laboratorio 02 | 20 min |
+| Laboratorio SQL 02 | 20 min |
 
 ---
 
-### Sesión 03 — Funciones SQL (2 hrs)
+### Sesión 07 — Funciones SQL (2 hrs)
 **Objetivo:** Transformar datos con funciones incorporadas de Databricks SQL
 
 | Tema | Tiempo |
@@ -79,11 +127,11 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 | Funciones de fecha (YEAR, MONTH, DATEDIFF, DATE_ADD...) | 20 min |
 | Funciones condicionales (CASE WHEN, COALESCE, NULLIF...) | 20 min |
 | Conversión de tipos (CAST, TRY_CAST) | 10 min |
-| Laboratorio 03 | 15 min |
+| Laboratorio SQL 03 | 15 min |
 
 ---
 
-### Sesión 04 — Agregaciones (2 hrs)
+### Sesión 08 — Agregaciones (2 hrs)
 **Objetivo:** Construir métricas de negocio con funciones de agregación
 
 | Tema | Tiempo |
@@ -94,11 +142,11 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 | WHERE vs HAVING | 10 min |
 | ROLLUP y CUBE | 15 min |
 | GROUPING SETS | 10 min |
-| Laboratorio 04 | 10 min |
+| Laboratorio SQL 04 | 10 min |
 
 ---
 
-### Sesión 05 — JOIN (2 hrs)
+### Sesión 09 — JOIN (2 hrs)
 **Objetivo:** Combinar información de múltiples tablas
 
 | Tema | Tiempo |
@@ -110,11 +158,11 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 | CROSS JOIN y SELF JOIN | 10 min |
 | JOIN con múltiples tablas | 15 min |
 | NULL en JOINs | 10 min |
-| Laboratorio 05 | 15 min |
+| Laboratorio SQL 05 | 15 min |
 
 ---
 
-### Sesión 06 — Subconsultas y CTE (2 hrs)
+### Sesión 10 — Subconsultas y CTE (2 hrs)
 **Objetivo:** Construir consultas modulares y reutilizables
 
 | Tema | Tiempo |
@@ -125,11 +173,11 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 | EXISTS y NOT EXISTS | 15 min |
 | Common Table Expressions (WITH / CTE) | 20 min |
 | CTEs múltiples encadenados | 15 min |
-| Laboratorio 06 | 5 min |
+| Laboratorio SQL 06 | 5 min |
 
 ---
 
-### Sesión 07 — Window Functions (2 hrs)
+### Sesión 11 — Window Functions (2 hrs)
 **Objetivo:** Análisis avanzado sin colapsar los datos
 
 | Tema | Tiempo |
@@ -140,12 +188,12 @@ A diferencia de un curso tradicional de bases de datos, este programa está orie
 | Funciones de desplazamiento: LAG, LEAD | 15 min |
 | Agregaciones sobre ventanas: SUM, AVG, COUNT | 15 min |
 | Totales acumulados y medias móviles | 10 min |
-| Laboratorio 07 | 15 min |
+| Laboratorio SQL 07 | 15 min |
 
 ---
 
-### Sesión 08 — Proyecto Integrador (2 hrs)
-**Objetivo:** Resolver un caso de negocio completo integrando todos los conocimientos
+### Sesión 12 — Proyecto Integrador (2 hrs)
+**Objetivo:** Resolver un caso de negocio completo integrando Python y SQL
 
 | Módulo | Tiempo |
 |--------|--------|
