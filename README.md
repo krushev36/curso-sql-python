@@ -89,10 +89,10 @@ curso-sql-python/
 
 | Sesión | Contenido Python | Duración |
 |---|---|---|
-| 01 | `09_python_databricks_intro.py` + fundamentos de Python en Databricks | ~2 hrs |
-| 02 | `10_pyspark_dataframes.py` + manipulación de DataFrames | ~2 hrs |
-| 03 | `11_sql_python_integration.py` + `12_spark_sql.py` | ~2 hrs |
-| 04 | `13_ml_feature_engineering.py` + `14_ml_pipeline.py` + `15_proyecto_final.py` + `16_visualizacion.py` | ~2 hrs |
+| 01 | `09_python_fundamentos.ipynb` | ~2 hrs |
+| 02 | `10_python_funciones_librerias.ipynb` | ~2 hrs |
+| 03 | `11_python_archivos_visualizacion.ipynb` (archivos y análisis) | ~2 hrs |
+| 04 | `11_python_archivos_visualizacion.ipynb` (visualización) + práctica integradora | ~2 hrs |
 
 ### Segundo bloque (SQL) — sesiones siguientes
 
