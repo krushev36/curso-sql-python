@@ -1,20 +1,25 @@
 # 🐍 Python Notebooks — SQL para Ciencia de Datos usando Databricks
 
-Esta carpeta contendrá los notebooks Python/PySpark que complementan el módulo SQL del curso.
+Esta carpeta contiene notebooks de Python organizados para complementar el contenido del curso.
 
-## Próxima Fase del Curso
-
-Los notebooks Python abordarán:
+## Notebooks disponibles
 
 | # | Notebook | Tema |
 |---|----------|------|
-| 09 | `09_python_databricks_intro.py` | Introducción a Python en Databricks |
-| 10 | `10_pyspark_dataframes.py` | DataFrames con PySpark |
-| 11 | `11_sql_python_integration.py` | Integración SQL ↔ Python |
-| 12 | `12_spark_sql.py` | Spark SQL desde Python |
-| 13 | `13_ml_feature_engineering.py` | Feature Engineering para ML |
-| 14 | `14_ml_pipeline.py` | Pipeline completo ML con SQL + Python |
-| 15 | `15_proyecto_final.py` | Proyecto Final Integrador |
-| 16 | `16_visualizacion.py` | Visualización con Databricks |
+| 09 | `09_python_fundamentos.ipynb` | Fundamentos de Python para Ciencia de Datos |
+| 10 | `10_python_funciones_librerias.ipynb` | Funciones, estructuras y librerías base |
+| 11 | `11_python_archivos_visualizacion.ipynb` | Archivos, análisis y visualización |
 
-> **Estado:** 🚧 En desarrollo — próxima versión del curso
+## Archivos de apoyo
+
+- `datafile.txt`
+- `datafile2.txt`
+- `random-walk.tsv`
+
+## Origen del material
+
+Los notebooks fueron tomados del repositorio:
+
+- `https://github.com/krushev36/curso-python-r.github.io`
+
+y reorganizados en esta carpeta para su uso dentro del curso actual.
