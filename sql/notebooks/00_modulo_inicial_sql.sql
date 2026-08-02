@@ -2,38 +2,40 @@
 -- MAGIC %md
 -- MAGIC # 🎓 Módulo 00: Introducción general a SQL
 -- MAGIC ## Historia, fundamentos y modelado de datos
--- MAGIC 
+-- MAGIC
 -- MAGIC **Objetivo del módulo:** comprender qué es SQL, cómo interactúan los usuarios con una base de datos y cuáles son los conceptos de modelado, estructura de datos y tipos de datos que permiten organizar la información de forma confiable.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 1. Breve historia de SQL
--- MAGIC 
+-- MAGIC
 -- MAGIC **SQL significa *Structured Query Language***, o en español, **Lenguaje de Consulta Estructurada**. Se usa para definir, consultar, transformar y administrar datos almacenados en sistemas de bases de datos.
--- MAGIC 
+-- MAGIC
 -- MAGIC SQL nace en la década de 1970 a partir del modelo relacional propuesto por **Edgar F. Codd** en IBM.
--- MAGIC 
+-- MAGIC
 -- MAGIC Hitos clave:
 -- MAGIC - **1970:** publicación del modelo relacional.
 -- MAGIC - **1974–1979:** desarrollo de SEQUEL/SQL en IBM.
 -- MAGIC - **1986:** SQL se convierte en estándar ANSI.
 -- MAGIC - **1987 en adelante:** adopción ISO y evolución continua con nuevas versiones.
--- MAGIC 
+-- MAGIC
 -- MAGIC Desde entonces, SQL se consolidó como el lenguaje estándar para consultar, organizar y transformar datos estructurados.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 2. ¿Cómo funciona SQL?
--- MAGIC 
+-- MAGIC
 -- MAGIC SQL es un lenguaje **declarativo**: el analista indica **qué quiere obtener**, y el motor de base de datos decide **cómo ejecutar** la consulta de la forma más eficiente posible.
--- MAGIC 
+-- MAGIC
 -- MAGIC Flujo general:
 -- MAGIC 1. El usuario escribe una consulta (`SELECT`, `WHERE`, `GROUP BY`, `JOIN`, etc.).
 -- MAGIC 2. El gestor de base de datos valida sintaxis, permisos y objetos usados.
 -- MAGIC 3. El optimizador genera un plan de ejecución.
 -- MAGIC 4. El motor accede a tablas, índices y memoria.
 -- MAGIC 5. El sistema devuelve un resultado tabular al usuario o a una aplicación.
--- MAGIC 
+-- MAGIC
 -- MAGIC Tipos de operaciones más comunes:
 -- MAGIC - **Consulta:** `SELECT`
 -- MAGIC - **Inserción:** `INSERT`
@@ -43,96 +45,99 @@
 -- MAGIC - **Agregación:** `GROUP BY`, `HAVING`
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 3. Comunicación entre usuario y base de datos
--- MAGIC 
+-- MAGIC
 -- MAGIC La interacción con una base de datos casi nunca ocurre de forma aislada. Normalmente participan un usuario, una herramienta cliente, una red, el motor SQL y el almacenamiento físico.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Diagrama general de comunicación
--- MAGIC 
+-- MAGIC
 -- MAGIC ![Diagrama de comunicación entre usuario y base de datos](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/comunicacion_usuario_bd.png)
--- MAGIC 
+-- MAGIC
 -- MAGIC **Idea clave:** el usuario no interactúa directamente con los archivos de datos; se comunica con el motor SQL, que protege, organiza y optimiza el acceso a la información.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 4. Esquemas, modelos y tipos de datos
--- MAGIC 
+-- MAGIC
 -- MAGIC Un **modelo de datos** es la representación lógica de cómo se organizan las entidades del negocio, sus atributos y sus relaciones.
--- MAGIC 
+-- MAGIC
 -- MAGIC Un **esquema** es la estructura concreta donde quedan definidas tablas, columnas, tipos de dato, llaves y relaciones.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 4.1 Modelo relacional
 -- MAGIC En el **modelo relacional** la información se organiza en **tablas** compuestas por filas y columnas.
--- MAGIC 
+-- MAGIC
 -- MAGIC Sus características principales son:
 -- MAGIC - cada tabla representa una entidad o un tema del negocio,
 -- MAGIC - cada fila representa un registro,
 -- MAGIC - cada columna representa un atributo,
 -- MAGIC - las tablas se conectan mediante llaves primarias y foráneas.
--- MAGIC 
+-- MAGIC
 -- MAGIC Este modelo favorece la **consistencia**, la **integridad** y el uso de SQL para consultar la información.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 4.2 Modelo no relacional
 -- MAGIC El **modelo no relacional** agrupa varias familias de bases de datos conocidas como **NoSQL**.
--- MAGIC 
+-- MAGIC
 -- MAGIC En lugar de depender siempre de tablas relacionadas, puede almacenar la información como:
 -- MAGIC - **documentos** (por ejemplo JSON),
 -- MAGIC - **pares clave-valor**,
 -- MAGIC - **grafos**,
 -- MAGIC - **columnas anchas**.
--- MAGIC 
+-- MAGIC
 -- MAGIC Suele usarse cuando se necesita alta escalabilidad, esquemas más flexibles o manejo de datos muy variados y cambiantes. A cambio, puede sacrificar parte de la rigidez estructural típica de los sistemas relacionales.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 4.3 Datos estructurados y no estructurados
 -- MAGIC Los **datos estructurados** siguen un formato definido y consistente, por lo que encajan con facilidad en tablas.
--- MAGIC 
+-- MAGIC
 -- MAGIC Ejemplos de datos estructurados:
 -- MAGIC - número de cliente,
 -- MAGIC - fecha de compra,
 -- MAGIC - valor de una factura,
 -- MAGIC - ciudad de residencia.
--- MAGIC 
+-- MAGIC
 -- MAGIC Los **datos no estructurados** no siguen una estructura tabular fija y suelen presentarse como contenido libre o multimedia.
--- MAGIC 
+-- MAGIC
 -- MAGIC Ejemplos de datos no estructurados:
 -- MAGIC - correos electrónicos,
 -- MAGIC - documentos PDF,
 -- MAGIC - imágenes,
 -- MAGIC - audio,
 -- MAGIC - publicaciones en redes sociales.
--- MAGIC 
+-- MAGIC
 -- MAGIC Entre ambos extremos también existen datos **semiestructurados**, como XML o JSON, que conservan cierto orden pero no necesariamente el de una tabla relacional clásica.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 4.4 Tipos de datos en SQL
 -- MAGIC Los **tipos de datos** indican qué clase de valor puede almacenar una columna y qué operaciones son válidas sobre ella.
--- MAGIC 
+-- MAGIC
 -- MAGIC Tipos comunes en SQL:
 -- MAGIC - **Numéricos:** `INT`, `BIGINT`, `DECIMAL`, `DOUBLE`
 -- MAGIC - **Texto:** `CHAR`, `VARCHAR`, `STRING`
 -- MAGIC - **Fecha y hora:** `DATE`, `TIMESTAMP`
 -- MAGIC - **Booleanos:** `BOOLEAN`
 -- MAGIC - **Binarios o especiales:** `BINARY`, y en algunos motores también `JSON`, `ARRAY`, `MAP`
--- MAGIC 
+-- MAGIC
 -- MAGIC Elegir bien el tipo de dato ayuda a mejorar la calidad de la información, ahorrar almacenamiento y evitar errores en cálculos, filtros y comparaciones.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### ¿Qué responde un buen modelo de datos?
 -- MAGIC - ¿Qué entidades existen? (clientes, pedidos, productos, pagos)
 -- MAGIC - ¿Qué atributos tiene cada entidad?
 -- MAGIC - ¿Cómo se relacionan entre sí?
 -- MAGIC - ¿Qué reglas garantizan calidad y consistencia?
--- MAGIC 
+-- MAGIC
 -- MAGIC ### Niveles comunes del modelado
 -- MAGIC - **Modelo conceptual:** describe el negocio a alto nivel.
 -- MAGIC - **Modelo lógico:** define entidades, atributos y relaciones sin depender de una tecnología específica.
 -- MAGIC - **Modelo físico:** traduce el diseño a tablas reales, tipos de datos, índices y particiones.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 5. ¿Cómo se diseña un modelo de datos?
--- MAGIC 
+-- MAGIC
 -- MAGIC El diseño de un modelo de datos parte de preguntas del negocio, no de la tecnología.
--- MAGIC 
+-- MAGIC
 -- MAGIC Proceso recomendado:
 -- MAGIC 1. **Entender el proceso de negocio:** ventas, entregas, clientes, facturación, inventario.
 -- MAGIC 2. **Identificar entidades principales:** por ejemplo `clientes`, `pedidos`, `productos`.
@@ -141,22 +146,23 @@
 -- MAGIC 5. **Definir llaves:** primaria, foránea y candidatas para identificar registros.
 -- MAGIC 6. **Normalizar o desnormalizar según el uso:** operación transaccional vs. analítica.
 -- MAGIC 7. **Validar con casos reales de consulta:** asegurar que el diseño responde preguntas del negocio.
--- MAGIC 
+-- MAGIC
 -- MAGIC **Diseñar bien un modelo** mejora la calidad del dato, reduce duplicidad y facilita consultas más claras.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 6. Relaciones entre tablas
--- MAGIC 
+-- MAGIC
 -- MAGIC Las relaciones permiten conectar tablas sin repetir innecesariamente la información.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 6.1 Relación uno a muchos
 -- MAGIC Es la relación más frecuente en bases de datos relacionales.
--- MAGIC 
+-- MAGIC
 -- MAGIC Ejemplo:
 -- MAGIC - Un **cliente** puede tener **muchos pedidos**.
 -- MAGIC - Cada **pedido** pertenece a **un solo cliente**.
--- MAGIC 
+-- MAGIC
 -- MAGIC ```text
 -- MAGIC CLIENTES
 -- MAGIC ┌───────────────┐
@@ -173,64 +179,66 @@
 -- MAGIC │ total              │
 -- MAGIC └────────────────────┘
 -- MAGIC ```
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 6.2 Muchos a uno
 -- MAGIC Es la misma relación vista desde el lado contrario:
 -- MAGIC - Muchos **pedidos** apuntan a un solo **cliente**.
 -- MAGIC - Muchas **líneas de pedido** pueden apuntar a un solo **producto**.
--- MAGIC 
+-- MAGIC
 -- MAGIC **Idea clave:** una relación uno a muchos siempre puede leerse también como muchos a uno, dependiendo del punto de vista.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 7. Llaves principales, secundarias, foráneas e índices
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 7.1 Llave primaria (*Primary Key*)
 -- MAGIC Identifica de forma **única** cada fila de una tabla.
--- MAGIC 
+-- MAGIC
 -- MAGIC Ejemplo:
 -- MAGIC - `id_cliente` en `clientes`
 -- MAGIC - `id_pedido` en `pedidos`
--- MAGIC 
+-- MAGIC
 -- MAGIC Reglas habituales:
 -- MAGIC - No se repite.
 -- MAGIC - No debe ser nula.
 -- MAGIC - Debe identificar exactamente un registro.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 7.2 Llave candidata o alternativa
 -- MAGIC El nombre técnico más usado en bases de datos es **llave candidata** o **llave alternativa**. En algunos materiales introductorios también se menciona como **llave secundaria**, pero en este notebook priorizaremos la terminología estándar.
--- MAGIC 
+-- MAGIC
 -- MAGIC Ejemplos:
 -- MAGIC - `numero_documento`
 -- MAGIC - `correo_electronico`
 -- MAGIC - `codigo_producto`
--- MAGIC 
+-- MAGIC
 -- MAGIC Estas llaves ayudan a localizar registros y a imponer unicidad sobre atributos relevantes del negocio, pero no siempre son la llave principal elegida en el diseño final. Una tabla puede conservar su llave primaria técnica y, al mismo tiempo, exigir que campos como el correo o el número de documento también sean únicos.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 7.3 Llave foránea (*Foreign Key*)
 -- MAGIC Es una columna que guarda el identificador de otra tabla para crear la relación entre ambas.
--- MAGIC 
+-- MAGIC
 -- MAGIC Ejemplo:
 -- MAGIC - `pedidos.id_cliente` referencia `clientes.id_cliente`
--- MAGIC 
+-- MAGIC
 -- MAGIC Su función es mantener la **integridad referencial**, es decir, evitar que existan pedidos asociados a clientes inexistentes.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 7.4 Índices
 -- MAGIC Un **índice** es una estructura auxiliar que acelera la búsqueda de datos, similar al índice de un libro.
--- MAGIC 
+-- MAGIC
 -- MAGIC Casos típicos:
 -- MAGIC - Búsquedas por identificador
 -- MAGIC - Filtros frecuentes por fecha o categoría
 -- MAGIC - Uniones recurrentes entre tablas
--- MAGIC 
+-- MAGIC
 -- MAGIC **Importante:** un índice mejora lecturas, pero también puede aumentar el costo de inserciones y actualizaciones porque el motor debe mantener la estructura del índice cada vez que cambian los datos. Por eso conviene crear índices en columnas muy consultadas o usadas en uniones, y evitar indexar en exceso columnas con poco uso analítico.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 8. ¿Cómo se relacionan las tablas a través de las llaves?
--- MAGIC 
+-- MAGIC
 -- MAGIC La conexión entre tablas ocurre cuando una **llave foránea** de una tabla apunta a la **llave primaria** de otra.
--- MAGIC 
+-- MAGIC
 -- MAGIC ```text
 -- MAGIC CLIENTES
 -- MAGIC ┌───────────────┐
@@ -247,55 +255,75 @@
 -- MAGIC │ fecha_pedido       │
 -- MAGIC └────────────────────┘
 -- MAGIC ```
--- MAGIC 
+-- MAGIC
 -- MAGIC Gracias a esta relación es posible:
 -- MAGIC - saber qué pedidos pertenecen a cada cliente,
 -- MAGIC - unir información con `JOIN`,
 -- MAGIC - evitar duplicar el nombre del cliente en cada pedido,
 -- MAGIC - conservar consistencia entre entidades.
--- MAGIC 
+-- MAGIC
 -- MAGIC En SQL esto habilita consultas como:
 -- MAGIC - listar clientes con sus pedidos,
 -- MAGIC - sumar ventas por cliente,
 -- MAGIC - filtrar productos comprados por región o segmento.
 
 -- COMMAND ----------
+
+-- MAGIC %md
+-- MAGIC ### Diagrama Entidad-Relación
+-- MAGIC
+-- MAGIC Un **diagrama entidad-relación (ER)** es una herramienta visual que representa cómo se organizan y conectan las entidades principales de un sistema de datos. Cada entidad se muestra como un rectángulo (por ejemplo, clientes, pedidos, productos), y las relaciones entre ellas se indican con líneas que conectan los rectángulos. El diagrama ayuda a entender la estructura lógica de la base de datos, las llaves primarias y foráneas, y cómo se vinculan los datos sin duplicar información.
+-- MAGIC
+-- MAGIC #### Tipos de relaciones entre entidades
+-- MAGIC
+-- MAGIC - **Relación 1 a 1:** Cada registro de una entidad se asocia con un solo registro de otra entidad. Ejemplo: cada persona tiene un único pasaporte.
+-- MAGIC - **Relación 1 a N (uno a muchos):** Un registro de una entidad puede estar relacionado con varios registros de otra entidad, pero cada registro de la segunda entidad solo se asocia a uno de la primera. Ejemplo: un cliente puede tener muchos pedidos.
+-- MAGIC - **Relación N a 1 (muchos a uno):** Muchos registros de una entidad se asocian a un solo registro de otra entidad. Ejemplo: muchos pedidos pertenecen a un solo cliente.
+-- MAGIC
+-- MAGIC ![Diagrama Entidad Relación del Dataset TPCH](../../images/modelo_tpch.png)
+
+-- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 9. Modelos de datos para analítica: estrella y copo de nieve
--- MAGIC 
+-- MAGIC
 -- MAGIC En analítica y *data warehousing* es común organizar los datos para facilitar consultas, métricas y tableros.
--- MAGIC 
+-- MAGIC
 -- MAGIC ### 9.1 Modelo estrella
 -- MAGIC Tiene una **tabla de hechos** en el centro y varias **dimensiones** alrededor.
--- MAGIC 
+-- MAGIC
 -- MAGIC - **Tabla de hechos:** almacena eventos medibles (ventas, viajes, órdenes).
 -- MAGIC - **Dimensiones:** almacenan contexto descriptivo (cliente, producto, tiempo, región).
--- MAGIC 
+-- MAGIC
 -- MAGIC ![Diagrama de modelo estrella](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/modelo_estrella.png)
--- MAGIC 
+-- MAGIC
 -- MAGIC **Ventajas del modelo estrella:**
 -- MAGIC - consultas más simples,
 -- MAGIC - buen desempeño analítico,
 -- MAGIC - fácil lectura para negocio y BI.
--- MAGIC 
+-- MAGIC
+-- MAGIC #### 9.1.1 Ejemplo de modelo estrella
+-- MAGIC ![](../../images/modelo_tpcds_sf1.png)
+-- MAGIC
 -- MAGIC ### 9.2 Modelo copo de nieve
 -- MAGIC Es una variación del modelo estrella donde algunas dimensiones se descomponen en subdimensiones más normalizadas.
--- MAGIC 
+-- MAGIC
 -- MAGIC ![Diagrama de modelo copo de nieve](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/modelo_copo_nieve.png)
--- MAGIC 
+-- MAGIC
 -- MAGIC **Ventajas del copo de nieve:**
 -- MAGIC - reduce redundancia en dimensiones,
 -- MAGIC - mejora control sobre jerarquías,
 -- MAGIC - puede facilitar gobierno de datos.
--- MAGIC 
+-- MAGIC
 -- MAGIC **Desventaja frente al estrella:** suele requerir más `JOIN`, por lo que el análisis puede volverse más complejo para el usuario.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 10. Principales motores y versiones SQL
--- MAGIC 
+-- MAGIC
 -- MAGIC Aunque SQL es estándar, cada motor agrega extensiones propias.
--- MAGIC 
+-- MAGIC
 -- MAGIC | Motor | Enfoque principal | Uso frecuente |
 -- MAGIC |---|---|---|
 -- MAGIC | **PostgreSQL** | Open source, robusto y extensible | Aplicaciones transaccionales, analítica, geodatos |
@@ -307,11 +335,12 @@
 -- MAGIC | **BigQuery / Snowflake** | SQL en la nube y analítica escalable | Analítica moderna, ciencia de datos, BI cloud |
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 11. SQL en este curso (Databricks SQL / Spark SQL)
--- MAGIC 
+-- MAGIC
 -- MAGIC En este curso trabajarás en Databricks, donde SQL se ejecuta sobre el motor de Spark SQL.
--- MAGIC 
+-- MAGIC
 -- MAGIC Beneficios para analítica:
 -- MAGIC - Procesamiento distribuido para grandes volúmenes.
 -- MAGIC - Integración con notebooks y flujos de ciencia de datos.
@@ -319,9 +348,10 @@
 -- MAGIC - Facilidad para trabajar con tablas de ejemplo y entornos formativos.
 
 -- COMMAND ----------
+
 -- MAGIC %md
 -- MAGIC ## 12. Cierre del módulo
--- MAGIC 
+-- MAGIC
 -- MAGIC En este módulo conociste:
 -- MAGIC - El origen histórico de SQL.
 -- MAGIC - El significado de SQL como lenguaje de consulta estructurada.
@@ -334,5 +364,5 @@
 -- MAGIC - Llaves primarias, candidatas/alternativas y foráneas.
 -- MAGIC - El papel de los índices.
 -- MAGIC - Las diferencias entre modelos estrella y copo de nieve.
--- MAGIC 
+-- MAGIC
 -- MAGIC En el siguiente notebook comenzarás la práctica aplicada en Databricks con catálogos, esquemas, tablas y consultas básicas.

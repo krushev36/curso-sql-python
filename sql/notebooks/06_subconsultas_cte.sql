@@ -920,6 +920,23 @@ ORDER BY pm.anio, pm.mes;
 
 -- COMMAND ----------
 
+  SELECT
+    -- Extraemos el año del pedido para la primera dimensión temporal.
+    YEAR(o.o_orderdate) AS anio,
+    -- Extraemos el mes del pedido para la segunda dimensión temporal.
+    MONTH(o.o_orderdate) AS mes,
+    -- Contamos cuántos pedidos ocurrieron en el periodo.
+    COUNT(*) AS total_pedidos,
+    -- Sumamos el valor económico de todos los pedidos del periodo.
+    SUM(o.o_totalprice) AS ingreso_total
+  -- Leemos la tabla de pedidos como fuente temporal y monetaria.
+  FROM samples.tpch.orders AS o
+  -- Agrupamos por año y mes para consolidar el resumen temporal.
+  GROUP BY YEAR(o.o_orderdate), MONTH(o.o_orderdate)
+  ORDER BY YEAR(o.o_orderdate), MONTH(o.o_orderdate)
+
+-- COMMAND ----------
+
 -- Ejercicio individual 3 de 5 - Intermedio.
 -- Enunciado: contar cuántos clientes tienen al menos un pedido superior a 250000 sin duplicar clientes.
 -- Por qué la solución está escrita así: `EXISTS` responde exactamente la pregunta de existencia y evita que múltiples pedidos del mismo cliente inflen el conteo.
