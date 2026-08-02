@@ -74,7 +74,7 @@ curso-sql-python/
 │   └── solutions/                     # Soluciones de ejercicios
 │
 ├── python/
-│   ├── notebooks/                     # Notebooks Python/PySpark (próxima fase)
+│   ├── notebooks/                     # Notebooks Python organizados para el curso
 │   ├── labs/                          # Laboratorios Python
 │   └── solutions/                     # Soluciones Python
 │
