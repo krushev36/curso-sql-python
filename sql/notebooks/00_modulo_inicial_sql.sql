@@ -285,6 +285,19 @@
 -- COMMAND ----------
 
 -- MAGIC %md
+-- MAGIC ### Ejemplo de Diagrama Entidad Relacion
+-- MAGIC
+-- MAGIC El dataset **Wanderbricks** contiene información sobre reservas de propiedades turísticas. Cada registro representa una reserva e incluye datos como el identificador de la reserva (`booking_id`), el usuario que realiza la reserva (`user_id`), la propiedad reservada (`property_id`), fechas de check-in y check-out, número de huéspedes, monto total pagado, estado de la reserva y fechas de creación y actualización.
+-- MAGIC
+-- MAGIC #### Diagrama Entidad-Relación
+-- MAGIC
+-- MAGIC ![](../../images/modelo_wanderbricks.png)
+-- MAGIC
+-- MAGIC Este dataset sigue un **modelo relacional**: la información se organiza en tablas conectadas mediante llaves primarias y foráneas, lo que permite mantener la integridad y facilitar consultas entre entidades como usuarios, propiedades y reservas.
+
+-- COMMAND ----------
+
+-- MAGIC %md
 -- MAGIC ## 9. Modelos de datos para analítica: estrella y copo de nieve
 -- MAGIC
 -- MAGIC En analítica y *data warehousing* es común organizar los datos para facilitar consultas, métricas y tableros.
