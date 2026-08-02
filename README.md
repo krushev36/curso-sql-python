@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Databricks_Free_Edition-FF3621)](https://community.cloud.databricks.com)
-[![Language](https://img.shields.io/badge/Language-SQL-informational)](sql/notebooks/)
+[![Language](https://img.shields.io/badge/Language-SQL%20%2B%20Python-informational)](sql/notebooks/)
 [![Level](https://img.shields.io/badge/Level-Masters-green)](docs/)
 
 ---
@@ -13,7 +13,7 @@
 
 Este curso está diseñado para estudiantes de la **Maestría en Ciencia de Datos e Inteligencia de Negocios** que desean dominar SQL en un entorno moderno de Big Data utilizando **Databricks Free Edition**.
 
-**Duración:** 14–16 horas  
+**Duración:** 22–24 horas  
 **Plataforma:** Databricks Community Edition (gratuito)  
 **Datasets:** Exclusivamente tablas de ejemplo integradas en Databricks (`samples.tpch`, `samples.nyctaxi`)  
 **Idioma:** Español  
@@ -74,7 +74,7 @@ curso-sql-python/
 │   └── solutions/                     # Soluciones de ejercicios
 │
 ├── python/
-│   ├── notebooks/                     # Notebooks Python organizados para el curso
+│   ├── notebooks/                     # Notebooks Python/PySpark (sesiones iniciales)
 │   ├── labs/                          # Laboratorios Python
 │   └── solutions/                     # Soluciones Python
 │
@@ -85,19 +85,29 @@ curso-sql-python/
 
 ## 📚 Contenido del Curso
 
-| # | Notebook | Tema | Duración |
-|---|----------|------|----------|
-| 00 | `00_modulo_inicial_sql.sql` | Historia y fundamentos de SQL | ~1 hr |
-| 01 | `01_introduccion_databricks_sql.sql` | Introducción a Databricks SQL | ~1.5 hrs |
-| 02 | `02_select_consultas_basicas.sql` | SELECT y Consultas Básicas | ~2 hrs |
-| 03 | `03_funciones_sql.sql` | Funciones SQL | ~2 hrs |
-| 04 | `04_agregaciones.sql` | Agregaciones y GROUP BY | ~2 hrs |
-| 05 | `05_join.sql` | JOIN entre tablas | ~2 hrs |
-| 06 | `06_subconsultas_cte.sql` | Subconsultas y CTE | ~2 hrs |
-| 07 | `07_window_functions.sql` | Window Functions | ~2 hrs |
-| 08 | `08_proyecto_integrador.sql` | Proyecto Integrador | ~2 hrs |
+### Primer bloque (Python) — primeras 4 sesiones
 
-**Total: 16.5 horas**
+| Sesión | Contenido Python | Duración |
+|---|---|---|
+| 01 | `09_python_fundamentos.ipynb` | ~2 hrs |
+| 02 | `10_python_funciones_librerias.ipynb` | ~2 hrs |
+| 03 | `11_python_archivos_visualizacion.ipynb` (archivos y análisis) | ~2 hrs |
+| 04 | `11_python_archivos_visualizacion.ipynb` (visualización) + práctica integradora | ~2 hrs |
+
+### Segundo bloque (SQL) — sesiones siguientes
+
+| Sesión | Notebook SQL | Tema | Duración |
+|---|---|---|---|
+| 05 | `00_modulo_inicial_sql.sql` | Historia y fundamentos de SQL | ~1 hr |
+| 06 | `01_introduccion_databricks_sql.sql` | Introducción a Databricks SQL | ~1.5 hrs |
+| 07 | `02_select_consultas_basicas.sql` | SELECT y Consultas Básicas | ~2 hrs |
+| 08 | `04_funciones_sql.sql` | Funciones SQL | ~2 hrs |
+| 09 | `05_agregaciones.sql` | Agregaciones y GROUP BY | ~2 hrs |
+| 10 | `03_join.sql` | JOIN entre tablas | ~2 hrs |
+| 11 | `06_subconsultas_cte.sql` + `07_window_functions.sql` | SQL avanzado | ~2 hrs |
+| 12 | `08_proyecto_integrador.sql` | Proyecto Integrador | ~2 hrs |
+
+**Total: 22–24 horas**
 
 ---
 

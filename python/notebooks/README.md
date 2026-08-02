@@ -1,14 +1,19 @@
 # 🐍 Python Notebooks — SQL para Ciencia de Datos usando Databricks
 
-Esta carpeta contiene notebooks de Python organizados para complementar el contenido del curso.
+Esta carpeta contiene notebooks de Python organizados para abrir el curso en las primeras sesiones.
 
-## Notebooks disponibles
+## Primeras 4 Sesiones del Curso (Bloque Python)
 
-| # | Notebook | Tema |
-|---|----------|------|
-| 09 | `09_python_fundamentos.ipynb` | Fundamentos de Python para Ciencia de Datos |
-| 10 | `10_python_funciones_librerias.ipynb` | Funciones, estructuras y librerías base |
-| 11 | `11_python_archivos_visualizacion.ipynb` | Archivos, análisis y visualización |
+El contenido de Python se organiza en 4 sesiones:
+
+| Sesión | Notebook(s) | Tema |
+|---|---|---|
+| 01 | `09_python_fundamentos.ipynb` | Fundamentos de Python para Ciencia de Datos |
+| 02 | `10_python_funciones_librerias.ipynb` | Funciones, estructuras y librerías base |
+| 03 | `11_python_archivos_visualizacion.ipynb` | Archivos, análisis y preparación de datos |
+| 04 | `11_python_archivos_visualizacion.ipynb` + práctica | Visualización y cierre integrador |
+
+> **Estado:** 🚧 En desarrollo
 
 ## Archivos de apoyo
 
