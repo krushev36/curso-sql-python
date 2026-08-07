@@ -1,0 +1,20 @@
+{
+  "name": "curso-sql-python (Python 3.11)",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-toolsai.jupyter",
+        "mtxr.sqltools",
+        "databricks.databricks"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  },
+  "postCreateCommand": "pip install --user numpy pandas matplotlib jupyter",
+  "remoteUser": "vscode"
+}

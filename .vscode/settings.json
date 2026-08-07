@@ -1,0 +1,4 @@
+{
+    "python.REPL.enableREPLSmartSend": false,
+    "jupyter.cellIdentifier": "# COMMAND ----------|# %%|# In\\[\\d*\\]:"
+}

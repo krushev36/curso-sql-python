@@ -47,6 +47,158 @@
 -- COMMAND ----------
 
 -- MAGIC %md
+-- MAGIC
+-- MAGIC ## ¿Cómo se aloja una base de datos en un servidor? ¿Qué es una base de datos, un esquema, una tabla, una vista y un stored procedure?
+-- MAGIC
+-- MAGIC - **Base de datos:** Es un conjunto organizado de datos almacenados y gestionados por un sistema de gestión de bases de datos (DBMS). Una base de datos puede contener múltiples esquemas, tablas, vistas y otros objetos. Se aloja en un servidor, que puede ser físico, virtual o en la nube, y es accesible por usuarios o aplicaciones a través de una red.
+-- MAGIC
+-- MAGIC - **Esquema:** Es una estructura lógica dentro de una base de datos que agrupa objetos relacionados, como tablas, vistas y procedimientos almacenados. Ayuda a organizar y separar los objetos según áreas funcionales o de negocio.
+-- MAGIC
+-- MAGIC - **Tabla:** Es el objeto principal donde se almacenan los datos en filas y columnas. Cada columna tiene un tipo de dato definido y cada fila representa un registro.
+-- MAGIC
+-- MAGIC - **Vista:** Es una consulta guardada que presenta datos de una o varias tablas como si fuera una tabla virtual. Permite simplificar consultas complejas, restringir acceso o mostrar información personalizada sin duplicar datos.
+-- MAGIC
+-- MAGIC - **Stored Procedure (Procedimiento almacenado):** Es un bloque de código SQL guardado en la base de datos que puede ejecutarse para realizar tareas específicas, como insertar, actualizar o consultar datos. Permite automatizar procesos y reutilizar lógica de negocio.
+-- MAGIC
+-- MAGIC
+-- MAGIC ![](../../images/diagrama_jerarquia_sql_server.png)
+
+-- COMMAND ----------
+
+-- DBTITLE 1,Unity Catalog - Jerarquía
+-- MAGIC %md
+-- MAGIC ## Jerarquía de objetos en Unity Catalog
+-- MAGIC
+-- MAGIC **Unity Catalog** es el sistema de gobierno y gestión de datos unificado de Databricks. Proporciona un catálogo centralizado para organizar, asegurar y auditar todos los activos de datos en una plataforma Lakehouse.
+-- MAGIC
+-- MAGIC A diferencia de los sistemas tradicionales de bases de datos (como SQL Server o PostgreSQL), Unity Catalog introduce una **jerarquía de tres niveles** diseñada específicamente para entornos de datos modernos, multicloud y de gran escala.
+-- MAGIC
+-- MAGIC ### Jerarquía de Unity Catalog (de mayor a menor nivel)
+-- MAGIC
+-- MAGIC #### 1. **Metastore**
+-- MAGIC Es el contenedor de nivel superior en Unity Catalog. Un metastore:
+-- MAGIC - Almacena metadatos sobre todos los objetos de datos (catálogos, esquemas, tablas, vistas, funciones, volúmenes).
+-- MAGIC - Puede asociarse a una o varias workspaces de Databricks.
+-- MAGIC - Define el límite de seguridad y gobierno para todos los datos que administra.
+-- MAGIC - Generalmente hay **un metastore por región** o por organización, dependiendo de la estrategia de gobierno.
+-- MAGIC
+-- MAGIC #### 2. **Catalog (Catálogo)**
+-- MAGIC Es el primer nivel de organización lógica dentro de un metastore. Un catálogo:
+-- MAGIC - Agrupa esquemas relacionados según un área funcional, proyecto o entorno.
+-- MAGIC - Permite separar datos de desarrollo, pruebas y producción.
+-- MAGIC - Facilita el control de acceso a nivel de proyecto o equipo.
+-- MAGIC - Ejemplos de nombres de catálogo: `ventas`, `marketing`, `desarrollo`, `produccion`.
+-- MAGIC
+-- MAGIC #### 3. **Schema (Esquema)**
+-- MAGIC Es el segundo nivel de organización dentro de un catálogo. Un esquema:
+-- MAGIC - Agrupa objetos relacionados como tablas, vistas, funciones y volúmenes.
+-- MAGIC - Equivale al concepto tradicional de "schema" o "database" en otros motores SQL.
+-- MAGIC - Permite organizar datos por área funcional específica o tema.
+-- MAGIC - Ejemplos de nombres de esquema: `clientes`, `transacciones`, `productos`, `reportes`.
+-- MAGIC
+-- MAGIC #### 4. **Objetos de datos**
+-- MAGIC Dentro de cada esquema existen los objetos que realmente contienen o procesan datos:
+-- MAGIC
+-- MAGIC - **Tablas:** almacenan datos estructurados en formato Delta (o Parquet, CSV, JSON, etc.).
+-- MAGIC - **Vistas:** consultas guardadas que presentan datos sin duplicarlos físicamente.
+-- MAGIC - **Vistas materializadas:** consultas precalculadas y almacenadas para mejorar el rendimiento.
+-- MAGIC - **Funciones (UDFs):** código reutilizable para transformar o calcular datos.
+-- MAGIC - **Volúmenes:** almacenamiento de archivos no tabulares (imágenes, PDFs, modelos de ML, etc.).
+-- MAGIC
+-- MAGIC ### Representación visual de la jerarquía
+-- MAGIC
+-- MAGIC ```text
+-- MAGIC Metastore (nivel regional/organizacional)
+-- MAGIC │
+-- MAGIC ├─ Catalog: ventas
+-- MAGIC │  ├─ Schema: clientes
+-- MAGIC │  │  ├─ Tabla: clientes_activos
+-- MAGIC │  │  ├─ Vista: clientes_resumen
+-- MAGIC │  │  └─ Función: calcular_descuento()
+-- MAGIC │  │
+-- MAGIC │  └─ Schema: transacciones
+-- MAGIC │     ├─ Tabla: pedidos
+-- MAGIC │     ├─ Tabla: pagos
+-- MAGIC │     └─ Vista: ventas_diarias
+-- MAGIC │
+-- MAGIC ├─ Catalog: marketing
+-- MAGIC │  ├─ Schema: campanas
+-- MAGIC │  │  ├─ Tabla: campanas_email
+-- MAGIC │  │  └─ Volumen: imagenes_campanas
+-- MAGIC │  │
+-- MAGIC │  └─ Schema: analisis
+-- MAGIC │     └─ Tabla: metricas_conversion
+-- MAGIC │
+-- MAGIC └─ Catalog: desarrollo
+-- MAGIC    └─ Schema: sandbox
+-- MAGIC       ├─ Tabla: prueba_datos
+-- MAGIC       └─ Vista: vista_temporal
+-- MAGIC ```
+-- MAGIC ![](../../images/diagrama_jerarquia_unity_catalog.png)
+-- MAGIC
+-- MAGIC
+-- MAGIC ### Nomenclatura completa (fully qualified name)
+-- MAGIC
+-- MAGIC Para referenciar un objeto en Unity Catalog se usa la notación de tres niveles:
+-- MAGIC
+-- MAGIC ```sql
+-- MAGIC -- Formato: catalog.schema.tabla
+-- MAGIC SELECT * FROM ventas.clientes.clientes_activos;
+-- MAGIC
+-- MAGIC -- Formato: catalog.schema.vista
+-- MAGIC SELECT * FROM ventas.transacciones.ventas_diarias;
+-- MAGIC
+-- MAGIC -- Formato: catalog.schema.funcion()
+-- MAGIC SELECT ventas.clientes.calcular_descuento(monto) AS descuento;
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ### Ventajas de Unity Catalog frente a sistemas tradicionales
+-- MAGIC
+-- MAGIC | Aspecto | Sistemas tradicionales | Unity Catalog |
+-- MAGIC |---------|------------------------|---------------|
+-- MAGIC | **Ámbito** | Una sola base de datos o servidor | Multicloud, múltiples workspaces |
+-- MAGIC | **Gobierno** | Por base de datos | Centralizado en toda la organización |
+-- MAGIC | **Auditoría** | Limitada o manual | Automática y completa (quién, qué, cuándo) |
+-- MAGIC | **Linaje de datos** | Requiere herramientas externas | Integrado nativamente |
+-- MAGIC | **Control de acceso** | Por tabla o esquema | Granular: catalog, schema, tabla, columna, fila |
+-- MAGIC | **Compartir datos** | Copias o ETL | Delta Sharing (sin mover datos) |
+-- MAGIC | **Tipos de datos** | Solo tabulares | Tabulares + archivos (volúmenes) + funciones |
+-- MAGIC
+-- MAGIC ### Ejemplo práctico en este curso
+-- MAGIC
+-- MAGIC En los notebooks de SQL de este curso trabajarás con:
+-- MAGIC - **Metastore:** ya configurado en tu workspace de Databricks
+-- MAGIC - **Catálogo:** `samples` (catálogo de ejemplo de Databricks) o catálogos propios
+-- MAGIC - **Esquemas:** `tpch`, `tpcds_sf1`, `wanderbricks`, etc.
+-- MAGIC - **Tablas:** `customer`, `orders`, `lineitem`, `bookings`, etc.
+-- MAGIC
+-- MAGIC Por ejemplo:
+-- MAGIC ```sql
+-- MAGIC -- Consultar la tabla de clientes en el esquema tpch del catálogo samples
+-- MAGIC SELECT * FROM samples.tpch.customer LIMIT 10;
+-- MAGIC ```
+-- MAGIC
+-- MAGIC ### Diferencia clave con la jerarquía tradicional
+-- MAGIC
+-- MAGIC **Jerarquía tradicional (SQL Server, PostgreSQL):**
+-- MAGIC ```
+-- MAGIC Servidor → Base de datos → Esquema → Tabla
+-- MAGIC ```
+-- MAGIC
+-- MAGIC **Jerarquía Unity Catalog (Databricks):**
+-- MAGIC ```
+-- MAGIC Metastore → Catálogo → Esquema → Tabla/Vista/Volumen/Función
+-- MAGIC ```
+-- MAGIC
+-- MAGIC La principal diferencia es que Unity Catalog agrega una **capa de abstracción superior** (metastore y catálogo) que permite:
+-- MAGIC - Gestionar datos a escala empresarial
+-- MAGIC - Unificar gobierno entre múltiples equipos y proyectos
+-- MAGIC - Soportar arquitecturas de datos modernas (data lakehouse)
+-- MAGIC - Compartir datos de forma segura sin duplicarlos
+
+-- COMMAND ----------
+
+-- MAGIC %md
 -- MAGIC ## 3. Comunicación entre usuario y base de datos
 -- MAGIC
 -- MAGIC La interacción con una base de datos casi nunca ocurre de forma aislada. Normalmente participan un usuario, una herramienta cliente, una red, el motor SQL y el almacenamiento físico.
