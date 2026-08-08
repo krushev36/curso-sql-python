@@ -46,6 +46,7 @@ title: Inicio
 		<ul class="home-list">
 			<li><a class="home-link" href="{{ '/datasets_guide' | relative_url }}">Guia de datasets</a></li>
 			<li><a class="home-link" href="{{ '/setup_guide' | relative_url }}">Guia de configuracion en Databricks</a></li>
+			<li><a class="home-link" href="{{ '/github_codespaces_guide' | relative_url }}">Guia de GitHub y Codespaces</a></li>
 			<li><a class="home-link" href="https://github.com/krushev36/curso-sql-python">Repositorio fuente</a></li>
 		</ul>
 	</article>
@@ -77,25 +78,6 @@ title: Inicio
 		</ul>
 	</article>
 </section>
-
-## Rutas Markdown de Python
-
-- [docs/python/notebooks/01_python_fundamentos.md]({{ '/python/notebooks/01_python_fundamentos' | relative_url }})
-- [docs/python/notebooks/02_python_funciones_librerias.md]({{ '/python/notebooks/02_python_funciones_librerias' | relative_url }})
-- [docs/python/notebooks/03_python_archivos_visualizacion.md]({{ '/python/notebooks/03_python_archivos_visualizacion' | relative_url }})
-- [docs/python/notebooks/04_python_pandas.md]({{ '/python/notebooks/04_python_pandas' | relative_url }})
-
-## Rutas Markdown de SQL
-
-- [docs/sql/notebooks/00_modulo_inicial_sql.md]({{ '/sql/notebooks/00_modulo_inicial_sql' | relative_url }})
-- [docs/sql/notebooks/01_introduccion_databricks_sql.md]({{ '/sql/notebooks/01_introduccion_databricks_sql' | relative_url }})
-- [docs/sql/notebooks/02_select_consultas_basicas.md]({{ '/sql/notebooks/02_select_consultas_basicas' | relative_url }})
-- [docs/sql/notebooks/03_join.md]({{ '/sql/notebooks/03_join' | relative_url }})
-- [docs/sql/notebooks/04_funciones_sql.md]({{ '/sql/notebooks/04_funciones_sql' | relative_url }})
-- [docs/sql/notebooks/05_agregaciones.md]({{ '/sql/notebooks/05_agregaciones' | relative_url }})
-- [docs/sql/notebooks/06_subconsultas_cte.md]({{ '/sql/notebooks/06_subconsultas_cte' | relative_url }})
-- [docs/sql/notebooks/07_window_functions.md]({{ '/sql/notebooks/07_window_functions' | relative_url }})
-- [docs/sql/notebooks/08_proyecto_integrador.md]({{ '/sql/notebooks/08_proyecto_integrador' | relative_url }})
 
 <div class="home-callout">
 	Si esta es la primera publicacion del sitio, activa GitHub Pages en Settings > Pages y deja como fuente GitHub Actions. El workflow ya esta configurado en el repositorio.

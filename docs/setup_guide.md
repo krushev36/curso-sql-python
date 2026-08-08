@@ -8,21 +8,20 @@ Esta guía te lleva paso a paso desde cero hasta tener tu entorno listo para eje
 
 ---
 
-## 1️⃣ Crear Cuenta en Databricks Community Edition
+## 1️⃣ Crear Cuenta en Databricks Free Edition
 
 ### Paso 1: Registrarse
 
-1. Ir a: **https://community.cloud.databricks.com**
-2. Hacer clic en **"Try Databricks"** o **"Get started for free"**
+1. Ir a: **https://www.databricks.com/es/learn/free-edition**
+2. Hacer clic en **"Get started for free"**
 3. Completar el formulario:
    - Nombre y apellido
    - Correo electrónico (recomendado: correo universitario)
    - Empresa/Universidad
    - País
-4. Seleccionar **"Community Edition"** (la opción gratuita)
-5. Verificar el correo electrónico
+4. Verificar el correo electrónico
 
-> **📝 Nota:** Community Edition es completamente gratuita y no requiere tarjeta de crédito.
+> **📝 Nota:** Debes registrarte usando el enlace oficial anterior. Databricks Free Edition no requiere tarjeta de crédito y no tiene costo alguno.
 
 ---
 
@@ -59,7 +58,7 @@ Un cluster es el motor de cómputo que ejecuta tus consultas SQL.
 4. Hacer clic en **"Create compute"**
 5. Esperar ~5 minutos hasta que el estado sea **🟢 Running**
 
-> **⚠️ Advertencia:** En Community Edition, el cluster se detiene automáticamente después de 2 horas de inactividad. Simplemente reinícialo cuando lo necesites.
+> **⚠️ Advertencia:** En Free Edition, el cluster puede detenerse automáticamente después de periodos de inactividad. Simplemente reinícialo cuando lo necesites.
 
 ---
 
@@ -229,4 +228,4 @@ samples (catálogo)
 
 ---
 
-*Guía válida para Databricks Community Edition — 2024*
+*Guía válida para Databricks Free Edition — 2026*
