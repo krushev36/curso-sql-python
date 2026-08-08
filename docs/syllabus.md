@@ -1,3 +1,7 @@
+---
+title: Syllabus
+---
+
 # 📋 Programa del Curso: SQL para Ciencia de Datos usando Databricks
 
 **Institución:** Maestría en Ciencia de Datos e Inteligencia de Negocios  

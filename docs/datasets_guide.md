@@ -1,3 +1,7 @@
+---
+title: Guia de Datasets
+---
+
 # 📊 Guía de Datasets — SQL para Ciencia de Datos usando Databricks
 
 Este documento describe en detalle los datasets disponibles en Databricks que se utilizan a lo largo del curso.
