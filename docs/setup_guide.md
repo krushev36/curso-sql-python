@@ -1,3 +1,7 @@
+---
+title: Guia de Configuracion
+---
+
 # ⚙️ Guía de Configuración — Databricks Free Edition
 
 Esta guía te lleva paso a paso desde cero hasta tener tu entorno listo para ejecutar los notebooks del curso.
