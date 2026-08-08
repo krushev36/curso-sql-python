@@ -40,7 +40,7 @@ Tipos de operaciones más comunes:
 - **Tabla:** Es el objeto principal donde se almacenan los datos en filas y columnas. Cada columna tiene un tipo de dato definido y cada fila representa un registro.
 - **Vista:** Es una consulta guardada que presenta datos de una o varias tablas como si fuera una tabla virtual. Permite simplificar consultas complejas, restringir acceso o mostrar información personalizada sin duplicar datos.
 - **Stored Procedure (Procedimiento almacenado):** Es un bloque de código SQL guardado en la base de datos que puede ejecutarse para realizar tareas específicas, como insertar, actualizar o consultar datos. Permite automatizar procesos y reutilizar lógica de negocio.
-![](../../../images/diagrama_jerarquia_sql_server.png)
+![](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/diagrama_jerarquia_sql_server.png)
 
 ## Jerarquía de objetos en Unity Catalog
 **Unity Catalog** es el sistema de gobierno y gestión de datos unificado de Databricks. Proporciona un catálogo centralizado para organizar, asegurar y auditar todos los activos de datos en una plataforma Lakehouse.
@@ -99,7 +99,7 @@ Metastore (nivel regional/organizacional)
       ├─ Tabla: prueba_datos
       └─ Vista: vista_temporal
 ```
-![](../../../images/diagrama_jerarquia_unity_catalog.png)
+![](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/diagrama_jerarquia_unity_catalog.png)
 ### Nomenclatura completa (fully qualified name)
 Para referenciar un objeto en Unity Catalog se usa la notación de tres niveles:
 ```sql
@@ -310,12 +310,12 @@ Un **diagrama entidad-relación (ER)** es una herramienta visual que representa 
 - **Relación 1 a 1:** Cada registro de una entidad se asocia con un solo registro de otra entidad. Ejemplo: cada persona tiene un único pasaporte.
 - **Relación 1 a N (uno a muchos):** Un registro de una entidad puede estar relacionado con varios registros de otra entidad, pero cada registro de la segunda entidad solo se asocia a uno de la primera. Ejemplo: un cliente puede tener muchos pedidos.
 - **Relación N a 1 (muchos a uno):** Muchos registros de una entidad se asocian a un solo registro de otra entidad. Ejemplo: muchos pedidos pertenecen a un solo cliente.
-![Diagrama Entidad Relación del Dataset TPCH](../../../images/modelo_tpch.png)
+![Diagrama Entidad Relación del Dataset TPCH](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/modelo_tpch.png)
 
 ### Ejemplo de Diagrama Entidad Relacion
 El dataset **Wanderbricks** contiene información sobre reservas de propiedades turísticas. Cada registro representa una reserva e incluye datos como el identificador de la reserva (`booking_id`), el usuario que realiza la reserva (`user_id`), la propiedad reservada (`property_id`), fechas de check-in y check-out, número de huéspedes, monto total pagado, estado de la reserva y fechas de creación y actualización.
 #### Diagrama Entidad-Relación
-![](../../../images/modelo_wanderbricks.png)
+![](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/modelo_wanderbricks.png)
 Este dataset sigue un **modelo relacional**: la información se organiza en tablas conectadas mediante llaves primarias y foráneas, lo que permite mantener la integridad y facilitar consultas entre entidades como usuarios, propiedades y reservas.
 
 ## 9. Modelos de datos para analítica: estrella y copo de nieve
@@ -330,7 +330,7 @@ Tiene una **tabla de hechos** en el centro y varias **dimensiones** alrededor.
 - buen desempeño analítico,
 - fácil lectura para negocio y BI.
 #### 9.1.1 Ejemplo de modelo estrella
-![](../../../images/modelo_tpcds_sf1.png)
+![](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/modelo_tpcds_sf1.png)
 ### 9.2 Modelo copo de nieve
 Es una variación del modelo estrella donde algunas dimensiones se descomponen en subdimensiones más normalizadas.
 ![Diagrama de modelo copo de nieve](https://raw.githubusercontent.com/krushev36/curso-sql-python/main/images/modelo_copo_nieve.png)
