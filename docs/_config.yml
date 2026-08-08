@@ -8,3 +8,5 @@ header_pages:
   - syllabus.md
   - datasets_guide.md
   - setup_guide.md
+  - github_codespaces_guide.md
+
