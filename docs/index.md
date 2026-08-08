@@ -27,11 +27,6 @@ title: Inicio
 			</div>
 		</div>
 	</div>
-
-	<figure class="home-banner">
-		<img src="{{ '/assets/images/banner-mcdin.png' | relative_url }}" alt="Banner de la Maestria en Ciencia de Datos e Inteligencia de Negocios">
-		<figcaption class="home-banner-caption">Identidad visual basada en el portal oficial de la Universidad de Antioquia y en la pagina publica de la maestria.</figcaption>
-	</figure>
 </section>
 
 <section class="home-grid">
