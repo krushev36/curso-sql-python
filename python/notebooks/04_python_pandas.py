@@ -83,7 +83,7 @@ data = {
 }
 
 df = pd.DataFrame(data)
-print(df)
+display(df)
 print(f"\nDimensiones: {df.shape}")
 print(f"Columnas: {df.columns.tolist()}")
 
@@ -105,7 +105,7 @@ datos = [
 ]
 
 df_lista = pd.DataFrame(datos, columns=['nombre', 'edad', 'ciudad'])
-print(df_lista)
+display(df_lista)
 
 # COMMAND ----------
 
@@ -150,7 +150,7 @@ df['salario_anual'] = df['salario'] * 12
 # Agregar una columna con valores específicos
 df['experiencia_años'] = [3, 8, 12, 5, 9]
 
-print(df)
+display(df)
 
 # COMMAND ----------
 
@@ -170,7 +170,7 @@ df['nivel_salario'] = pd.cut(df['salario'],
                              bins=[0, 3500000, 4500000, 6000000],
                              labels=['Bajo', 'Medio', 'Alto'])
 
-print(df[['nombre', 'edad', 'categoria_edad', 'salario', 'nivel_salario']])
+display(df[['nombre', 'edad', 'categoria_edad', 'salario', 'nivel_salario']])
 
 # COMMAND ----------
 
@@ -188,12 +188,12 @@ print(df[['nombre', 'edad', 'categoria_edad', 'salario', 'nivel_salario']])
 # Eliminar una columna (sin modificar el original)
 df_sin_pais = df.drop('pais', axis=1)
 print("DataFrame sin columna 'pais':")
-print(df_sin_pais.head())
+display(df_sin_pais.head())
 
 # Eliminar múltiples columnas
 df_reducido = df.drop(['experiencia_años', 'categoria_edad'], axis=1)
 print("\nDataFrame sin experiencia ni categoría:")
-print(df_reducido.head())
+display(df_reducido.head())
 
 # Eliminar columnas modificando el original (usar con cuidado)
 # df.drop('columna', axis=1, inplace=True)
@@ -220,22 +220,22 @@ print(df_reducido.head())
 # Filtrar personas mayores de 30 años
 df_mayores = df[df['edad'] > 30]
 print("Personas mayores de 30:")
-print(df_mayores)
+display(df_mayores)
 
 # Filtrar por ciudad específica
 df_medellin = df[df['ciudad'] == 'Medellín']
 print("\nPersonas de Medellín:")
-print(df_medellin)
+display(df_medellin)
 
 # Filtrar con múltiples condiciones (AND)
 df_filtro_and = df[(df['edad'] > 25) & (df['salario'] > 4000000)]
 print("\nEdad > 25 Y salario > 4M:")
-print(df_filtro_and)
+display(df_filtro_and)
 
 # Filtrar con condición OR
 df_filtro_or = df[(df['ciudad'] == 'Bogotá') | (df['ciudad'] == 'Cali')]
 print("\nPersonas de Bogotá o Cali:")
-print(df_filtro_or)
+display(df_filtro_or)
 
 # COMMAND ----------
 
@@ -251,17 +251,17 @@ print(df_filtro_or)
 ciudades_interes = ['Medellín', 'Bogotá']
 df_ciudades = df[df['ciudad'].isin(ciudades_interes)]
 print("Filtrado con isin():")
-print(df_ciudades)
+display(df_ciudades)
 
 # Filtrar texto que contiene una palabra
 df_contiene_m = df[df['ciudad'].str.contains('e')]
 print("\nCiudades que contienen 'e':")
-print(df_contiene_m)
+display(df_contiene_m)
 
 # Negar una condición (NOT)
 df_no_medellin = df[~(df['ciudad'] == 'Medellín')]
 print("\nPersonas NO de Medellín:")
-print(df_no_medellin)
+display(df_no_medellin)
 
 # COMMAND ----------
 
@@ -288,7 +288,7 @@ data_nulos = {
 
 df_nulos = pd.DataFrame(data_nulos)
 print("DataFrame con valores nulos:")
-print(df_nulos)
+display(df_nulos)
 
 # COMMAND ----------
 
@@ -299,7 +299,7 @@ print(df_nulos.isnull().sum())
 
 # Ver filas con al menos un valor nulo
 print("\nFilas con valores nulos:")
-print(df_nulos[df_nulos.isnull().any(axis=1)])
+display(df_nulos[df_nulos.isnull().any(axis=1)])
 
 # Porcentaje de nulos
 print("\nPorcentaje de nulos:")
@@ -317,27 +317,27 @@ print((df_nulos.isnull().sum() / len(df_nulos) * 100).round(2))
 # Opción 1: Eliminar filas con valores nulos
 df_sin_nulos = df_nulos.dropna()
 print("DataFrame sin filas con nulos:")
-print(df_sin_nulos)
+display(df_sin_nulos)
 
 # Opción 2: Eliminar columnas con nulos
 df_sin_col_nulos = df_nulos.dropna(axis=1)
 print("\nDataFrame sin columnas con nulos:")
-print(df_sin_col_nulos)
+display(df_sin_col_nulos)
 
 # Opción 3: Reemplazar nulos con un valor específico
 df_relleno = df_nulos.fillna(0)
 print("\nNulos reemplazados por 0:")
-print(df_relleno)
+display(df_relleno)
 
 # Opción 4: Reemplazar con la media (para columnas numéricas)
 df_nulos['precio'] = df_nulos['precio'].fillna(df_nulos['precio'].mean())
 print("\nPrecio con media:")
-print(df_nulos)
+display(df_nulos)
 
 # Opción 5: Forward fill (rellenar con el valor anterior)
 df_nulos['cantidad'] = df_nulos['cantidad'].fillna(method='ffill')
 print("\nCantidad con forward fill:")
-print(df_nulos)
+display(df_nulos)
 
 # COMMAND ----------
 
@@ -365,7 +365,7 @@ df = pd.DataFrame({
 # Aplicar función a una columna
 df['nombre_mayusculas'] = df['nombre'].apply(lambda x: x.upper())
 print("Nombres en mayúsculas:")
-print(df[['nombre', 'nombre_mayusculas']])
+display(df[['nombre', 'nombre_mayusculas']])
 
 # Aplicar función que usa múltiples columnas
 def clasificar_persona(row):
@@ -378,7 +378,7 @@ def clasificar_persona(row):
 
 df['nivel'] = df.apply(clasificar_persona, axis=1)
 print("\nClasificación de nivel:")
-print(df[['nombre', 'edad', 'salario', 'nivel']])
+display(df[['nombre', 'edad', 'salario', 'nivel']])
 
 # COMMAND ----------
 
@@ -399,7 +399,7 @@ df['edad_estandarizada'] = (df['edad'] - df['edad'].mean()) / df['edad'].std()
 df['log_salario'] = np.log(df['salario'])
 
 print("Transformaciones aplicadas:")
-print(df[['salario', 'salario_normalizado', 'log_salario']].round(3))
+display(df[['salario', 'salario_normalizado', 'log_salario']].round(3))
 
 # COMMAND ----------
 
@@ -419,17 +419,17 @@ print(df[['salario', 'salario_normalizado', 'log_salario']].round(3))
 # Agrupar por ciudad y calcular promedio de salario
 promedio_por_ciudad = df.groupby('ciudad')['salario'].mean()
 print("Salario promedio por ciudad:")
-print(promedio_por_ciudad)
+display(promedio_por_ciudad)
 
 # Contar personas por ciudad
 conteo_por_ciudad = df.groupby('ciudad').size()
 print("\nConteo de personas por ciudad:")
-print(conteo_por_ciudad)
+display(conteo_por_ciudad)
 
 # Múltiples agregaciones a la vez
 estadisticas = df.groupby('ciudad')['salario'].agg(['mean', 'min', 'max', 'count'])
 print("\nEstadísticas de salario por ciudad:")
-print(estadisticas)
+display(estadisticas)
 
 # COMMAND ----------
 
@@ -450,12 +450,12 @@ data_ventas = {
 
 df_ventas = pd.DataFrame(data_ventas)
 print("DataFrame de ventas:")
-print(df_ventas)
+display(df_ventas)
 
 # Agrupar por múltiples columnas
 ventas_region_producto = df_ventas.groupby(['region', 'producto'])['ventas'].sum()
 print("\nVentas totales por región y producto:")
-print(ventas_region_producto)
+display(ventas_region_producto)
 
 # Aplicar diferentes funciones a diferentes columnas
 agregaciones = df_ventas.groupby('region').agg({
@@ -463,7 +463,7 @@ agregaciones = df_ventas.groupby('region').agg({
     'unidades': ['sum', 'max']
 })
 print("\nAgregaciones múltiples:")
-print(agregaciones)
+display(agregaciones)
 
 # COMMAND ----------
 
@@ -478,13 +478,13 @@ print(agregaciones)
 df_ventas['ventas_promedio_region'] = df_ventas.groupby('region')['ventas'].transform('mean')
 df_ventas['desviacion_promedio'] = df_ventas['ventas'] - df_ventas['ventas_promedio_region']
 print("DataFrame con promedio por región:")
-print(df_ventas)
+display(df_ventas)
 
 # Filter: mantener solo grupos que cumplen una condición
 # Por ejemplo, regiones con ventas totales > 300
 grupos_grandes = df_ventas.groupby('region').filter(lambda x: x['ventas'].sum() > 300)
 print("\nRegiones con ventas totales > 300:")
-print(grupos_grandes)
+display(grupos_grandes)
 
 # COMMAND ----------
 
