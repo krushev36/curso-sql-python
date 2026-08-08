@@ -7,22 +7,22 @@ title: Inicio
 		<img class="home-logo" src="{{ '/assets/images/logo-udea-horizontal.png' | relative_url }}" alt="Universidad de Antioquia">
 		<span class="home-kicker">Maestria en Ciencia de Datos e Inteligencia de Negocios</span>
 		<h1 class="home-title">Curso <strong>SQL + Python</strong> para ciencia de datos</h1>
-		<p class="home-copy">Portada inspirada en la identidad visual de la Universidad de Antioquia y de la pagina oficial de la maestria. Desde aqui puedes entrar al bloque de Python, al bloque de SQL y a las guias operativas del curso en un solo recorrido publico para GitHub Pages.</p>
+		<p class="home-copy">El análisis de datos requiere combinar habilidades de programación con el dominio de herramientas para el manejo eficiente de la información. En este curso los estudiantes aprenderán los fundamentos de Python y SQL utilizando Databricks como plataforma de trabajo, adquiriendo las competencias necesarias para explorar datos, construir consultas, automatizar procesos y desarrollar soluciones analíticas que servirán de base para el resto de la Maestría en Ciencia de Datos e Inteligencia de Negocios.</p>
 		<div class="home-actions">
 			<a class="home-button home-button-primary" href="{{ '/python' | relative_url }}">Explorar bloque Python</a>
 			<a class="home-button home-button-secondary" href="{{ '/sql' | relative_url }}">Explorar bloque SQL</a>
 		</div>
 		<div class="home-meta">
 			<div class="home-stat">
-				<strong>4</strong>
-				<span>recursos del bloque Python</span>
+				<strong>Python</strong>
+				<span>Taller de 50%</span>
 			</div>
 			<div class="home-stat">
-				<strong>9</strong>
-				<span>notebooks y modulos SQL</span>
+				<strong>SQL</strong>
+				<span>Taller de 50%</span>
 			</div>
 			<div class="home-stat">
-				<strong>22-24h</strong>
+				<strong>32h</strong>
 				<span>duracion estimada del curso</span>
 			</div>
 		</div>
@@ -44,7 +44,6 @@ title: Inicio
 		<h3>Accesos rapidos</h3>
 		<p>Las guias de apoyo quedan visibles desde la portada para reducir friccion de uso en clase y en estudio autonomo.</p>
 		<ul class="home-list">
-			<li><a class="home-link" href="{{ '/datasets_guide' | relative_url }}">Guia de datasets</a></li>
 			<li><a class="home-link" href="{{ '/setup_guide' | relative_url }}">Guia de configuracion en Databricks</a></li>
 			<li><a class="home-link" href="{{ '/github_codespaces_guide' | relative_url }}">Guia de GitHub y Codespaces</a></li>
 			<li><a class="home-link" href="https://github.com/krushev36/curso-sql-python">Repositorio fuente</a></li>
