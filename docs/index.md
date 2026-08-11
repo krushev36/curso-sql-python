@@ -54,10 +54,10 @@ title: Inicio
 		<h3>Bloque Python</h3>
 		<p>Material inicial para lectura, simulacion, archivos, visualizacion y analisis tabular.</p>
 		<ul class="home-list">
-			<li><a class="home-link" href="{{ '/python/notebooks/01_python_fundamentos' | relative_url }}">docs/python/notebooks/01_python_fundamentos.md</a></li>
-			<li><a class="home-link" href="{{ '/python/notebooks/02_python_funciones_librerias' | relative_url }}">docs/python/notebooks/02_python_funciones_librerias.md</a></li>
-			<li><a class="home-link" href="{{ '/python/notebooks/03_python_archivos_visualizacion' | relative_url }}">docs/python/notebooks/03_python_archivos_visualizacion.md</a></li>
-			<li><a class="home-link" href="{{ '/python/notebooks/04_python_pandas' | relative_url }}">docs/python/notebooks/04_python_pandas.md</a></li>
+			<li><a class="home-link" href="{{ '/python/notebooks/01_python_fundamentos.md' | relative_url }}">docs/python/notebooks/01_python_fundamentos.md</a></li>
+			<li><a class="home-link" href="{{ '/python/notebooks/02_python_funciones_librerias.md' | relative_url }}">docs/python/notebooks/02_python_funciones_librerias.md</a></li>
+			<li><a class="home-link" href="{{ '/python/notebooks/03_python_archivos_visualizacion.md' | relative_url }}">docs/python/notebooks/03_python_archivos_visualizacion.md</a></li>
+			<li><a class="home-link" href="{{ '/python/notebooks/04_python_pandas.md' | relative_url }}">docs/python/notebooks/04_python_pandas.md</a></li>
 		</ul>
 	</article>
 
