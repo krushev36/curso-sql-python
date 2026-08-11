@@ -10,15 +10,15 @@ Esta seccion organiza los notebooks SQL del curso para Databricks. El recorrido 
 
 | Archivo | Titulo | Enlace al repositorio |
 | --- | --- | --- |
-| 00_modulo_inicial_sql.sql | Modulo 00: Introduccion general a SQL | [Abrir notebook]({{ '/sql/notebooks/00_modulo_inicial_sql.md' | relative_url }}) |
-| 01_introduccion_databricks_sql.sql | Notebook 01: Introduccion a Databricks SQL | [Abrir notebook]({{ '/sql/notebooks/01_introduccion_databricks_sql.md' | relative_url }}) |
-| 02_select_consultas_basicas.sql | Notebook 02: SELECT y Consultas Basicas | [Abrir notebook]({{ '/sql/notebooks/02_select_consultas_basicas.md' | relative_url }}) |
-| 03_join.sql | Notebook 05: JOIN | [Abrir notebook]({{ '/sql/notebooks/03_join.md' | relative_url }}) |
-| 04_funciones_sql.sql | Notebook 03: Funciones SQL | [Abrir notebook]({{ '/sql/notebooks/04_funciones_sql.md' | relative_url }}) |
-| 05_agregaciones.sql | Notebook 04: Agregaciones | [Abrir notebook]({{ '/sql/notebooks/05_agregaciones.md' | relative_url }}) |
-| 06_subconsultas_cte.sql | Notebook 06: Subconsultas y CTE | [Abrir notebook]({{ '/sql/notebooks/06_subconsultas_cte.md' | relative_url }}) |
-| 07_window_functions.sql | Notebook 07: Window Functions | [Abrir notebook]({{ '/sql/notebooks/07_window_functions.md' | relative_url }}) |
-| 08_proyecto_integrador.sql | Notebook 08: Proyecto Integrador | [Abrir notebook]({{ '/sql/notebooks/08_proyecto_integrador.md' | relative_url }}) |
+| 00_modulo_inicial_sql | Modulo 00: Introduccion general a SQL | [Abrir notebook](/sql/notebooks/00_modulo_inicial_sql.md) |
+| 01_introduccion_databricks_sql | Notebook 01: Introduccion a Databricks SQL | [Abrir notebook](/sql/notebooks/01_introduccion_databricks_sql.md) |
+| 02_select_consultas_basicas | Notebook 02: SELECT y Consultas Basicas | [Abrir notebook](/sql/notebooks/02_select_consultas_basicas.md) |
+| 03_join | Notebook 05: JOIN | [Abrir notebook](/sql/notebooks/03_join.md) |
+| 04_funciones_sql | Notebook 03: Funciones SQL | [Abrir notebook](/sql/notebooks/04_funciones_sql.md) |
+| 05_agregaciones | Notebook 04: Agregaciones | [Abrir notebook](/sql/notebooks/05_agregaciones.md) |
+| 06_subconsultas_cte | Notebook 06: Subconsultas y CTE | [Abrir notebook](/sql/notebooks/06_subconsultas_cte.md) |
+| 07_window_functions | Notebook 07: Window Functions | [Abrir notebook](/sql/notebooks/07_window_functions.md) |
+| 08_proyecto_integrador | Notebook 08: Proyecto Integrador | [Abrir notebook](/sql/notebooks/08_proyecto_integrador.md) |
 
 ## Enlaces de descarga
 
