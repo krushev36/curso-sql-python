@@ -10,10 +10,10 @@ Esta seccion concentra el bloque inicial del curso orientado a fundamentos de Py
 
 | Archivo | Titulo | Enlace al repositorio |
 | --- | --- | --- |
-| 01_python_fundamentos.ipynb | Notebook 01: Fundamentos de Python para Ciencia de Datos | [Abrir notebook]({{ '/python/notebooks/01_python_fundamentos.md' | relative_url }}) |
-| 02_python_funciones_librerias.ipynb | Notebook 02: Funciones, estructuras y librerias base en Python | [Abrir notebook]({{ '/python/notebooks/02_python_funciones_librerias.md' | relative_url }}) |
-| 03_python_archivos_visualizacion.ipynb | Notebook 03: Archivos, analisis y visualizacion en Python | [Abrir notebook]({{ '/python/notebooks/03_python_archivos_visualizacion.md' | relative_url }}) |
-| 04_python_pandas.py | Notebook 04: Analisis de datos con Pandas | [Abrir notebook]({{ '/python/notebooks/04_python_pandas.md' | relative_url }}) |
+| 01_python_fundamentos | Notebook 01: Fundamentos de Python para Ciencia de Datos | [Abrir notebook](docs/python/notebooks/01_python_fundamentos.md) |
+| 02_python_funciones_librerias | Notebook 02: Funciones, estructuras y librerias base en Python | [Abrir notebook](docs/python/notebooks/02_python_funciones_librerias.md) |
+| 03_python_archivos_visualizacion.ipynb | Notebook 03: Archivos, analisis y visualizacion en Python | [Abrir notebook](docs/python/notebooks/03_python_archivos_visualizacion.md ) |
+| 04_python_pandas.py | Notebook 04: Analisis de datos con Pandas | [Abrir notebook](docs/python/notebooks/04_python_pandas.md) |
 
 ## Enlaces de descarga
 
