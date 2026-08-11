@@ -2,6 +2,8 @@ title: Curso SQL + Python para Ciencia de Datos
 description: Materiales del curso Fundamentos de Programacion para la Maestria en Ciencia de Datos e Inteligencia de Negocios.
 theme: minima
 markdown: kramdown
+kramdown:
+  math_engine: mathjax
 header_pages:
   - python.md
   - sql.md
@@ -9,4 +11,5 @@ header_pages:
   - datasets_guide.md
   - setup_guide.md
   - github_codespaces_guide.md
+
 

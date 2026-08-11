@@ -781,17 +781,21 @@ $$
 ## 17. Task:
 
 Solve the following equation systems
-\begin{align}
-2 x_1 - 5 x_2 & = 3 \\
-5 x_1 + 8 x_2 & = 5 
-\end{align}
+$$
+\begin{aligned}
+2 x_1 - 5 x_2 &= 3 \\
+5 x_1 + 8 x_2 &= 5
+\end{aligned}
+$$
 
 Solve the following equation systems
-\begin{align}
-2 x_1 + 2 x_2 - x_3 =  2 \\
-  x_1 - 3 x_2 + x_3 = 0 \\
-3 x_1 + 4 x_2 - x_3 = 1
-\end{align}
+$$
+\begin{aligned}
+2 x_1 + 2 x_2 - x_3 &= 2 \\
+x_1 - 3 x_2 + x_3 &= 0 \\
+3 x_1 + 4 x_2 - x_3 &= 1
+\end{aligned}
+$$
 
 ```python
 #A = np.array([[0, 1, -2],[3, 4, 5],[-6, 7, 15]])
