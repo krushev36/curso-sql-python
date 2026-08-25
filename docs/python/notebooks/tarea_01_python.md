@@ -1,5 +1,6 @@
 ---
 title: "Tarea 01: Fundamentos de Python"
+layout: page
 ---
 
 Fuente original: [tarea_01_python.ipynb](https://github.com/krushev36/curso-sql-python/blob/main/python/notebooks/tarea_01_python.ipynb)

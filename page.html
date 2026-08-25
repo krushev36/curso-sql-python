@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Curso SQL + Python para Ciencia de Datos | Materiales del curso Fundamentos de Programacion para la Maestria en Ciencia de Datos e Inteligencia de Negocios.</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Curso SQL + Python para Ciencia de Datos" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Materiales del curso Fundamentos de Programacion para la Maestria en Ciencia de Datos e Inteligencia de Negocios." />
+<meta property="og:description" content="Materiales del curso Fundamentos de Programacion para la Maestria en Ciencia de Datos e Inteligencia de Negocios." />
+<link rel="canonical" href="https://krushev36.github.io/curso-sql-python/python/notebooks/01_python_fundamentos.html" />
+<meta property="og:url" content="https://krushev36.github.io/curso-sql-python/python/notebooks/01_python_fundamentos.html" />
+<meta property="og:site_name" content="Curso SQL + Python para Ciencia de Datos" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Curso SQL + Python para Ciencia de Datos" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"Materiales del curso Fundamentos de Programacion para la Maestria en Ciencia de Datos e Inteligencia de Negocios.","headline":"Curso SQL + Python para Ciencia de Datos","url":"https://krushev36.github.io/curso-sql-python/python/notebooks/01_python_fundamentos.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/curso-sql-python/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://krushev36.github.io/curso-sql-python/feed.xml" title="Curso SQL + Python para Ciencia de Datos" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/curso-sql-python/">Curso SQL + Python para Ciencia de Datos</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/curso-sql-python/python.html">Python</a><a class="page-link" href="/curso-sql-python/sql.html">SQL</a><a class="page-link" href="/curso-sql-python/syllabus.html">Syllabus</a><a class="page-link" href="/curso-sql-python/datasets_guide.html">Guia de Datasets</a><a class="page-link" href="/curso-sql-python/setup_guide.html">Guia de Configuracion</a><a class="page-link" href="/curso-sql-python/github_codespaces_guide.html">Guia de GitHub y Codespaces</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post">
+
+  <header class="post-header">
+    <h1 class="post-title"></h1>
+  </header>
+
+  <div class="post-content">
+    <p>Fuente original: <a href="https://github.com/krushev36/curso-sql-python/blob/main/python/notebooks/01_python_fundamentos.ipynb">01_python_fundamentos.ipynb</a></p>
+
+<h1 id="notebook-01-fundamentos-de-python-para-ciencia-de-datos">Notebook 01: Fundamentos de Python para Ciencia de Datos</h1>
+
+<h2 id="sql-para-ciencia-de-datos-usando-databricks">SQL para Ciencia de Datos usando Databricks</h2>
+
+<h3 id="maestria-en-ciencia-de-datos-e-inteligencia-de-negocios--universidad-de-antioquia">Maestria en Ciencia de Datos e Inteligencia de Negocios · Universidad de Antioquia</h3>
+
+<p><strong>Objetivo del notebook:</strong> fortalecer bases de Python para analisis de datos, incluyendo tipos de datos, secuencias, funciones integradas y operaciones numericas con NumPy.</p>
+
+<h2 id="0-vs-code-y-github-codespaces">0. VS Code y GitHub Codespaces</h2>
+
+<h3 id="contexto">Contexto</h3>
+<p>VS Code es el editor principal para trabajar con este curso porque permite abrir notebooks, scripts y archivos de datos en un mismo entorno. GitHub Codespaces complementa ese flujo al ofrecer un espacio de desarrollo en la nube, listo para usar sin depender de una instalacion local compleja.</p>
+
+<h3 id="configuracion">Configuracion</h3>
+<p>En VS Code se recomienda instalar las extensiones de Python y Jupyter para ejecutar celdas, inspeccionar variables y trabajar con notebooks interactivos. En un Codespace, el entorno ya viene preparado con el repositorio, el sistema operativo y varias herramientas de desarrollo; normalmente solo hay que abrir el proyecto y confirmar que el interprete de Python y las extensiones necesarias estan disponibles.</p>
+
+<h3 id="uso">Uso</h3>
+<p>VS Code se usa para editar, ejecutar y depurar codigo localmente o conectado a un contenedor remoto. GitHub Codespaces se usa cuando se quiere trabajar desde cualquier equipo con el mismo entorno, compartir avances facilmente y evitar problemas de configuracion entre maquinas. En ambos casos, la idea es tener un flujo de trabajo reproducible para practicar Python y analizar datos con menos friccion.</p>
+
+<h2 id="1-instalacion-de-librerias">1. Instalacion de librerias</h2>
+
+<p>conda  y pip son herramientas para manejar y desplegar aplicaciones, ambientes y paquetes.</p>
+
+<p>Se puede usar el comando  <code class="language-plaintext highlighter-rouge">conda</code> para instalar librerias asi:</p>
+<pre><code class="language-{bash}">
+conda install seaborn
+
+</code></pre>
+
+<p>Tambien se puede usar el comando <code class="language-plaintext highlighter-rouge">pip</code> para instalar librerias asi:</p>
+<pre><code class="language-{bash}">
+pip install seaborn
+
+</code></pre>
+
+<p>Se puede forzar la instalacion de paquetes de la siguiente forma:</p>
+<pre><code class="language-{bash}">
+conda install -c conda-forge statsmodels
+
+</code></pre>
+
+<h2 id="2-importar-librerias">2. Importar librerias</h2>
+
+<p>La forma mas directa de importar una librerias es:</p>
+<pre><code class="language-{python}">
+import sys
+
+import os
+
+import numpy
+
+</code></pre>
+
+<p>Otra forma que puede ser mas util, es instalar y dar un alias al nombre de la libreria:</p>
+<pre><code class="language-{python}">
+import numpy as np
+
+</code></pre>
+
+<p>Igualmente se puede instalar un submodulo en vez de toda la libreria:</p>
+<pre><code class="language-{python}">
+import matplotlib.pyplot as plt
+
+</code></pre>
+
+<p>O se puede importar una o varias funciones de la libreria:</p>
+<pre><code class="language-{python}">
+from random import random, uniform, gauss
+
+</code></pre>
+
+<p>Para revisar si un modulo esta instalado:</p>
+<pre><code class="language-{python}">
+'numpy' in sys.modules
+
+'scipy' in sys.modules
+
+</code></pre>
+
+<p>Se puede revisar si un modulo esta instalado asi:</p>
+<pre><code class="language-{python}">
+'numpy' in sys.modules
+
+'scipy' in sys.modules
+
+</code></pre>
+
+<h2 id="3-python-kernel">3. Python Kernel</h2>
+
+<p><a href="https://www.dummies.com/programming/python/interacting-kernel-python-programming/">Referencia</a></p>
+
+<p>The kernel is the server that enables Python programmers to run cells within Notebook. You typically see the kernel commands in a separate command or terminal window.</p>
+
+<p>Each entry shows the time the kernel executed the task, which application the command executed, the task it performed, and any resources affected. In most cases, you don’t need to do anything with this window, but viewing it can be helpful when you run into problems because you often see error messages that can help you resolve an issue.</p>
+
+<p>You control the kernel in a number of ways. For example, saving a file issues a command to the kernel, which carries the task out for you. However, you also find some kernel-specific commands on the Kernel menu, which are described in the following list:</p>
+
+<ul>
+  <li>
+    <p><strong>Interrupt</strong>: Causes the kernel to stop performing the current task without actually shutting the kernel down. You can use this option when you want to do something like stop processing a large dataset.</p>
+  </li>
+  <li>
+    <p><strong>Restart</strong>: Stops the kernel and starts it again. This option causes you to lose all the variable data. However, in some cases, this is precisely what you need to do when the environment has become dirty with old data.</p>
+  </li>
+  <li>
+    <p><strong>Restart &amp; Clear Output</strong>: Stops the kernel, starts it again, and clears all the existing cell outputs.</p>
+  </li>
+  <li>
+    <p><strong>Restart &amp; Run All</strong>: Stops the kernel, starts it again, and then runs every cell starting from the top cell and ending with the last cell. When Notebook reaches the bottom, it selects the last cell but doesn’t insert a new one.</p>
+  </li>
+  <li>
+    <p><strong>Reconnect</strong>: Recreates the connection to the kernel. In some cases, environmental or other issues could cause the application to lose its connection, so you use this option to reestablish the connection without loss of variable data.</p>
+  </li>
+  <li>
+    <p><strong>Shutdown</strong>: Shuts the kernel down. You may perform this step in preparation for using a different kernel.</p>
+  </li>
+  <li>
+    <p><strong>Change Kernel</strong>: Selects a different kernel from the list of kernels you have installed. For example, you may want to test an application using various Python versions to ensure that it runs on all of them.</p>
+  </li>
+</ul>
+
+<h2 id="4-shortcuts">4. SHORTCUTS</h2>
+
+<ul>
+  <li>
+    <p>New cell below: “Esc+b”</p>
+  </li>
+  <li>
+    <p>New cell above: “Esc+a”</p>
+  </li>
+  <li>
+    <p>Delete cell: “Esc+D+D”</p>
+  </li>
+  <li>
+    <p>Comment region:”Crtl+/” or “Ctrl+}”</p>
+  </li>
+  <li>
+    <p>SHIFT + M = It merges multiple selected cells into one cell.</p>
+  </li>
+  <li>
+    <p>CTRL + SHIFT + – = It splits the current cell into two cells from where your cursor is.</p>
+  </li>
+</ul>
+
+<h2 id="5-magics">5. Magics</h2>
+
+<h3 id="contexto-1">Contexto</h3>
+<p>Las magics son comandos especiales de Jupyter que comienzan con el simbolo <code class="language-plaintext highlighter-rouge">%</code> o <code class="language-plaintext highlighter-rouge">%%</code> y permiten ejecutar tareas utiles sin escribir codigo Python completo. Son muy practicas para explorar el entorno, medir tiempos, listar contenido del sistema y configurar la visualizacion en notebooks.</p>
+
+<h3 id="descripcion">Descripcion</h3>
+<p>En un notebook, las magics funcionan como atajos para acciones frecuentes de analisis y depuracion. Algunas son magics de linea, que actuan sobre una sola instruccion, y otras son magics de celda, que afectan toda la celda. Usarlas hace mas rapido el trabajo interactivo y reduce la necesidad de escribir codigo auxiliar para tareas basicas.</p>
+
+<h3 id="magics-utiles">Magics utiles</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">%ls</code>: lista los archivos y carpetas del directorio actual.</li>
+  <li><code class="language-plaintext highlighter-rouge">%dirs</code>: muestra la pila de directorios activos en la sesion.</li>
+  <li><code class="language-plaintext highlighter-rouge">%lsmagic</code>: lista todas las magics disponibles en el entorno.</li>
+  <li><code class="language-plaintext highlighter-rouge">%matplotlib inline</code>: muestra graficos directamente dentro del notebook.</li>
+  <li><code class="language-plaintext highlighter-rouge">%who</code>: muestra los nombres de las variables definidas en la sesion actual.</li>
+  <li><code class="language-plaintext highlighter-rouge">%time</code>: mide el tiempo que tarda en ejecutarse una sola instruccion o expresion.</li>
+</ul>
+
+<h3 id="uso-recomendado">Uso recomendado</h3>
+<p>Las magics son utiles para inspeccionar rapidamente el estado del entorno y acelerar tareas de exploracion. En ejercicios de datos conviene usarlas como apoyo, no como reemplazo del codigo principal, para mantener el notebook claro y reproducible.</p>
+
+<pre><code class="language-{python}">
+%ls
+
+%dirs
+
+%lsmagic
+
+%matplotlib inline ## It allows the output of plotting command to be displayed inline i.e. in Jupyter lab UI.
+
+%who ## will list all variables that exist in the global scope. 
+
+%time ## will give you information about the time taken in a single run of the code in your cell.
+
+</code></pre>
+
+<h2 id="6-tipos-de-variable">6. <a href="https://docs.python.org/3/reference/datamodel.html">Tipos de Variable</a></h2>
+
+<h3 id="61-contexto">6.1 Contexto</h3>
+
+<p>En Python, cada valor tiene un tipo de dato que define que operaciones se pueden aplicar y como se representa en memoria. Comprender los tipos es clave para evitar errores y para escribir codigo mas claro, eficiente y facil de mantener en analisis de datos.</p>
+
+<h3 id="62-descripcion">6.2 Descripcion</h3>
+
+<p>Los tipos basicos mas usados son enteros (<code class="language-plaintext highlighter-rouge">int</code>), flotantes (<code class="language-plaintext highlighter-rouge">float</code>), cadenas de texto (<code class="language-plaintext highlighter-rouge">str</code>), booleanos (<code class="language-plaintext highlighter-rouge">bool</code>), bytes (<code class="language-plaintext highlighter-rouge">bytes</code>) y numeros complejos (<code class="language-plaintext highlighter-rouge">complex</code>). Python es un lenguaje de tipado dinamico: una variable puede cambiar de tipo durante la ejecucion, pero cada valor conserva siempre su tipo. Conocer estas diferencias permite elegir la estructura adecuada segun el problema, validar datos de entrada y aplicar operaciones correctas en cada caso.</p>
+
+<h3 id="63-enteros-y-flotantes">6.3 <a href="https://docs.python.org/3/reference/datamodel.html">Enteros y Flotantes</a></h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">b</span><span class="o">=</span><span class="mi">3</span>
+<span class="n">a</span><span class="o">+</span><span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">-</span><span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">*</span><span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">int</span><span class="p">(</span><span class="mf">5.5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">float</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="64-cadenas-de-caracteres">6.4 Cadenas de caracteres</h3>
+
+<ul>
+  <li>
+    <p><a href="https://docs.python.org/3/library/string.html">Referencia 1</a></p>
+  </li>
+  <li>
+    <p><a href="https://www.programiz.com/python-programming/methods/string">Referencia 2</a></p>
+  </li>
+</ul>
+
+<h3 id="65-contexto">6.5 Contexto</h3>
+
+<p>Las cadenas de caracteres son fundamentales en programacion porque gran parte de los datos que analizamos o procesamos llega en formato texto: nombres, categorias, fechas, codigos, rutas de archivo y mensajes. En ciencia de datos, dominar cadenas permite limpiar, transformar y estandarizar informacion antes del analisis.</p>
+
+<h3 id="66-descripcion">6.6 Descripcion</h3>
+
+<p>En Python, un string (<code class="language-plaintext highlighter-rouge">str</code>) es una secuencia inmutable de caracteres. Esto significa que no se modifica en el lugar: cada transformacion produce una nueva cadena. Los strings soportan operaciones como concatenacion, repeticion, indexacion, slicing y una amplia coleccion de metodos para convertir mayusculas/minusculas, reemplazar texto, separar palabras y validar contenido.</p>
+
+<p>Particularmente las cadenas de caracteres en Python son clases. Sobre los strings se pueden realizar multiples operaciones para preparacion de datos, validacion de entradas y construccion de salidas legibles.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"abc"</span><span class="o">+</span><span class="s">"def"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">3</span><span class="o">*</span><span class="s">"abc"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">3</span><span class="o">*</span><span class="s">"abc"</span><span class="o">+</span><span class="s">"def"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"hola este es el curso de programacion en python"</span><span class="p">.</span><span class="n">split</span><span class="p">(</span><span class="s">" "</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"hola este es el curso de programacion en python"</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"hola este es el curso de programacion en python"</span><span class="p">.</span><span class="n">upper</span><span class="p">().</span><span class="n">lower</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"hola este es el curso de programacion en python"</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">"python"</span><span class="p">,</span><span class="s">"java"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">len</span><span class="p">(</span><span class="s">"hola este es el curso de programacion en python"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="s">"hola este es el curso de programacion en python"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="7-tipos-de-secuencias">7. <a href="https://docs.python.org/3/reference/datamodel.html">Tipos de Secuencias</a></h2>
+
+<p><a href="https://docs.python.org/3/library/stdtypes.html#typesseq">Referencia</a></p>
+
+<h3 id="71-contexto">7.1 Contexto</h3>
+
+<p>En analisis de datos es comun trabajar con colecciones ordenadas de elementos, por ejemplo listas de registros, series de valores o secuencias de texto. Los tipos de secuencias permiten organizar estos datos y recorrerlos de forma eficiente para filtrar, transformar y resumir informacion.</p>
+
+<h3 id="72-descripcion">7.2 Descripcion</h3>
+
+<p>En Python, una secuencia es una estructura ordenada que almacena elementos y permite operaciones como indexacion, slicing, iteracion, busqueda y calculo de longitud. Entre las secuencias mas usadas estan <code class="language-plaintext highlighter-rouge">list</code>, <code class="language-plaintext highlighter-rouge">tuple</code>, <code class="language-plaintext highlighter-rouge">range</code> y <code class="language-plaintext highlighter-rouge">str</code>. Aunque comparten operaciones comunes, cada tipo tiene un proposito diferente: las listas son mutables, las tuplas son inmutables, los rangos generan secuencias numericas de forma compacta y las cadenas representan texto.</p>
+
+<p>Comprender estas diferencias ayuda a elegir la estructura adecuada segun el problema, mejorar el rendimiento y escribir codigo mas legible.</p>
+
+<h3 id="73-tuplas">7.3 <a href="https://docs.python.org/3/reference/datamodel.html">Tuplas</a></h3>
+
+<p>The items of a tuple are arbitrary Python objects. Tuples of two or more items are formed by comma-separated lists of expressions. A tuple of one item (a ‘singleton’) can be formed by affixing a comma to an expression (an expression by itself does not create a tuple, since parentheses must be usable for grouping of expressions). An empty tuple can be formed by an empty pair of parentheses.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tupla1</span> <span class="o">=</span> <span class="p">(</span><span class="s">"hola este es el curso de"</span><span class="p">,</span><span class="s">"python"</span><span class="p">,</span> <span class="s">"y"</span><span class="p">,</span> <span class="s">"R"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">tupla1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tupla1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tupla1</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tupla1</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">len</span><span class="p">(</span><span class="n">tupla1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">tupla1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="74-listas">7.4 <a href="https://docs.python.org/3/reference/datamodel.html">Listas</a></h3>
+<p>The items of a list are arbitrary Python objects. Lists are formed by placing a comma-separated list of expressions in square brackets. (Note that there are no special cases needed to form lists of length 0 or 1.)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">utiles_inutiles</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Lapiz"</span><span class="p">,</span><span class="s">"Borrador"</span><span class="p">,</span><span class="s">"Cuaderno"</span><span class="p">,</span><span class="s">"libro"</span><span class="p">,</span><span class="s">"sacapuntas"</span><span class="p">,</span><span class="s">"colores"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">len</span><span class="p">(</span><span class="n">utiles_inutiles</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">utiles_inutiles</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">utiles_inutiles</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h1 id="secuencias">Secuencias</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="8-conjuntos">8. <a href="https://docs.python.org/3/tutorial/datastructures.html#sets">Conjuntos</a></h2>
+<p>Python also includes a data type for sets. A set is an unordered collection with no duplicate elements. Basic uses include membership testing and eliminating duplicate entries. Set objects also support mathematical operations like union, intersection, difference, and symmetric difference.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s">"hola"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s">'abracadabra'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Crear conjuntos
+</span><span class="n">conjunto1</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+<span class="n">conjunto2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+
+<span class="c1"># Eliminar duplicados de una lista
+</span><span class="n">lista</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="n">conjunto_sin_duplicados</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">lista</span><span class="p">)</span>
+
+<span class="c1"># Operaciones de conjuntos
+</span><span class="n">union</span> <span class="o">=</span> <span class="n">conjunto1</span> <span class="o">|</span> <span class="n">conjunto2</span>           <span class="c1"># Unión
+</span><span class="n">interseccion</span> <span class="o">=</span> <span class="n">conjunto1</span> <span class="o">&amp;</span> <span class="n">conjunto2</span>    <span class="c1"># Intersección
+</span><span class="n">diferencia</span> <span class="o">=</span> <span class="n">conjunto1</span> <span class="o">-</span> <span class="n">conjunto2</span>      <span class="c1"># Diferencia
+</span><span class="n">simetrica</span> <span class="o">=</span> <span class="n">conjunto1</span> <span class="o">^</span> <span class="n">conjunto2</span>       <span class="c1"># Diferencia simétrica
+</span>
+<span class="c1"># Agregar y eliminar elementos
+</span><span class="n">conjunto1</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">conjunto1</span><span class="p">.</span><span class="n">discard</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Verificar pertenencia
+</span><span class="n">existe</span> <span class="o">=</span> <span class="mi">3</span> <span class="ow">in</span> <span class="n">conjunto1</span>
+
+<span class="c1"># Mostrar resultados
+</span><span class="k">print</span><span class="p">(</span><span class="s">"conjunto1:"</span><span class="p">,</span> <span class="n">conjunto1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"conjunto2:"</span><span class="p">,</span> <span class="n">conjunto2</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"conjunto_sin_duplicados:"</span><span class="p">,</span> <span class="n">conjunto_sin_duplicados</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"union:"</span><span class="p">,</span> <span class="n">union</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"interseccion:"</span><span class="p">,</span> <span class="n">interseccion</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"diferencia:"</span><span class="p">,</span> <span class="n">diferencia</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"simetrica:"</span><span class="p">,</span> <span class="n">simetrica</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"existe 3 en conjunto1:"</span><span class="p">,</span> <span class="n">existe</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="9-tipos-de-mapeo">9. <a href="https://docs.python.org/3/reference/datamodel.html">Tipos de Mapeo</a></h2>
+<p>These represent finite sets of objects indexed by arbitrary index sets. The subscript notation a[k] selects the item indexed by k from the mapping a; this can be used in expressions and as the target of assignments or del statements. The built-in function len() returns the number of items in a mapping.</p>
+
+<h3 id="91-diccionarios">9.1 <a href="https://docs.python.org/3/library/stdtypes.html#typesmapping">Diccionarios</a></h3>
+<p>These represent finite sets of objects indexed by nearly arbitrary values. The only types of values not acceptable as keys are values containing lists or dictionaries or other mutable types that are compared by value rather than by object identity, the reason being that the efficient implementation of dictionaries requires a key’s hash value to remain constant. Numeric types used for keys obey the normal rules for numeric comparison: if two numbers compare equal (e.g., 1 and 1.0) then they can be used interchangeably to index the same dictionary entry.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dict_utils</span> <span class="o">=</span> <span class="p">{</span><span class="s">"cuadernos"</span><span class="p">:</span><span class="mi">12</span><span class="p">,</span><span class="s">"colores"</span><span class="p">:</span><span class="mi">24</span><span class="p">,</span><span class="s">"lapiz"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="s">"borrador"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="s">"libros"</span><span class="p">:</span><span class="mi">12</span><span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dict_utils</span><span class="p">[</span><span class="s">"cuadernos"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dict_utils</span><span class="p">.</span><span class="n">items</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dict_utils</span><span class="p">.</span><span class="n">keys</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dict_utils</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="s">'colores'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Crear dos diccionarios
+</span><span class="n">dict1</span> <span class="o">=</span> <span class="p">{</span><span class="s">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">dict2</span> <span class="o">=</span> <span class="p">{</span><span class="s">"b"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+
+<span class="c1"># Extender dict1 con dict2 (agrega/actualiza claves)
+</span><span class="n">dict1</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">dict2</span><span class="p">)</span>
+
+<span class="c1"># Agregar múltiples elementos usando update con otro diccionario
+</span><span class="n">dict1</span><span class="p">.</span><span class="n">update</span><span class="p">({</span><span class="s">"d"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">"e"</span><span class="p">:</span> <span class="mi">6</span><span class="p">})</span>
+
+<span class="c1"># Actualizar un valor específico
+</span><span class="n">dict1</span><span class="p">[</span><span class="s">"a"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+
+<span class="c1"># Ejemplo usando | para actualizar un diccionario (Python 3.9+)
+</span><span class="n">dict3</span> <span class="o">=</span> <span class="n">dict1</span> <span class="o">|</span> <span class="p">{</span><span class="s">"f"</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">8</span><span class="p">}</span>
+
+<span class="c1"># Mostrar resultados
+</span><span class="k">print</span><span class="p">(</span><span class="s">"dict1 extendido y actualizado:"</span><span class="p">,</span> <span class="n">dict1</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"dict3 usando |:"</span><span class="p">,</span> <span class="n">dict3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Ejemplo básico de get en un diccionario
+</span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+
+<span class="c1"># Obtener valor existente
+</span><span class="n">valor_a</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span>  <span class="c1"># Devuelve 1
+</span>
+<span class="c1"># Obtener valor inexistente sin valor por defecto
+</span><span class="n">valor_x</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"x"</span><span class="p">)</span>  <span class="c1"># Devuelve None
+</span>
+<span class="c1"># Obtener valor inexistente con valor por defecto
+</span><span class="n">valor_y</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"y"</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>  <span class="c1"># Devuelve 100
+</span>
+<span class="c1"># Usar get para evitar errores al acceder a claves faltantes
+</span><span class="n">clave</span> <span class="o">=</span> <span class="s">"z"</span>
+<span class="n">resultado</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">clave</span><span class="p">,</span> <span class="s">"No existe"</span><span class="p">)</span>
+
+<span class="c1"># Mostrar resultados
+</span><span class="k">print</span><span class="p">(</span><span class="s">"valor_a:"</span><span class="p">,</span> <span class="n">valor_a</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"valor_x:"</span><span class="p">,</span> <span class="n">valor_x</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"valor_y:"</span><span class="p">,</span> <span class="n">valor_y</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"resultado:"</span><span class="p">,</span> <span class="n">resultado</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="10-example-standard-input">10. Example (standard input):</h2>
+<p>Read two integers from STDIN and print three lines where:</p>
+
+<ul>
+  <li>The first line contains the sum of the two numbers.</li>
+  <li>The second line contains the difference of the two numbers (first - second).</li>
+  <li>The third line contains the product of the two numbers.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h2 id="11-task">11. Task</h2>
+
+<p>Read two integers and print two lines. The first line should contain integer division,  // . The second line should contain float division,  / .</p>
+
+<p>Note: You don’t need to perform any rounding or formatting operations.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">'__main__'</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">())</span>
+</code></pre></div></div>
+
+<h2 id="12-funciones-integradas-de-python-built-in-functions">12. Funciones integradas de Python (Built-in Functions)</h2>
+
+<h3 id="contexto-2">Contexto</h3>
+<p>Python incluye un conjunto de funciones integradas que estan disponibles sin importar librerias adicionales. Estas funciones se usan a diario para inspeccionar datos, convertir tipos, resumir colecciones, recorrer estructuras y construir soluciones mas cortas y legibles.</p>
+
+<h3 id="descripcion-1">Descripcion</h3>
+<p>Las built-in functions forman parte del lenguaje y cubren tareas basicas pero esenciales. En analisis de datos son especialmente utiles para validar valores, preparar colecciones y hacer operaciones simples antes de usar librerias mas especializadas como NumPy o pandas. Conocerlas bien mejora la claridad del codigo y reduce la necesidad de escribir logica repetitiva.</p>
+
+<h3 id="10-funciones-mas-utilizadas">10 funciones mas utilizadas</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">len()</code>: devuelve la cantidad de elementos de una coleccion, cadena o estructura indexable.</li>
+  <li><code class="language-plaintext highlighter-rouge">type()</code>: indica el tipo de un objeto y ayuda a inspeccionar valores durante la depuracion.</li>
+  <li><code class="language-plaintext highlighter-rouge">print()</code>: muestra informacion en pantalla o en la salida de una celda.</li>
+  <li><code class="language-plaintext highlighter-rouge">input()</code>: solicita datos al usuario desde la entrada estandar.</li>
+  <li><code class="language-plaintext highlighter-rouge">range()</code>: genera una secuencia de numeros para recorridos o repeticiones controladas.</li>
+  <li><code class="language-plaintext highlighter-rouge">sum()</code>: calcula la suma de los elementos numericos de una coleccion.</li>
+  <li><code class="language-plaintext highlighter-rouge">min()</code>: obtiene el valor mas pequeno de una secuencia.</li>
+  <li><code class="language-plaintext highlighter-rouge">max()</code>: obtiene el valor mas grande de una secuencia.</li>
+  <li><code class="language-plaintext highlighter-rouge">sorted()</code>: devuelve una nueva lista con los elementos ordenados.</li>
+  <li><code class="language-plaintext highlighter-rouge">enumerate()</code>: recorre una coleccion y entrega indice y valor en cada iteracion.</li>
+  <li><code class="language-plaintext highlighter-rouge">zip()</code>: combina dos o mas colecciones en pares o tuplas para recorrerlas al mismo tiempo.</li>
+</ul>
+
+<h3 id="ejemplo-general">Ejemplo general</h3>
+<p>En los bloques siguientes se muestran varias de estas funciones en accion sobre enteros, cadenas, listas y conversiones de tipo.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">d</span><span class="o">=</span><span class="n">a</span><span class="o">/</span><span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">word</span><span class="o">=</span><span class="s">'hola mundo!'</span>
+<span class="k">print</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">float</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="13-biblioteca-numpy">13. <a href="https://numpy.org/devdocs/user/quickstart.html">Biblioteca NumPy</a></h2>
+
+<h3 id="contexto-3">Contexto</h3>
+<p>NumPy es la base del calculo numerico en Python. Se usa para representar datos de forma vectorizada, realizar operaciones matematicas sobre arreglos y construir soluciones eficientes cuando se trabaja con grandes volumenes de informacion numerica.</p>
+
+<h3 id="descripcion-2">Descripcion</h3>
+<p>NumPy ofrece una estructura central llamada <code class="language-plaintext highlighter-rouge">ndarray</code> y un conjunto amplio de funciones para manipulacion de datos, algebra lineal, transformaciones matematicas y generacion de valores. Su principal ventaja es que permite trabajar con datos homogeneos de manera rapida y expresiva, evitando bucles innecesarios y aprovechando operaciones optimizadas internamente.</p>
+
+<h3 id="por-que-usar-numpy">¿Por que usar NumPy?</h3>
+<ul>
+  <li>Permite trabajar con arreglos numericos de manera eficiente.</li>
+  <li>Facilita operaciones matematicas sobre vectores y matrices.</li>
+  <li>Sirve como base para librerias como pandas, SciPy y scikit-learn.</li>
+  <li>Mejora la legibilidad y el rendimiento del codigo cientifico.</li>
+  <li>Incluye herramientas para algebra lineal, funciones matematicas y generacion de datos.</li>
+</ul>
+
+<h3 id="elemento-principal">Elemento principal</h3>
+<p>El objeto central de NumPy es el arreglo multidimensional (<code class="language-plaintext highlighter-rouge">ndarray</code>), que almacena elementos del mismo tipo y permite indexacion, slicing y operaciones vectorizadas sobre sus valores.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+</code></pre></div></div>
+
+<h2 id="14-arrays">14. <a href="https://docs.scipy.org/doc/numpy/reference/arrays.html">Arrays</a></h2>
+
+<h3 id="contexto-4">Contexto</h3>
+<p>Los arrays de NumPy se usan para representar datos numericos de forma compacta y consistente. Son muy utiles cuando se quiere analizar informacion que llega como listas, tablas o matrices y se necesita aplicar transformaciones rapidas sobre todos sus elementos.</p>
+
+<h3 id="descripcion-3">Descripcion</h3>
+<p>Un <code class="language-plaintext highlighter-rouge">ndarray</code> es una estructura multidimensional homogenea, es decir, todos sus elementos comparten el mismo tipo de dato y ocupan un bloque de memoria uniforme. Esto permite realizar operaciones sobre filas, columnas o sobre todo el arreglo con sintaxis sencilla y mejor rendimiento que las estructuras basadas en listas de Python.</p>
+
+<h3 id="caracteristicas-principales">Caracteristicas principales</h3>
+<ul>
+  <li>Soporta arreglos de una, dos o mas dimensiones.</li>
+  <li>Permite indexacion y slicing para acceder a subconjuntos de datos.</li>
+  <li>Facilita operaciones vectorizadas sin escribir ciclos manuales.</li>
+  <li>Conserva un tipo de dato uniforme en todos sus elementos.</li>
+  <li>Se adapta bien a tareas de calculo numerico y manipulacion matricial.</li>
+</ul>
+
+<h3 id="uso-practico">Uso practico</h3>
+<p>Los arrays son la base para representar vectores, matrices e incluso tensores en tareas de ciencia de datos. Por eso aparecen en operaciones de limpieza, exploracion, estadistica y modelado matematico.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">],[</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]])</span>
+<span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">y</span><span class="p">.</span><span class="n">view</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="141-atributos-y-metodos-del-array">14.1 Atributos y metodos del array</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="p">.</span><span class="n">size</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="p">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">9</span><span class="p">).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">y</span><span class="p">.</span><span class="n">view</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="142-operaciones-basicas-con-arrays">14.2 Operaciones basicas con arrays</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="o">+</span><span class="n">y</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span><span class="o">/</span><span class="n">x</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="15-rutinas-de-numpy">15. <a href="https://docs.scipy.org/doc/numpy/reference/routines.html">Rutinas de NumPy</a></h2>
+
+<h3 id="contexto-5">Contexto</h3>
+<p>Ademas de crear arreglos, NumPy incluye rutinas especializadas para trabajar con numeros, estadistica, algebra lineal y funciones matematicas. Estas herramientas evitan tener que implementar manualmente operaciones comunes en analisis cuantitativo.</p>
+
+<h3 id="descripcion-4">Descripcion</h3>
+<p>Las rutinas de NumPy agrupan submodulos y funciones listas para usar, como <code class="language-plaintext highlighter-rouge">random</code>, <code class="language-plaintext highlighter-rouge">linalg</code>, <code class="language-plaintext highlighter-rouge">fft</code>, <code class="language-plaintext highlighter-rouge">testing</code> y <code class="language-plaintext highlighter-rouge">matlib</code>. Cada uno resuelve una familia de problemas frecuentes: generar numeros aleatorios, operar con matrices, calcular transformadas o validar resultados.</p>
+
+<h3 id="rutinas-frecuentes">Rutinas frecuentes</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">random</code>: genera valores aleatorios y simulaciones.</li>
+  <li><code class="language-plaintext highlighter-rouge">linalg</code>: contiene operaciones de algebra lineal.</li>
+  <li><code class="language-plaintext highlighter-rouge">fft</code>: permite trabajar con transformadas de Fourier.</li>
+  <li><code class="language-plaintext highlighter-rouge">testing</code>: ofrece utilidades para probar comparaciones numericas.</li>
+  <li><code class="language-plaintext highlighter-rouge">matlib</code>: incluye funciones orientadas a matrices.</li>
+</ul>
+
+<h3 id="uso-recomendado-1">Uso recomendado</h3>
+<p>Estas rutinas son utiles cuando el analisis requiere simulacion, validacion matematica o manipulacion avanzada de matrices y señales. La ventaja es que ya vienen optimizadas y documentadas dentro del ecosistema NumPy.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">,</span><span class="mi">50</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="151-algebra-lineal-con-numpy">15.1 Algebra lineal con NumPy</h3>
+
+<h3 id="contexto-6">Contexto</h3>
+<p>El algebra lineal es fundamental en ciencia de datos, aprendizaje automatico, optimizacion y analisis numerico. NumPy ofrece funciones para trabajar con matrices, resolver sistemas de ecuaciones, calcular determinantes, inversas y eigenvalores.</p>
+
+<h3 id="descripcion-5">Descripcion</h3>
+<p>El submodulo <code class="language-plaintext highlighter-rouge">numpy.linalg</code> reune operaciones de algebra lineal pensadas para vectores y matrices. Sus funciones permiten resolver problemas matematicos directamente en Python sin depender de implementaciones manuales, lo que mejora la claridad y reduce errores.</p>
+
+<h3 id="operaciones-frecuentes">Operaciones frecuentes</h3>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">np.linalg.inv()</code>: calcula la inversa de una matriz cuadrada.</li>
+  <li><code class="language-plaintext highlighter-rouge">np.linalg.det()</code>: calcula el determinante.</li>
+  <li><code class="language-plaintext highlighter-rouge">np.linalg.solve()</code>: resuelve sistemas lineales del tipo <code class="language-plaintext highlighter-rouge">A x = b</code>.</li>
+  <li><code class="language-plaintext highlighter-rouge">np.linalg.eig()</code>: obtiene eigenvalores y eigenvectores.</li>
+  <li><code class="language-plaintext highlighter-rouge">np.linalg.norm()</code>: calcula normas vectoriales o matriciales.</li>
+</ul>
+
+<h3 id="uso-recomendado-2">Uso recomendado</h3>
+<p>Estas operaciones son especialmente utiles cuando el problema puede formularse como una matriz o un sistema lineal. En aplicaciones reales aparecen en regresion, redes neuronales, optimizacion y analisis de correlacion entre variables.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">inv</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">det</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="152-nplinalgdet">15.2 <code class="language-plaintext highlighter-rouge">np.linalg.det()</code></h3>
+
+<p>Calcula el determinante de una matriz cuadrada. El determinante permite saber si una matriz es invertible y se usa en muchas formulaciones de algebra lineal y geometria.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">det</span><span class="p">([[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>       <span class="c1">#Output : -3.0
+</span></code></pre></div></div>
+
+<h3 id="153-nplinalgeig">15.3 <code class="language-plaintext highlighter-rouge">np.linalg.eig()</code></h3>
+
+<p>Calcula los eigenvalores y eigenvectores de una matriz cuadrada. Esta funcion es util para analisis de estabilidad, reduccion de dimension y descomposiciones matriciales.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">vals</span><span class="p">,</span> <span class="n">vecs</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">eig</span><span class="p">([[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>                                      <span class="c1">#Output : [ 3. -1.]
+</span><span class="k">print</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>                                      <span class="c1">#Output : [[ 0.70710678 -0.70710678]
+</span>                                                <span class="c1">#          [ 0.70710678  0.70710678]]
+</span></code></pre></div></div>
+
+<h3 id="154-nplinalginv">15.4 <code class="language-plaintext highlighter-rouge">np.linalg.inv()</code></h3>
+
+<p>Calcula la inversa multiplicativa de una matriz cuadrada. Se usa cuando se necesita despejar variables en sistemas lineales o reconstruir transformaciones matriciales.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">inv</span><span class="p">([[</span><span class="mi">1</span> <span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>       <span class="c1">#Output : [[-0.33333333  0.66666667]
+</span>                                                <span class="c1">#          [ 0.66666667 -0.33333333]]
+</span></code></pre></div></div>
+
+<h2 id="16-task">16. Task:</h2>
+<p>Solve the following operations: $\mathbf{A+B}$, $\mathbf{A-B}$, $\mathbf{AB}$, $\mathbf{A(BC)}$, $\mathbf{(AB)C}$,</p>
+
+\[A=
+\begin{pmatrix}
+0 &amp; 1 &amp; -2 \\
+3 &amp; 4 &amp; 5 \\
+-6 &amp; 7 &amp; 15 
+\end{pmatrix}
+\quad, B=
+\begin{pmatrix}
+0 &amp; -5 &amp; 3 \\
+5 &amp; 2 &amp; -1 \\
+-4 &amp; 2 &amp; 0 
+\end{pmatrix}
+\quad, C=
+\begin{pmatrix}
+6 &amp; -2 &amp; -3 \\
+2 &amp; 0 &amp; 1 \\
+0 &amp; 5 &amp; 7 
+\end{pmatrix}\]
+
+<h2 id="17-task">17. Task:</h2>
+
+<p>Solve the following equation systems
+\(\begin{aligned}
+2 x_1 - 5 x_2 &amp;= 3 \\
+5 x_1 + 8 x_2 &amp;= 5
+\end{aligned}\)</p>
+
+<p>Solve the following equation systems
+\(\begin{aligned}
+2 x_1 + 2 x_2 - x_3 &amp;= 2 \\
+x_1 - 3 x_2 + x_3 &amp;= 0 \\
+3 x_1 + 4 x_2 - x_3 &amp;= 1
+\end{aligned}\)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#A = np.array([[0, 1, -2],[3, 4, 5],[-6, 7, 15]])
+</span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">A</span><span class="p">.</span><span class="n">view</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span><span class="p">.</span><span class="n">view</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="18-ejercicio-final-colas-en-programacion">18. Ejercicio final: colas en programacion</h2>
+
+<h3 id="contexto-7">Contexto</h3>
+<p>En programacion, una cola es una estructura de datos que sigue la regla FIFO: el primer elemento en entrar es el primero en salir. Este comportamiento aparece en sistemas de atencion, impresoras, tareas pendientes y simulaciones de procesos.</p>
+
+<h3 id="descripcion-6">Descripcion</h3>
+<p>Construye una cola simple usando una lista de Python y usa funciones basicas para revisar su comportamiento. El objetivo es entender como entran y salen elementos de forma ordenada, sin usar librerias externas.</p>
+
+<h3 id="actividad">Actividad</h3>
+<ol>
+  <li>Crea una lista llamada <code class="language-plaintext highlighter-rouge">cola</code> con al menos cinco elementos que representen personas, tareas o solicitudes.</li>
+  <li>Usa <code class="language-plaintext highlighter-rouge">len()</code> para mostrar cuantas personas o tareas hay en la cola.</li>
+  <li>Agrega un nuevo elemento al final con <code class="language-plaintext highlighter-rouge">append()</code>.</li>
+  <li>Retira el primer elemento con <code class="language-plaintext highlighter-rouge">pop(0)</code> para simular la salida de la cola.</li>
+  <li>Recorre la cola con <code class="language-plaintext highlighter-rouge">enumerate()</code> para mostrar el orden de atencion.</li>
+  <li>Si los elementos son numeros, usa <code class="language-plaintext highlighter-rouge">sum()</code> para obtener su total.</li>
+</ol>
+
+<h3 id="preguntas">Preguntas</h3>
+<ul>
+  <li>¿Que elemento entro primero y cual salio primero?</li>
+  <li>¿Que ocurre con el orden de los elementos despues de usar <code class="language-plaintext highlighter-rouge">append()</code> y <code class="language-plaintext highlighter-rouge">pop(0)</code>?</li>
+  <li>¿Por que una cola se relaciona con el principio FIFO?</li>
+  <li>¿En que casos de la vida real podria ser util esta estructura?</li>
+</ul>
+
+<h3 id="sugerencia">Sugerencia</h3>
+<p>Intenta resolver el ejercicio primero con una lista normal y luego describe con tus palabras la diferencia entre agregar elementos al final y retirar elementos del inicio.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cola</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Ana"</span><span class="p">,</span> <span class="s">"Luis"</span><span class="p">,</span> <span class="s">"Maria"</span><span class="p">,</span> <span class="s">"Carlos"</span><span class="p">,</span> <span class="s">"Sofia"</span><span class="p">]</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Cola inicial:"</span><span class="p">,</span> <span class="n">cola</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Cantidad inicial:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cola</span><span class="p">))</span>
+
+<span class="n">cola</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">"Andres"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Despues de append:"</span><span class="p">,</span> <span class="n">cola</span><span class="p">)</span>
+
+<span class="n">atendido</span> <span class="o">=</span> <span class="n">cola</span><span class="p">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Atendido primero:"</span><span class="p">,</span> <span class="n">atendido</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Cola despues de pop(0):"</span><span class="p">,</span> <span class="n">cola</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Orden de atencion restante:"</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">posicion</span><span class="p">,</span> <span class="n">persona</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cola</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">posicion</span><span class="p">,</span> <span class="n">persona</span><span class="p">)</span>
+
+<span class="n">numeros_en_cola</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Suma de valores numericos:"</span><span class="p">,</span> <span class="nb">sum</span><span class="p">(</span><span class="n">numeros_en_cola</span><span class="p">))</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Cantidad final de personas en cola:"</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cola</span><span class="p">))</span>
+</code></pre></div></div>
+
+  </div>
+
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/curso-sql-python/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Curso SQL + Python para Ciencia de Datos</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Curso SQL + Python para Ciencia de Datos</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>Materiales del curso Fundamentos de Programacion para la Maestria en Ciencia de Datos e Inteligencia de Negocios.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
