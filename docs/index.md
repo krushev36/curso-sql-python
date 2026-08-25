@@ -78,6 +78,16 @@ title: Inicio
 	</article>
 </section>
 
+<section class="home-grid">
+	<article class="home-card">
+		<h3>Tareas</h3>
+		<p>Actividades evaluativas para aplicar los contenidos vistos en clase. Cada tarea incluye el enunciado completo, los resultados esperados y el notebook para completar.</p>
+		<ul class="home-list">
+			<li><a class="home-link" href="{{ '/python/notebooks/tarea_01_python' | relative_url }}">Tarea 01 — Fundamentos de Python</a></li>
+		</ul>
+	</article>
+</section>
+
 <div class="home-callout">
 	Si esta es la primera publicacion del sitio, activa GitHub Pages en Settings > Pages y deja como fuente GitHub Actions. El workflow ya esta configurado en el repositorio.
 </div>
