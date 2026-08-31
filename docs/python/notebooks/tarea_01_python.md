@@ -167,58 +167,6 @@ E,67
 
 ---
 
-## Ejercicio 6 — Manipulación de datos con `data.csv` (Parte 2 — Análisis avanzado)
-
-> Extraído de: [assignments-python-2024 / assingment](https://github.com/krushev36/assignments-python-2024/tree/main/assingment)
-
-Continuando con el mismo archivo `data.csv`, la tercera columna contiene una **fecha**, la cuarta columna contiene una **lista de etiquetas** separadas por comas (ej. `a,f,c`), y la quinta columna contiene pares `clave:valor` separados por comas (ej. `ccc:2,ddd:0,aaa:3`).
-
-### 6.1 — Registros por año
-
-Extraiga el año de la tercera columna y cuente cuántos registros hay por año, **ordenados por año**.
-
-**Resultado esperado:**
-```
-1997,9
-1998,11
-1999,20
-```
-
-### 6.2 — Etiqueta más frecuente
-
-Encuentre e imprima cuál es la **etiqueta más frecuente** en todo el dataset.
-
-**Resultado esperado:**
-```
-f
-```
-
-### 6.3 — Suma de valores por clave
-
-Para cada clave de la quinta columna, calcule la **suma total de sus valores** en todas las filas donde aparece, **ordenado alfabéticamente por clave**.
-
-**Resultado esperado:**
-```
-aaa,53
-bbb,82
-ccc,72
-ddd,98
-eee,55
-fff,94
-ggg,61
-hhh,80
-iii,86
-jjj,67
-```
-
-### 6.4 — Gráfica
-
-Genere una **gráfica de barras** que muestre la suma de valores por clave calculada en el punto 6.3.
-
-> **Pista:** Use `str.split(',')` para separar las etiquetas/pares y `str.split(':')` para separar clave y valor. Acumule los resultados en un diccionario de Python.
-
----
-
 ## Challenge 1 (Opcional) — Generación del conjunto de Mandelbrot
 
 Construya un programa en Python que permita **generar y visualizar el conjunto de Mandelbrot** sobre el plano complejo.
